@@ -10,9 +10,14 @@
 
         public Lager createLager() {
             Lager lager = new Lager();
-            lagerMap.put(lager.getLagerId(), lager);
+            addLager(lager);
             return lager;
         }
+
+        public void addLager(Lager lager) {
+            lagerMap.put(lager.getLagerId(), lager);
+        }
+
 
         public Lager getLager(int lagerId) {
             return lagerMap.get(lagerId);
