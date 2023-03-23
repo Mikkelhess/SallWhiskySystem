@@ -65,20 +65,20 @@ public class Gui extends Application {
         lvwReoler.getSelectionModel().selectedItemProperty().addListener(listener1);
 
 
-        Label lblAktiveAnnoncer = new Label("Aktive Annoncer");
+        Label lblAktiveAnnoncer = new Label("Lager");
         pane.add(lblAktiveAnnoncer, 0, 0);
 
-        Label lblVarer = new Label("Varer");
+        Label lblVarer = new Label("Hylder");
         pane.add(lblVarer, 1, 0);
 
 
-        Button btnOpretSalg = new Button("Opret salg");
-        pane.add(btnOpretSalg, 3, 3);
-        btnOpretSalg.setOnAction(event -> this.opretAction());
+        Button btnOpretLager = new Button("Opret");
+        pane.add(btnOpretLager, 3, 3);
+        btnOpretLager.setOnAction(event -> this.opretAction());
 
-        Button btnSalgsFil = new Button("Salgs fil");
-        pane.add(btnSalgsFil, 3, 7);
-        btnSalgsFil.setOnAction(event -> this.filAction());
+        Button btnFjernLager = new Button("Fjern");
+        pane.add(btnFjernLager, 3, 7);
+        btnFjernLager.setOnAction(event -> this.filAction());
 
     }
 
