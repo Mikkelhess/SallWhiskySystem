@@ -8,16 +8,19 @@ import java.util.HashMap;
 
 public class Controller {
 
-    private static Controller controller;
+    private Storage storage;
+    private Controller controller;
 
-    public static Controller getController() {
+    private Controller() {storage = new Storage();}
+
+    public Controller getController() {
         if (controller == null) {
             controller = new Controller();
         }
         return controller;
     }
 
-    public static Controller getTestController() {return new Controller();}
+    public Controller getTestController() {return new Controller();}
 
     /**
      * Opretter et nyt lager
@@ -25,7 +28,7 @@ public class Controller {
      */
     public Lager opretLager() {
         Lager lager = new Lager();
-        Storage.addLager(lager);
+        storage.addLager(lager);
         return lager;
     }
 
@@ -38,7 +41,7 @@ public class Controller {
         if (lager == null) {throw new NullPointerException("Angiv et lager.");}
 
         Reol reol = lager.createReol();
-        Storage.addReol(reol);
+        storage.addReol(reol);
         return reol;
     }
 
@@ -51,7 +54,7 @@ public class Controller {
         if (reol == null) {throw new NullPointerException("Angiv en reol.");}
 
         Hylde hylde = reol.createHylde();
-        Storage.addHylde(hylde);
+        storage.addHylde(hylde);
         return hylde;
     }
 
@@ -65,7 +68,7 @@ public class Controller {
         if (størrelse <= 0 || fadType == null) {throw new NullPointerException("Angiv korrekte oplysninger.");}
 
         Fad fad = new Fad(størrelse, fadType);
-        Storage.addFad(fad);
+        storage.addFad(fad);
         return fad;
     }
 
@@ -77,52 +80,108 @@ public class Controller {
     public void addFadtilHylde(Hylde hylde, Fad fad) {
         if (hylde == null || fad == null) {throw new NullPointerException("Angiv korrekt information.");}
 
-        Storage.addFadTilHylde(fad, hylde);
+        storage.addFadTilHylde(fad, hylde);
     }
 
-    public static Lager getLager(int lagerId) {
-        return Storage.getLager(lagerId);
+    public Lager getLager(int lagerId) {
+        return storage.getLager(lagerId);
     }
 
-    public static void removeLager(int lagerId) {
-        Storage.removeLager(lagerId);
+    public void removeLager(int lagerId) {
+        storage.removeLager(lagerId);
     }
 
-    public static Reol getReol(int reolId) {
-        return Storage.getReol(reolId);
+    public Reol getReol(int reolId) {
+        return storage.getReol(reolId);
     }
 
-    public static void removeReol(int lagerId, int reolId) {
+    public void removeReol(int lagerId, int reolId) {
         Lager lager = getLager(lagerId);
         lager.removeReol(reolId);
-        Storage.removeReol(reolId);
+        storage.removeReol(reolId);
     }
 
-    public static Hylde getHylde(int hyldeId) {
-        return Storage.getHylde(hyldeId);
+    public Hylde getHylde(int hyldeId) {
+        return storage.getHylde(hyldeId);
     }
 
-    public static void removeHylde(int reolId, int hyldeId) {
+    public void removeHylde(int reolId, int hyldeId) {
         Reol reol = getReol(reolId);
         reol.removeHylde(hyldeId);
-        Storage.removeHylde(hyldeId);
+        storage.removeHylde(hyldeId);
     }
 
-    public static Fad getFad(int fadId) {
-        return Storage.getFad(fadId);
+    public Fad getFad(int fadId) {
+        return storage.getFad(fadId);
     }
 
-    public static void removeFad(int hyldeId, int fadId) {
+    public void removeFad(int hyldeId, int fadId) {
         Hylde hylde = getHylde(hyldeId);
         hylde.removeFad(fadId);
-        Storage.removeFad(fadId);
+        storage.removeFad(fadId);
     }
 
-    public static HashMap<Integer, Lager> getLagerMap() {
-        return Storage.getLagerMap();
+    public HashMap<Integer, Lager> getLagerMap() {
+        return storage.getLagerMap();
+    }
+
+    public HashMap<Integer, Reol> getReolMap() {
+        return storage.getReolMap();
+    }
+
+    public HashMap<Integer, Hylde> getHyldeMap() {
+        return storage.getHyldeMap();
+    }
+
+    public HashMap<Integer, Fad> getFadMap() {
+        return storage.getFadMap();
     }
 
 
+//--------------------------------------------------------------------------------------
 
+    public void initStorage() {
+        Lager lager = opretLager();
+        Lager lager2 = opretLager();
+
+        Reol reol = opretReol(lager);
+        Reol reol2 = opretReol(lager2);
+
+        Hylde hylde = opretHylde(reol);
+        Hylde hylde2 = opretHylde(reol);
+        Hylde hylde3 = opretHylde(reol);
+        Hylde hylde4 = opretHylde(reol2);
+        Hylde hylde5 = opretHylde(reol2);
+        Hylde hylde6 = opretHylde(reol2);
+
+        Fad fad1 = opretFad(50, FadType.SHERRY);
+        Fad fad2 = opretFad(30, FadType.PORTVIN);
+        Fad fad3 = opretFad(100, FadType.BOURBON);
+        Fad fad4 = opretFad(20, FadType.COGNAC);
+        Fad fad5 = opretFad(40, FadType.RØDVIN);
+        Fad fad6 = opretFad(57, FadType.COGNAC);
+        Fad fad7 = opretFad(80, FadType.RØDVIN);
+        Fad fad8 = opretFad(104, FadType.BOURBON);
+        Fad fad9 = opretFad(44, FadType.COGNAC);
+        Fad fad10 = opretFad(47, FadType.RØDVIN);
+        Fad fad11 = opretFad(77, FadType.SHERRY);
+        Fad fad12 = opretFad(22, FadType.RØDVIN);
+        Fad fad13 = opretFad(99, FadType.PORTVIN);
+        Fad fad14 = opretFad(88, FadType.BOURBON);
+        Fad fad15 = opretFad(64, FadType.COGNAC);
+        Fad fad16 = opretFad(75, FadType.RØDVIN);
+
+        addFadtilHylde(hylde, fad1);
+        addFadtilHylde(hylde, fad2);
+        addFadtilHylde(hylde2, fad3);
+        addFadtilHylde(hylde3, fad4);
+        addFadtilHylde(hylde3, fad5);
+        addFadtilHylde(hylde4, fad6);
+        addFadtilHylde(hylde4, fad7);
+        addFadtilHylde(hylde5, fad8);
+        addFadtilHylde(hylde6, fad9);
+        addFadtilHylde(hylde6, fad10);
+
+    }
 
 }

@@ -8,68 +8,81 @@ import logik.Reol;
 import java.util.HashMap;
 
     public class Storage {
-        private static final HashMap<Integer, Lager> lagerMap = new HashMap<>();
-        private static final HashMap<Integer, Reol> reolMap = new HashMap<>();
-        private static final HashMap<Integer, Hylde> hyldeMap = new HashMap<>();
-        private static final HashMap<Integer, Fad> fadMap = new HashMap<>();
+        private HashMap<Integer, Lager> lagerMap = new HashMap<>();
+        private HashMap<Integer, Reol> reolMap = new HashMap<>();
+        private HashMap<Integer, Hylde> hyldeMap = new HashMap<>();
+        private HashMap<Integer, Fad> fadMap = new HashMap<>();
 
 
-        public static void addLager(Lager lager) {
+        public void addLager(Lager lager) {
             lagerMap.put(lager.getLagerId(), lager);
         }
 
-        public static void addReol(Reol reol) {
+        public void addReol(Reol reol) {
             reolMap.put(reol.getReolId(), reol);
         }
 
-        public static void addHylde(Hylde hylde) {
+        public void addHylde(Hylde hylde) {
             hyldeMap.put(hylde.getHyldeId(), hylde);
         }
 
-        public static void addFad(Fad fad) {
+        public void addFad(Fad fad) {
             fadMap.put(fad.getFadId(), fad);
         }
 
-        public static void addFadTilHylde(Fad fad, Hylde hylde) {
+        public void addFadTilHylde(Fad fad, Hylde hylde) {
             hylde.addFad(fad);
         }
 
 
 
-        public static Lager getLager(int lagerId) {
+        public Lager getLager(int lagerId) {
             return lagerMap.get(lagerId);
         }
 
-        public static void removeLager(int lagerId) {
+        public void removeLager(int lagerId) {
             lagerMap.remove(lagerId);
         }
 
-        public static Reol getReol(int reolId) {
+        public Reol getReol(int reolId) {
             return reolMap.get(reolId);
         }
 
-        public static void removeReol(int reolId) {
+        public void removeReol(int reolId) {
             reolMap.remove(reolId);
         }
 
-        public static Hylde getHylde(int hyldeId) {
+        public Hylde getHylde(int hyldeId) {
             return hyldeMap.get(hyldeId);
         }
 
-        public static void removeHylde(int hyldeId) {
+        public void removeHylde(int hyldeId) {
             reolMap.remove(hyldeId);
         }
 
-        public static Fad getFad(int fadId) {
+        public Fad getFad(int fadId) {
             return fadMap.get(fadId);
         }
 
-        public static void removeFad(int fadId) {
+        public void removeFad(int fadId) {
             reolMap.remove(fadId);
         }
 
-        public static HashMap<Integer, Lager> getLagerMap() {
+        public HashMap<Integer, Lager> getLagerMap() {
             return lagerMap;
         }
+
+        public HashMap<Integer, Reol> getReolMap() {
+            return reolMap;
+        }
+
+        public HashMap<Integer, Hylde> getHyldeMap() {
+            return hyldeMap;
+        }
+
+        public HashMap<Integer, Fad> getFadMap() {
+            return fadMap;
+        }
+
     }
 
