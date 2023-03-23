@@ -1,3 +1,5 @@
+package logik;
+
 import java.util.HashMap;
 
 public class Reol {
