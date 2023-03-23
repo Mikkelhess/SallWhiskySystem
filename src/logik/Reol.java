@@ -5,8 +5,8 @@ import java.util.HashMap;
 public class Reol {
 
     private static int idCounter = 1;
-    private int reolId;
-    private HashMap<Integer, Hylde> hylder;
+    private final int reolId;
+    private HashMap<Integer, Hylde> hylder = new HashMap<>();
 
     public Reol() {
         this.reolId = idCounter;
