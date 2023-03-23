@@ -3,7 +3,9 @@ package controller;
 import logik.*;
 import storage.Storage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class Controller {
@@ -33,32 +35,6 @@ public class Controller {
     }
 
     /**
-     * Opretter en ny reol
-     * @param lager der hvor reolen skal oprettes
-     * @return reol
-     */
-    public Reol opretReol(Lager lager) {
-        if (lager == null) {throw new NullPointerException("Angiv et lager.");}
-
-        Reol reol = lager.createReol();
-        storage.addReol(reol);
-        return reol;
-    }
-
-    /**
-     * Opretter en ny hylde
-     * @param reol der hvor hylden skal oprettes
-     * @return hylde
-     */
-    public Hylde opretHylde(Reol reol) {
-        if (reol == null) {throw new NullPointerException("Angiv en reol.");}
-
-        Hylde hylde = reol.createHylde();
-        storage.addHylde(hylde);
-        return hylde;
-    }
-
-    /**
      * Opretter et fad
      * @param størrelse på fad i liter
      * @param fadType hvad der har lagret i fadet inden, eks. sherry
@@ -73,6 +49,32 @@ public class Controller {
     }
 
     /**
+     * Opretter en ny reol
+     * @param lager der hvor reolen skal oprettes
+     * @return reol
+     */
+    public Reol opretReol(Lager lager) {
+        if (lager == null) {throw new NullPointerException("Angiv et lager.");}
+
+        Reol reol = lager.createReol();
+        return reol;
+    }
+
+    /**
+     * Opretter en ny hylde
+     * @param reol der hvor hylden skal oprettes
+     * @return hylde
+     */
+    public Hylde opretHylde(Reol reol) {
+        if (reol == null) {throw new NullPointerException("Angiv en reol.");}
+
+        Hylde hylde = reol.createHylde();
+        return hylde;
+    }
+
+
+
+    /**
      * Tilføjer et fad til en hylde
      * @param hylde hvor fadet skal tilføjes
      * @param fad der tilføjes
@@ -80,63 +82,82 @@ public class Controller {
     public void addFadtilHylde(Hylde hylde, Fad fad) {
         if (hylde == null || fad == null) {throw new NullPointerException("Angiv korrekt information.");}
 
-        storage.addFadTilHylde(fad, hylde);
+        hylde.addFadTilHylde(fad);
     }
 
     public Lager getLager(int lagerId) {
-        return storage.getLager(lagerId);
+        for (Lager lager : storage.getLagerList()) {
+            if (lagerId == lager.getLagerId()) {
+                return lager;
+            }
+        }
+        throw new IllegalArgumentException("Angiv et korrekt lagerID");
+    }
+    public void removeLager(Lager lager) {
+        storage.removeLager(lager);
     }
 
-    public void removeLager(int lagerId) {
-        storage.removeLager(lagerId);
+    public Fad getFad(int fadId) {
+        for (Fad fad : storage.getFadList()) {
+            if (fadId == fad.getFadId()) {
+                return fad;
+            }
+        }
+        throw new IllegalArgumentException("Angiv et korrekt fadID");
     }
 
-    public Reol getReol(int reolId) {
-        return storage.getReol(reolId);
+    public void removeFad(Fad fad) {
+        storage.removeFad(fad);
+    }
+
+    public Reol getReol(int lagerId, int reolId) {
+        Lager lager = getLager(lagerId);
+        return lager.getReol(reolId);
     }
 
     public void removeReol(int lagerId, int reolId) {
         Lager lager = getLager(lagerId);
         lager.removeReol(reolId);
-        storage.removeReol(reolId);
     }
 
-    public Hylde getHylde(int hyldeId) {
-        return storage.getHylde(hyldeId);
+    public Hylde getHylde(int lagerId, int reolId, int hyldeId) {
+        Reol reol = getReol(lagerId, reolId);
+        return reol.getHylde(hyldeId);
     }
 
-    public void removeHylde(int reolId, int hyldeId) {
-        Reol reol = getReol(reolId);
+    public void removeHylde(int lagerId, int reolId, int hyldeId) {
+        Reol reol = getReol(lagerId, reolId);
         reol.removeHylde(hyldeId);
-        storage.removeHylde(hyldeId);
     }
 
-    public Fad getFad(int fadId) {
-        return storage.getFad(fadId);
+    public void removeFadFraHylde(int lagerId, int reolId, int hyldeId, int fadId) {
+        Hylde hylde = getHylde(lagerId, reolId, hyldeId);
+        hylde.removeFadFraHylde(fadId);
     }
 
-    public void removeFad(int hyldeId, int fadId) {
-        Hylde hylde = getHylde(hyldeId);
-        hylde.removeFad(fadId);
-        storage.removeFad(fadId);
+
+    public List<Lager> getLagerList() {
+        return storage.getLagerList();
     }
 
-    public HashMap<Integer, Lager> getLagerMap() {
-        return storage.getLagerMap();
+    public List<Fad> getFadList() {
+        return storage.getFadList();
     }
 
-    public HashMap<Integer, Reol> getReolMap() {
-        return storage.getReolMap();
+    public List<Reol> getReolList(int lagerId) {
+        Lager lager = getLager(lagerId);
+        return lager.getReolList();
     }
 
-    public HashMap<Integer, Hylde> getHyldeMap() {
-        return storage.getHyldeMap();
+    public List<Hylde> getHyldeList(int lagerId, int reolId) {
+        Reol reol = getReol(lagerId, reolId);
+        return reol.getHyldeList();
     }
 
-    public HashMap<Integer, Fad> getFadMap() {
-        return storage.getFadMap();
+    public List<Fad> getFadPåHyldeList(int lagerId, int reolId, int hyldeId) {
+        Hylde hylde = getHylde(lagerId, reolId, hyldeId);
+        return hylde.getFadPåHyldeList();
     }
-
 
 //--------------------------------------------------------------------------------------
 

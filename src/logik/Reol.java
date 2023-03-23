@@ -1,12 +1,14 @@
 package logik;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Reol {
 
     private static int idCounter = 1;
     private final int reolId;
-    private HashMap<Integer, Hylde> hylder = new HashMap<>();
+    private HashMap<Integer, Hylde> hyldeMap = new HashMap<>();
 
     public Reol() {
         this.reolId = idCounter;
@@ -20,16 +22,30 @@ public class Reol {
     }
 
     public void addHylde(Hylde hylde) {
-        hylder.put(hylde.getHyldeId(), hylde);
+        hyldeMap.put(hylde.getHyldeId(), hylde);
     }
 
     public void removeHylde(int hyldeId) {
-        hylder.remove(hyldeId);
+        hyldeMap.remove(hyldeId);
     }
 
     public int getReolId() {
         return reolId;
     }
+
+    public List<Hylde> getHyldeList() {
+        return new ArrayList<>(hyldeMap.values());
+    }
+
+    public Hylde getHylde(int hyldeId) {
+        for (Hylde hylde : getHyldeList()) {
+            if (hyldeId == hylde.getHyldeId()) {
+                return hylde;
+            }
+        }
+        return null;
+    }
+
 
 
 }
