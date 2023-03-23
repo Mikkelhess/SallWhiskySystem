@@ -72,9 +72,10 @@ public class Controller {
      * @param hylde hvor fadet skal tilføjes
      * @param fad der tilføjes
      */
-    public void addFad(Hylde hylde, Fad fad) {
-        hylde.addFad(fad);
-        // TODO
+    public void addFadtilHylde(Hylde hylde, Fad fad) {
+        if (hylde == null || fad == null) {throw new NullPointerException("Angiv korrekt information.");}
+
+        Storage.addFadTilHylde(fad, hylde);
     }
 
     public static Lager getLager(int lagerId) {
@@ -89,7 +90,9 @@ public class Controller {
         return Storage.getReol(reolId);
     }
 
-    public static void removeReol(int reolId) {
+    public static void removeReol(int lagerId, int reolId) {
+        Lager lager = getLager(lagerId);
+        lager.removeReol(reolId);
         Storage.removeReol(reolId);
     }
 
@@ -97,7 +100,9 @@ public class Controller {
         return Storage.getHylde(hyldeId);
     }
 
-    public static void removeHylde(int hyldeId) {
+    public static void removeHylde(int reolId, int hyldeId) {
+        Reol reol = getReol(reolId);
+        reol.removeHylde(hyldeId);
         Storage.removeHylde(hyldeId);
     }
 
@@ -105,7 +110,9 @@ public class Controller {
         return Storage.getFad(fadId);
     }
 
-    public static void removeFad(int fadId) {
+    public static void removeFad(int hyldeId, int fadId) {
+        Hylde hylde = getHylde(hyldeId);
+        hylde.removeFad(fadId);
         Storage.removeFad(fadId);
     }
 

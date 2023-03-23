@@ -23,6 +23,10 @@ public class Reol {
         hylder.put(hylde.getHyldeId(), hylde);
     }
 
+    public void removeHylde(int hyldeId) {
+        hylder.remove(hyldeId);
+    }
+
     public int getReolId() {
         return reolId;
     }
