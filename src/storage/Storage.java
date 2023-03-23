@@ -1,8 +1,6 @@
 package storage;
 
-import logik.Lager;
-
-    import java.util.HashMap;
+import java.util.HashMap;
 
     public class Storage {
         private HashMap<Integer, Lager> lagerMap = new HashMap<>();
