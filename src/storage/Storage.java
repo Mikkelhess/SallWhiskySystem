@@ -31,8 +31,9 @@ import java.util.HashMap;
             hyldeMap.put(hylde.getHyldeId(), hylde);
         }
 
-        public static void addFad(Fad fad) {
+        public static void addFad(Fad fad, Hylde hylde) {
             fadMap.put(fad.getFadId(), fad);
+            hylde.addFad(fad);
         }
 
         public static Lager getLager(int lagerId) {
