@@ -35,7 +35,6 @@ import java.util.HashMap;
         }
 
 
-
         public static Lager getLager(int lagerId) {
             return lagerMap.get(lagerId);
         }
@@ -67,7 +66,6 @@ import java.util.HashMap;
         public static void removeFad(int fadId) {
             reolMap.remove(fadId);
         }
-
 
     }
 
