@@ -1,8 +1,6 @@
 package controller;
 
-import logik.Hylde;
-import logik.Lager;
-import logik.Reol;
+import logik.*;
 import storage.Storage;
 
 
@@ -25,16 +23,26 @@ public class Controller {
         return lager;
     }
 
-    public Reol opretReol() {
-        Reol reol = new Reol();
-        Storage.addLager(reol);
+    public Reol opretReol(Lager lager) {
+        Reol reol = lager.createReol();
+        Storage.addReol(reol);
         return reol;
     }
 
-    public Hylde opretHylde() {
-        Hylde hylde = new Hylde();
-        Storage.addLager(hylde);
+    public Hylde opretHylde(Reol reol) {
+        Hylde hylde = reol.createHylde();
+        Storage.addHylde(hylde);
         return hylde;
+    }
+
+    public Fad opretFad(double størrelse, FadType fadType) {
+        Fad fad = new Fad(størrelse, fadType);
+        Storage.addFad(fad);
+        return fad;
+    }
+
+    public void addFad(Hylde hylde, Fad fad) {
+        hylde.addFad(fad);
     }
 
 
