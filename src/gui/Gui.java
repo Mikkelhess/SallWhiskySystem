@@ -24,7 +24,7 @@ public class Gui extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Handelsplatform");
+        stage.setTitle("Sall Whisky Distillery");
         GridPane pane = new GridPane();
         this.initContent(pane);
 
