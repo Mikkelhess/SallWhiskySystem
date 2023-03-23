@@ -13,12 +13,6 @@ public class Hylde {
         idCounter++;
     }
 
-    public Fad createFad(double størrelse, FadType fadType) {
-        Fad fad = new Fad(størrelse, fadType);
-        addFad(fad);
-        return fad;
-    }
-
     public void addFad(Fad fad) {
         fadMap.put(fad.getFadId(), fad);
     }
