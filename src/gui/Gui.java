@@ -51,7 +51,7 @@ public class Gui extends Application {
         lvwLager = new ListView<>();
         pane.add(lvwLager, 0, 1,1,5);
         lvwLager.setPrefSize(220, 200);
-        lvwLager.getItems().setAll(Controller.getLager());
+        lvwLager.getItems().setAll(Controller.getLager()/);
 
         ChangeListener<Lager> listener = (ov, o, n) -> this.selectedLagerChanged();
         lvwLager.getSelectionModel().selectedItemProperty().addListener(listener);
@@ -59,7 +59,7 @@ public class Gui extends Application {
         lvwReoler = new ListView<>();
         pane.add(lvwReoler, 1, 1,1,5);
         lvwReoler.setPrefSize(220, 200);
-        lvwReoler.getItems().setAll(Controller.getReoler());
+        lvwReoler.getItems().setAll(Controller.getReol());
 
         ChangeListener<Reol> listener1 = (ov, o, n) -> this.selectedReolChanged();
         lvwReoler.getSelectionModel().selectedItemProperty().addListener(listener1);
