@@ -68,7 +68,10 @@ public class Controller {
      */
     public void addFad(Hylde hylde, Fad fad) {
         hylde.addFad(fad);
+        // TODO
     }
+
+
 
 
 
