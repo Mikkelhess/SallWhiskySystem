@@ -13,11 +13,6 @@ import java.util.HashMap;
         private static final HashMap<Integer, Hylde> hyldeMap = new HashMap<>();
         private static final HashMap<Integer, Fad> fadMap = new HashMap<>();
 
-        public Lager createLager() {
-            Lager lager = new Lager();
-            addLager(lager);
-            return lager;
-        }
 
         public static void addLager(Lager lager) {
             lagerMap.put(lager.getLagerId(), lager);
