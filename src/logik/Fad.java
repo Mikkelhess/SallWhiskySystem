@@ -2,14 +2,14 @@ package logik;
 
 public class Fad {
 
-    private double størrelse;
+    private double fadLiter;
     private static int idCounter = 1;
     private final int fadId;
     private FadType fadType;
 
-    public Fad(double størrelse, FadType fadType) {
+    public Fad(double fadLiter, FadType fadType) {
         this.fadType = fadType;
-        this.størrelse = størrelse;
+        this.fadLiter = fadLiter;
         fadId = idCounter;
         idCounter++;
     }
