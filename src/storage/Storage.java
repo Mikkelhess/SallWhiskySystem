@@ -59,5 +59,14 @@ import java.util.HashMap;
             reolMap.remove(hyldeId);
         }
 
+        public static Fad getFad(int fadId) {
+            return fadMap.get(fadId);
+        }
+
+        public static void removeFad(int fadId) {
+            reolMap.remove(fadId);
+        }
+
+
     }
 
