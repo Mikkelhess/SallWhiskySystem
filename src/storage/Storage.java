@@ -1,5 +1,7 @@
 package storage;
 
+import logik.Lager;
+
 import java.util.HashMap;
 
     public class Storage {
@@ -13,7 +15,6 @@ import java.util.HashMap;
         public static void addLager(Lager lager) {
             lagerMap.put(lager.getLagerId(), lager);
         }
-
 
         public static Lager getLager(int lagerId) {
             return lagerMap.get(lagerId);
