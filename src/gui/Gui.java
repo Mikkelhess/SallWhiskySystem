@@ -51,7 +51,7 @@ public class Gui extends Application {
         lvwLager = new ListView<>();
         pane.add(lvwLager, 0, 1,1,5);
         lvwLager.setPrefSize(220, 200);
-        lvwLager.getItems().setAll(Controller.getLager());
+        lvwLager.getItems().setAll(Controller.getLagerMap().values());
 
         ChangeListener<Lager> listener = (ov, o, n) -> this.selectedLagerChanged();
         lvwLager.getSelectionModel().selectedItemProperty().addListener(listener);

@@ -68,6 +68,8 @@ import java.util.HashMap;
             reolMap.remove(fadId);
         }
 
-
+        public static HashMap<Integer, Lager> getLagerMap() {
+            return lagerMap;
+        }
     }
 
