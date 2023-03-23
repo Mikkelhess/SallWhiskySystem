@@ -3,8 +3,8 @@ import java.util.HashMap;
 public class Hylde {
 
     private static int idCounter = 1;
-    private int hyldeId;
-    private HashMap<Integer, Fad> fadMap;
+    private final int hyldeId;
+    private HashMap<Integer, Fad> fadMap = new HashMap<>();
 
     public Hylde() {
         this.hyldeId = idCounter;

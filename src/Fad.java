@@ -4,7 +4,7 @@ public class Fad {
 
     private double størrelse;
     private static int idCounter = 1;
-    private int fadId;
+    private final int fadId;
     private FadType fadType;
 
     public Fad(double størrelse, FadType fadType) {

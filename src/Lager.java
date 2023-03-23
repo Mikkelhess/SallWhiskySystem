@@ -3,8 +3,8 @@ import java.util.HashMap;
 public class Lager {
 
     private static int idCounter = 1;
-    private int lagerId;
-    private HashMap<Integer, Reol> reoler;
+    private final int lagerId;
+    private HashMap<Integer, Reol> reoler = new HashMap<>();
 
     public Lager() {
         this.lagerId = idCounter;

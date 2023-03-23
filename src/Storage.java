@@ -2,28 +2,23 @@
     import java.util.HashMap;
 
     public class Storage {
-        private HashMap<Integer, Lager> lagerMap = new HashMap<>();
-
-        public Storage() {
-
-        }
-
+        private static HashMap<Integer, Lager> lagerMap = new HashMap<>();
         public Lager createLager() {
             Lager lager = new Lager();
             addLager(lager);
             return lager;
         }
 
-        public void addLager(Lager lager) {
+        public static void addLager(Lager lager) {
             lagerMap.put(lager.getLagerId(), lager);
         }
 
 
-        public Lager getLager(int lagerId) {
+        public static Lager getLager(int lagerId) {
             return lagerMap.get(lagerId);
         }
 
-        public void removeLager(int lagerId) {
+        public static void removeLager(int lagerId) {
             lagerMap.remove(lagerId);
         }
     }
