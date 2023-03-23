@@ -1,4 +1,4 @@
-import java.io.PrintWriter;
+package logik;
 
 public class Fad {
 

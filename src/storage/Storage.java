@@ -1,5 +1,6 @@
+package storage;
 
-    import java.util.HashMap;
+import java.util.HashMap;
 
     public class Storage {
         private static HashMap<Integer, Lager> lagerMap = new HashMap<>();
