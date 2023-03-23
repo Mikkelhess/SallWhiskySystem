@@ -26,7 +26,11 @@ public class Reol {
     }
 
     public void removeHylde(int hyldeId) {
+
         hyldeMap.remove(hyldeId);
+
+        // TODO
+        // Mangler en for-each som fjerner fad fra hylden, hvis der altaå er nogen
     }
 
     public int getReolId() {

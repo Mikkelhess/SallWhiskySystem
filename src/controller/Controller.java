@@ -97,6 +97,7 @@ public class Controller {
         storage.removeLager(lager);
     }
 
+    // Mangler begrænsninger
     public Fad getFad(int fadId) {
         for (Fad fad : storage.getFadList()) {
             if (fadId == fad.getFadId()) {
@@ -106,6 +107,7 @@ public class Controller {
         throw new IllegalArgumentException("Angiv et korrekt fadID");
     }
 
+    // Mangler begrænsninger
     public void removeFad(Fad fad) {
         storage.removeFad(fad);
     }
@@ -115,6 +117,7 @@ public class Controller {
         return lager.getReol(reolId);
     }
 
+    // Mangler begrænsninger
     public void removeReol(int lagerId, int reolId) {
         Lager lager = getLager(lagerId);
         lager.removeReol(reolId);
@@ -125,11 +128,13 @@ public class Controller {
         return reol.getHylde(hyldeId);
     }
 
+    // Mangler begrænsninger
     public void removeHylde(int lagerId, int reolId, int hyldeId) {
         Reol reol = getReol(lagerId, reolId);
         reol.removeHylde(hyldeId);
     }
 
+    // Mangler begrænsninger
     public void removeFadFraHylde(int lagerId, int reolId, int hyldeId, int fadId) {
         Hylde hylde = getHylde(lagerId, reolId, hyldeId);
         hylde.removeFadFraHylde(fadId);
