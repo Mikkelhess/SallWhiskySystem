@@ -33,6 +33,8 @@ public class Controller {
      * @return reol
      */
     public Reol opretReol(Lager lager) {
+        if (lager == null) {throw new NullPointerException("Angiv et lager.");}
+
         Reol reol = lager.createReol();
         Storage.addReol(reol);
         return reol;
@@ -44,6 +46,8 @@ public class Controller {
      * @return hylde
      */
     public Hylde opretHylde(Reol reol) {
+        if (reol == null) {throw new NullPointerException("Angiv en reol.");}
+
         Hylde hylde = reol.createHylde();
         Storage.addHylde(hylde);
         return hylde;
@@ -56,6 +60,8 @@ public class Controller {
      * @return fad
      */
     public Fad opretFad(double størrelse, FadType fadType) {
+        if (størrelse <= 0 || fadType == null) {throw new NullPointerException("Angiv korrekte oplysninger.");}
+
         Fad fad = new Fad(størrelse, fadType);
         Storage.addFad(fad);
         return fad;
@@ -71,6 +77,37 @@ public class Controller {
         // TODO
     }
 
+    public static Lager getLager(int lagerId) {
+        return Storage.getLager(lagerId);
+    }
+
+    public static void removeLager(int lagerId) {
+        Storage.removeLager(lagerId);
+    }
+
+    public static Reol getReol(int reolId) {
+        return Storage.getReol(reolId);
+    }
+
+    public static void removeReol(int reolId) {
+        Storage.removeReol(reolId);
+    }
+
+    public static Hylde getHylde(int hyldeId) {
+        return Storage.getHylde(hyldeId);
+    }
+
+    public static void removeHylde(int hyldeId) {
+        Storage.removeHylde(hyldeId);
+    }
+
+    public static Fad getFad(int fadId) {
+        return Storage.getFad(fadId);
+    }
+
+    public static void removeFad(int fadId) {
+        Storage.removeFad(fadId);
+    }
 
 
 
