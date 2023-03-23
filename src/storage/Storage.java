@@ -26,10 +26,15 @@ import java.util.HashMap;
             hyldeMap.put(hylde.getHyldeId(), hylde);
         }
 
-        public static void addFad(Fad fad, Hylde hylde) {
+        public static void addFad(Fad fad) {
             fadMap.put(fad.getFadId(), fad);
+        }
+
+        public static void addFadTilHylde(Fad fad, Hylde hylde) {
             hylde.addFad(fad);
         }
+
+
 
         public static Lager getLager(int lagerId) {
             return lagerMap.get(lagerId);
