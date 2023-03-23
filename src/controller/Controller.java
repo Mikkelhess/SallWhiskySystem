@@ -3,6 +3,8 @@ package controller;
 import logik.*;
 import storage.Storage;
 
+import java.util.HashMap;
+
 
 public class Controller {
 
@@ -114,6 +116,10 @@ public class Controller {
         Hylde hylde = getHylde(hyldeId);
         hylde.removeFad(fadId);
         Storage.removeFad(fadId);
+    }
+
+    public static HashMap<Integer, Lager> getLagerMap() {
+        return Storage.getLagerMap();
     }
 
 

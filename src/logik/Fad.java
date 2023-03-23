@@ -3,6 +3,7 @@ package logik;
 public class Fad {
 
     private double fadLiter;
+
     private static int idCounter = 1;
     private final int fadId;
     private FadType fadType;
