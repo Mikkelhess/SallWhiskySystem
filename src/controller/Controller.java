@@ -115,6 +115,10 @@ public class Controller {
         return Storage.getLagerMap();
     }
 
+    public static HashMap<Integer,Reol> getReolMap() {
+        return Storage.getReolMap();
+    }
+
 
 
 

@@ -59,7 +59,7 @@ public class Gui extends Application {
         lvwReoler = new ListView<>();
         pane.add(lvwReoler, 1, 1,1,5);
         lvwReoler.setPrefSize(220, 200);
-        lvwReoler.getItems().setAll(Controller.get());
+        lvwReoler.getItems().setAll(Controller.getReolMap().values());
 
         ChangeListener<Reol> listener1 = (ov, o, n) -> this.selectedReolChanged();
         lvwReoler.getSelectionModel().selectedItemProperty().addListener(listener1);

@@ -71,5 +71,9 @@ import java.util.HashMap;
         public static HashMap<Integer, Lager> getLagerMap() {
             return lagerMap;
         }
+
+        public static HashMap<Integer, Reol> getReolMap() {
+            return reolMap;
+        }
     }
 
