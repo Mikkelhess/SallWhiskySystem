@@ -1,3 +1,6 @@
+package storage;
+
+import logik.Lager;
 
     import java.util.HashMap;
 
