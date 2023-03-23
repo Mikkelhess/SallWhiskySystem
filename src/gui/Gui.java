@@ -24,7 +24,7 @@ public class Gui extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Sall Whisky Distillery");
+        stage.setTitle("Handelsplatform");
         GridPane pane = new GridPane();
         this.initContent(pane);
 
@@ -51,7 +51,7 @@ public class Gui extends Application {
         lvwLager = new ListView<>();
         pane.add(lvwLager, 0, 1,1,5);
         lvwLager.setPrefSize(220, 200);
-        lvwLager.getItems().setAll(Controller.getLager()/);
+        lvwLager.getItems().setAll(Controller.getLagerMap().values());
 
         ChangeListener<Lager> listener = (ov, o, n) -> this.selectedLagerChanged();
         lvwLager.getSelectionModel().selectedItemProperty().addListener(listener);
@@ -59,26 +59,26 @@ public class Gui extends Application {
         lvwReoler = new ListView<>();
         pane.add(lvwReoler, 1, 1,1,5);
         lvwReoler.setPrefSize(220, 200);
-        lvwReoler.getItems().setAll(Controller.getReol());
+        lvwReoler.getItems().setAll(Controller.getReoler());
 
         ChangeListener<Reol> listener1 = (ov, o, n) -> this.selectedReolChanged();
         lvwReoler.getSelectionModel().selectedItemProperty().addListener(listener1);
 
 
-        Label lblAktiveAnnoncer = new Label("Lager");
+        Label lblAktiveAnnoncer = new Label("Aktive Annoncer");
         pane.add(lblAktiveAnnoncer, 0, 0);
 
-        Label lblVarer = new Label("Hylder");
+        Label lblVarer = new Label("Varer");
         pane.add(lblVarer, 1, 0);
 
 
-        Button btnOpretLager = new Button("Opret");
-        pane.add(btnOpretLager, 3, 3);
-        btnOpretLager.setOnAction(event -> this.opretAction());
+        Button btnOpretSalg = new Button("Opret salg");
+        pane.add(btnOpretSalg, 3, 3);
+        btnOpretSalg.setOnAction(event -> this.opretAction());
 
-        Button btnFjernLager = new Button("Fjern");
-        pane.add(btnFjernLager, 3, 7);
-        btnFjernLager.setOnAction(event -> this.filAction());
+        Button btnSalgsFil = new Button("Salgs fil");
+        pane.add(btnSalgsFil, 3, 7);
+        btnSalgsFil.setOnAction(event -> this.filAction());
 
     }
 

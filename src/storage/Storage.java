@@ -30,6 +30,12 @@ import java.util.HashMap;
             fadMap.put(fad.getFadId(), fad);
         }
 
+        public static void addFadTilHylde(Fad fad, Hylde hylde) {
+            hylde.addFad(fad);
+        }
+
+
+
         public static Lager getLager(int lagerId) {
             return lagerMap.get(lagerId);
         }
@@ -62,6 +68,8 @@ import java.util.HashMap;
             reolMap.remove(fadId);
         }
 
-
+        public static HashMap<Integer, Lager> getLagerMap() {
+            return lagerMap;
+        }
     }
 
