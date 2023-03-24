@@ -26,7 +26,12 @@ public class Lager {
     }
 
     public void removeReol(int reolId) {
-        reolMap.remove(reolId);
+        Reol reol = reolMap.remove(reolId);
+        if (reol != null) {
+            for (Hylde hylde : reol.getHyldeMap().values()) {
+                reol.removeHylde(hylde.getHyldeId());
+            }
+        }
     }
     public int getLagerId() {
         return lagerId;
