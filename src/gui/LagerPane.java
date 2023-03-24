@@ -31,6 +31,8 @@ public class LagerPane extends GridPane {
     private ListView <Fad> lvwFade;
     private Button btnOpretLager, btnOpretReol, btnOpretHylde, btnTilføjFad;
     private Button btnFjernLager, btnFjernReol, btnFjernHylde, btnFjernFad;
+    private TilføjFadWindow tilføjFadWindow;
+
 
 
     public LagerPane() {
@@ -38,6 +40,8 @@ public class LagerPane extends GridPane {
         this.setPadding(new Insets(20));
         this.setHgap(20);
         this.setVgap(10);
+
+        tilføjFadWindow = new TilføjFadWindow("Tilføj Fad", new Stage());
 
         lvwLagre = new ListView<>();
         this.add(lvwLagre, 0, 1, 1, 1);
@@ -105,6 +109,7 @@ public class LagerPane extends GridPane {
         hyldeButtons.setAlignment(Pos.CENTER);
 
         btnTilføjFad = new Button("Tilføj");
+        btnTilføjFad.setOnAction(event -> tilføjFadAction());
         btnFjernFad = new Button("Fjern");
         btnFjernFad.setOnAction(event -> removeFadAction());
         VBox fadButtons = new VBox(10, btnTilføjFad, btnFjernFad);
@@ -233,6 +238,9 @@ public class LagerPane extends GridPane {
     //skal kunne tilføjere mere end et fad af gangen. måske 2 list views, et med alle fad og et med dem man vil tilføje
     //to listviews, pil til højre og venstre.
     private void tilføjFadAction() {
+            Hylde hylde = lvwHylder.getSelectionModel().getSelectedItem();
+            tilføjFadWindow.showAndWait();
+            lvwFade.getItems().setAll(hylde.getFadPåHyldeMap().values());
 
     }
 
