@@ -40,7 +40,6 @@ public class Controller {
     public static Reol opretReol(Lager lager) {
         if (lager == null) {throw new NullPointerException("Angiv et lager.");}
         Reol reol = lager.createReol();
-        Storage.addReol(reol);
         return reol;
     }
 
@@ -52,7 +51,6 @@ public class Controller {
     public static Hylde opretHylde(Reol reol) {
         if (reol == null) {throw new NullPointerException("Angiv en reol.");}
         Hylde hylde = reol.createHylde();
-        Storage.addHylde(hylde);
         return hylde;
     }
 
@@ -122,17 +120,6 @@ public class Controller {
     public static HashMap<Integer,Fad> getFadMap() {
         return Storage.getFadMap();
     }
-
-    public static HashMap<Integer,Reol> getReolMap() {
-        return Storage.getReolMap();
-    }
-
-    public static HashMap<Integer,Hylde> getHyldeMap() {
-        return Storage.getHyldeMap();
-    }
-
-
-
 
 //--------------------------------------------------------------------------------------
 

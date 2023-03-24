@@ -27,13 +27,10 @@ public class Hylde {
         return hyldeId;
     }
 
-    public List<Fad> getFadPåHyldeList() {
-        return new ArrayList<>(fadPåHyldeMap.values());
+    public HashMap<Integer, Fad> getFadPåHyldeMap() {
+        return fadPåHyldeMap;
     }
 
-    public Fad getFadPåHylde(int fadId) {
-        return fadPåHyldeMap.get(fadId);
-    }
 
     @Override
     public String toString() {

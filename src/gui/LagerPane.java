@@ -56,7 +56,7 @@ public class LagerPane extends GridPane {
         lvwHylder = new ListView<>();
         this.add(lvwHylder, 0, 3, 1, 1);
         lvwHylder.setPrefSize(220, 200);
-        lvwHylder.getItems().setAll(Controller.getHyldeMap().values());
+
 
         ChangeListener<Hylde> listener3 = (ov, o, n) -> this.selectedHyldeChanged();
         lvwHylder.getSelectionModel().selectedItemProperty().addListener(listener3);
@@ -64,7 +64,7 @@ public class LagerPane extends GridPane {
         lvwFade = new ListView<>();
         this.add(lvwFade, 1, 3, 1, 1);
         lvwFade.setPrefSize(220, 200);
-        lvwFade.getItems().setAll(Controller.getFadMap().values());
+
 
         ChangeListener<Fad> listener4 = (ov, o, n) -> this.selectedFadChanged();
         lvwFade.getSelectionModel().selectedItemProperty().addListener(listener4);
@@ -119,6 +119,9 @@ public class LagerPane extends GridPane {
         this.add(fadHBox, 1, 1);
     }
 
+    private void selectedFadChanged() {
+    }
+
     private void opretLagerAction() {
         Controller.opretLager();
         lvwLagre.getItems().setAll(Controller.getLagerMap().values());
@@ -135,12 +138,6 @@ public class LagerPane extends GridPane {
             alert.setContentText("Vælg et lager som du vil fjerne");
             alert.showAndWait();
         }
-    }
-
-    private void selectedFadChanged() {
-    }
-
-    private void selectedHyldeChanged() {
     }
 
     public void updateList() {
@@ -163,7 +160,24 @@ public class LagerPane extends GridPane {
         }
     }
     private void selectedReolChanged() {
-       Reol selectedReolChanged = lvwReoler.getSelectionModel().getSelectedItem();
+       Reol reol = lvwReoler.getSelectionModel().getSelectedItem();
+       if (reol != null) {
+           lvwHylder.getItems().setAll(reol.getHyldeMap().values());
+       } else {
+           lvwHylder.getItems().clear();
+       }
 
     }
+
+    private void selectedHyldeChanged() {
+
+        Hylde hylde = lvwHylder.getSelectionModel().getSelectedItem();
+        if (hylde != null) {
+            lvwFade.getItems().setAll(hylde.getFadPåHyldeMap().values());
+        } else {
+            lvwFade.getItems().clear();
+        }
+
+    }
+
 }
