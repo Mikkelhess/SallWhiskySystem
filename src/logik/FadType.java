@@ -1,5 +1,5 @@
 package logik;
 
 public enum FadType {
-    BOURBON, RØDVIN, SHERRY
+    BOURBON, RØDVIN, SHERRY, PORTVIN, COGNAC
 }

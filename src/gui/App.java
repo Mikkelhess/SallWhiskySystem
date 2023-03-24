@@ -1,8 +1,10 @@
 package gui;
 
+import javafx.application.Application;
+
 public class App {
 
     public static void main(String[] args) {
-        LagerPane.launch(LagerPane.class);
+       Application.launch(StartWindow.class);
     }
 }

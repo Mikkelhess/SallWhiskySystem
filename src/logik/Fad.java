@@ -22,4 +22,13 @@ public class Fad {
     public FadType getFadType() {
         return fadType;
     }
+
+    public double getFadLiter() {
+        return fadLiter;
+    }
+
+    @Override
+    public String toString() {
+        return "Fad " + fadId + ": " + fadType + ". " + fadLiter + " liter i fadet.";
+    }
 }
