@@ -46,11 +46,9 @@ public class LagerPane extends GridPane {
         lvwLagre.getSelectionModel().selectedItemProperty().addListener(listener);
 
 
-
         lvwReoler = new ListView<>();
         this.add(lvwReoler, 1, 1, 1, 1);
         lvwReoler.setPrefSize(220, 200);
-        lvwReoler.getItems().setAll(Controller.getReolMap().values());
 
         ChangeListener<Reol> listener2 = (ov, o, n) -> this.selectedReolChanged();
         lvwReoler.getSelectionModel().selectedItemProperty().addListener(listener2);
@@ -127,8 +125,16 @@ public class LagerPane extends GridPane {
     }
     private void removeLagerAction() {
         Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
-        Controller.removeLager(lager);
-        lvwLagre.getItems().setAll(Controller.getLagerMap().values());
+        if (lager != null) {
+            Controller.removeLager(lager);
+            lvwLagre.getItems().setAll(Controller.getLagerMap().values());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg et Lager");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg et lager som du vil fjerne");
+            alert.showAndWait();
+        }
     }
 
     private void selectedFadChanged() {
@@ -147,12 +153,14 @@ public class LagerPane extends GridPane {
         }
     }
 
-    private void opretAction() {
-    }
-
     //skal opdatere hylde list view (se konference)
     private void selectedLagerChanged() {
       Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
+        if (lager != null) {
+            lvwReoler.getItems().setAll(lager.getReolMap().values());
+        } else {
+            lvwReoler.getItems().clear();
+        }
     }
     private void selectedReolChanged() {
        Reol selectedReolChanged = lvwReoler.getSelectionModel().getSelectedItem();

@@ -39,7 +39,7 @@ public class StartWindow extends Application {
     private void initTabPane(TabPane tabPane) {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-        Tab tabLagerManager = new Tab("Lager manager");
+        Tab tabLagerManager = new Tab("Lager Manager");
         tabPane.getTabs().add(tabLagerManager);
 
         LagerPane lagerPane = new LagerPane();

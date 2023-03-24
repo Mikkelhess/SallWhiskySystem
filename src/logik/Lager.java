@@ -32,17 +32,12 @@ public class Lager {
         return lagerId;
     }
 
-    public List<Reol> getReolList() {
-        return new ArrayList<>(reolMap.values());
+    public HashMap<Integer,Reol> getReolMap() {
+        return reolMap;
     }
 
     public Reol getReol(int reolId) {
-        for (Reol reol : getReolList()) {
-            if (reolId == reol.getReolId()) {
-                return reol;
-            }
-        }
-        return null;
+       return reolMap.get(reolId);
     }
 
     @Override

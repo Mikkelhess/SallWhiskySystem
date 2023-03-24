@@ -29,6 +29,10 @@ public class Storage {
         reolMap.put(reol.getReolId(),reol);
     }
 
+    public static void addHylde(Hylde hylde) {
+        hyldeMap.put(hylde.getHyldeId(), hylde);
+    }
+
     public static void removeLager(Lager lager) {
         lagerMap.remove(lager.getLagerId());
     }
