@@ -40,4 +40,8 @@ public class Hylde {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Hylde " + hyldeId;
+    }
 }

@@ -26,30 +26,25 @@ public class Reol {
     }
 
     public void removeHylde(int hyldeId) {
-
         hyldeMap.remove(hyldeId);
+    }
 
-        // TODO
-        // Mangler en for-each som fjerner fad fra hylden, hvis der altaå er nogen
+    public Hylde getHylde(int hyldeId) {
+    return hyldeMap.get(hyldeId);
+    }
+
+    public HashMap<Integer, Hylde> getHyldeMap() {
+        return hyldeMap;
     }
 
     public int getReolId() {
         return reolId;
     }
 
-    public List<Hylde> getHyldeList() {
-        return new ArrayList<>(hyldeMap.values());
+    @Override
+    public String toString() {
+        return "Reol: " + reolId;
     }
-
-    public Hylde getHylde(int hyldeId) {
-        for (Hylde hylde : getHyldeList()) {
-            if (hyldeId == hylde.getHyldeId()) {
-                return hylde;
-            }
-        }
-        return null;
-    }
-
 
 
 }
