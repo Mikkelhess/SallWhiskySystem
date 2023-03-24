@@ -77,11 +77,15 @@ public class TilføjFadWindow extends Stage {
     // -------------------------------------------------------------------------
     // Button actions
 
-    private void cancelAction() {
+    private void leftArrowAction() {
 
     }
 
-    private void okAction() {
+    private void RightArrowAction() {
+
+    }
+
+    private void Accept() {
         FadType fadType = cbbFadType.getSelectionModel().getSelectedItem();
         String fadLiter = txfFadLiter.getText();
 
