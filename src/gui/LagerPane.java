@@ -157,8 +157,16 @@ public class LagerPane extends GridPane {
 
     private void opretReolAction() {
         Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
-        Controller.opretReol(lager);
-        lvwReoler.getItems().setAll(lager.getReolMap().values());
+        if (lager != null) {
+            Controller.opretReol(lager);
+            lvwReoler.getItems().setAll(lager.getReolMap().values());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg et lager");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg et lager først, hvor reolen skal oprettes");
+            alert.showAndWait();
+        }
     }
     private void removeReolAction() {
         Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
