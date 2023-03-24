@@ -121,6 +121,10 @@ public class Controller {
         return Storage.getFadMap();
     }
 
+    public static HashMap<Integer,Reol> getReolMap() {
+        return getReolMap();
+    }
+
 //--------------------------------------------------------------------------------------
 
     public static void initStorage() {
