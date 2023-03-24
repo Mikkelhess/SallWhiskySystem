@@ -31,13 +31,9 @@ public class Reol {
      * @param hyldeId ID på den hylde som skal fjernes
      */
     public void removeHylde(int hyldeId) {
-        Hylde hylde = hyldeMap.remove(hyldeId);
-        if (hylde != null) {
-            for (Fad fad : hylde.getFadPåHyldeList()) {
-                hylde.removeFadFraHylde(fad.getFadId());
-            }
-        }
+        hyldeMap.remove(hyldeId);
     }
+
 
     public int getReolId() {
         return reolId;
@@ -51,6 +47,12 @@ public class Reol {
         return hyldeMap.get(hyldeId);
     }
 
+    public HashMap<Integer, Hylde> getHyldeMap() {
+        return hyldeMap;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Reol: " + reolId;
+    }
 }

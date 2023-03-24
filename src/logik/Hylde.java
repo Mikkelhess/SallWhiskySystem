@@ -15,6 +15,10 @@ public class Hylde {
         idCounter++;
     }
 
+    public HashMap<Integer, Fad> getFadPåHyldeMap() {
+        return fadPåHyldeMap;
+    }
+
     public void addFadTilHylde(Fad fad) {
         fadPåHyldeMap.put(fad.getFadId(), fad);
     }
@@ -25,10 +29,6 @@ public class Hylde {
 
     public int getHyldeId() {
         return hyldeId;
-    }
-
-    public HashMap<Integer, Fad> getFadPåHyldeMap() {
-        return fadPåHyldeMap;
     }
 
 
