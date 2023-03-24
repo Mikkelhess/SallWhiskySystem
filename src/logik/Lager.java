@@ -24,7 +24,11 @@ public class Lager {
     public void addReol(Reol reol) {
         reolMap.put(reol.getReolId(), reol);
     }
-
+    /**
+     * Fjerner reolen fra lageret. Checker om reolen ikke er null
+     * Hvis reol ikke er null, fjerner den alle hylder fra reolen, ved et for-each loop
+     * @param reolId ID på den reol som skal fjernes
+     */
     public void removeReol(int reolId) {
         Reol reol = reolMap.remove(reolId);
         if (reol != null) {
@@ -42,12 +46,7 @@ public class Lager {
     }
 
     public Reol getReol(int reolId) {
-        for (Reol reol : getReolList()) {
-            if (reolId == reol.getReolId()) {
-                return reol;
-            }
-        }
-        return null;
+        return reolMap.get(reolId);
     }
 
 }

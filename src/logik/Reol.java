@@ -25,12 +25,18 @@ public class Reol {
         hyldeMap.put(hylde.getHyldeId(), hylde);
     }
 
+    /**
+     * Fjerner hylden fra reolen. Checker om hylden ikke er null
+     * Hvis hylde ikke er null, fjerner den alle fad p[ hylden, ved et for-each loop
+     * @param hyldeId ID på den hylde som skal fjernes
+     */
     public void removeHylde(int hyldeId) {
-
-        hyldeMap.remove(hyldeId);
-
-        // TODO
-        // Mangler en for-each som fjerner fad fra hylden, hvis der altaå er nogen
+        Hylde hylde = hyldeMap.remove(hyldeId);
+        if (hylde != null) {
+            for (Fad fad : hylde.getFadPåHyldeList()) {
+                hylde.removeFadFraHylde(fad.getFadId());
+            }
+        }
     }
 
     public int getReolId() {
@@ -42,12 +48,7 @@ public class Reol {
     }
 
     public Hylde getHylde(int hyldeId) {
-        for (Hylde hylde : getHyldeList()) {
-            if (hyldeId == hylde.getHyldeId()) {
-                return hylde;
-            }
-        }
-        return null;
+        return hyldeMap.get(hyldeId);
     }
 
 

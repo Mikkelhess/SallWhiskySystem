@@ -3,36 +3,44 @@ package storage;
 import logik.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Storage {
-    private List<Lager> lagerList = new ArrayList<>();
-    private List<Fad> fadList = new ArrayList<>();
+    private static final HashMap<Integer, Lager> lagerMap = new HashMap<>();
 
-    public Lager addLager(Lager lager) {
-        lagerList.add(lager);
-        return lager;
+    private static final HashMap<Integer, Fad> fadMap = new HashMap<>();
+
+    public void addLager(Lager lager) {
+        lagerMap.put(lager.getLagerId(), lager);
     }
 
-    public Fad addFad(Fad fad) {
-        fadList.add(fad);
-        return fad;
+    public void addFad(Fad fad) {
+        fadMap.put(fad.getFadId(), fad);
     }
 
-    public void removeLager(Lager lager) {
-        lagerList.remove(lager);
+    public Lager getLager(int lagerId) {
+        return lagerMap.get(lagerId);
     }
 
-    public void removeFad(Fad fad) {
-        fadList.remove(fad);
+    public void removeLager(int lagerId) {
+        lagerMap.remove(lagerId);
+    }
+
+    public Fad getFad(int fadId) {
+        return fadMap.get(fadId);
+    }
+
+    public void removeFad(int fadId) {
+        fadMap.remove(fadId);
     }
 
     public List<Lager> getLagerList() {
-        return new ArrayList<Lager>(lagerList);
+        return new ArrayList<Lager>(lagerMap.values());
     }
 
     public List<Fad> getFadList() {
-        return new ArrayList<Fad>(fadList);
+        return new ArrayList<Fad>(fadMap.values());
     }
 
 }

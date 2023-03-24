@@ -2,20 +2,17 @@ package controller;
 
 import logik.*;
 import storage.Storage;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
 public class Controller {
 
     private Storage storage;
-    private Controller controller;
+    private static Controller controller;
 
     private Controller() {storage = new Storage();}
 
-    public Controller getController() {
+    public static Controller getController() {
         if (controller == null) {
             controller = new Controller();
         }
@@ -73,7 +70,6 @@ public class Controller {
     }
 
 
-
     /**
      * Tilføjer et fad til en hylde
      * @param hylde hvor fadet skal tilføjes
@@ -86,30 +82,20 @@ public class Controller {
     }
 
     public Lager getLager(int lagerId) {
-        for (Lager lager : storage.getLagerList()) {
-            if (lagerId == lager.getLagerId()) {
-                return lager;
-            }
-        }
-        throw new IllegalArgumentException("Angiv et korrekt lagerID");
+        return storage.getLager(lagerId);
     }
-    public void removeLager(Lager lager) {
-        storage.removeLager(lager);
+    public void removeLager(int lagerId) {
+        storage.removeLager(lagerId);
     }
 
     // Mangler begrænsninger
     public Fad getFad(int fadId) {
-        for (Fad fad : storage.getFadList()) {
-            if (fadId == fad.getFadId()) {
-                return fad;
-            }
-        }
-        throw new IllegalArgumentException("Angiv et korrekt fadID");
+        return storage.getFad(fadId);
     }
 
     // Mangler begrænsninger
-    public void removeFad(Fad fad) {
-        storage.removeFad(fad);
+    public void removeFad(int fadId) {
+        storage.removeFad(fadId);
     }
 
     public Reol getReol(int lagerId, int reolId) {
@@ -135,10 +121,17 @@ public class Controller {
     }
 
     // Mangler begrænsninger
+    public Fad getFadPåHylde(int lagerId, int reolId, int hyldeId, int fadId) {
+        Hylde hylde = getHylde(lagerId, reolId, hyldeId);
+        return hylde.getFadPåHylde(fadId);
+    }
+
+    // Mangler begrænsninger
     public void removeFadFraHylde(int lagerId, int reolId, int hyldeId, int fadId) {
         Hylde hylde = getHylde(lagerId, reolId, hyldeId);
         hylde.removeFadFraHylde(fadId);
     }
+
 
 
     public List<Lager> getLagerList() {
