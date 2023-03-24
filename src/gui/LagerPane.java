@@ -41,7 +41,7 @@ public class LagerPane extends GridPane {
         this.setHgap(20);
         this.setVgap(10);
 
-        tilføjFadWindow = new TilføjFadWindow("Tilføj Fad", new Stage());
+        tilføjFadWindow = new TilføjFadWindow("Tilføj Fade", new Stage());
 
         lvwLagre = new ListView<>();
         this.add(lvwLagre, 0, 1, 1, 1);

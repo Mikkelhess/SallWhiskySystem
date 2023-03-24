@@ -48,7 +48,7 @@ public class TilføjFadWindow extends Stage {
         pane.setVgap(10);
 
         // Create labels
-        Label labelAlleFad = new Label("Alle Fad");
+        Label labelAlleFad = new Label("Ledige Fade");
         Label labelTilfojFad = new Label("Tilføj Fad til Hylde");
 
         // Create list views
