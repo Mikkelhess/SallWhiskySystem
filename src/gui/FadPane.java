@@ -16,7 +16,7 @@ import logik.Fad;
 public class FadPane extends GridPane {
 
     private ListView<Fad> lvwFade;
-    private Button  btnOpretFad;
+    private Button btnOpretFad;
     private Button btnFjernFad;
 
     private HBox btnFadBox, btnServBox;
@@ -29,11 +29,11 @@ public class FadPane extends GridPane {
         this.setHgap(20);
         this.setVgap(10);
 
-        opretFadWindow = new OpretFadWindow("Opret fad",new Stage());
+        opretFadWindow = new OpretFadWindow("Opret fad", new Stage());
 
         lvwFade = new ListView<>();
         this.add(lvwFade, 0, 1, 1, 1);
-        lvwFade.setPrefSize(350, 200);
+        lvwFade.setPrefSize(350, 400);
         lvwFade.getItems().setAll(Controller.getFadMap().values());
 
         ChangeListener<Fad> listener = (ov, o, n) -> this.selectedFadchanged();
@@ -58,22 +58,13 @@ public class FadPane extends GridPane {
         btnFjernFad.setOnAction(event -> this.removeFadAction());
 
 
-        /*
-        VBox fadButtons = new VBox(10, btnOpretFad, btnFjernFad);
-        fadButtons.setAlignment(Pos.BOTTOM_LEFT);
-
-        HBox lagerHBox = new HBox(lblFade, lvwFade, fadButtons);
-        lagerHBox.setSpacing(10);
-        this.add(lagerHBox, 0, 3);
-
-         */
-
     }
 
     private void opretFadAction() {
         opretFadWindow.showAndWait();
         lvwFade.getItems().setAll(Controller.getFadMap().values());
     }
+
     private void removeFadAction() {
 
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
@@ -89,16 +80,11 @@ public class FadPane extends GridPane {
         }
     }
 
-    private void selectedFadChanged() {
-    }
-
-
     public void updateList() {
         lvwFade.getItems().setAll(Controller.getFadMap().values());
     }
 
 
-    //skal opdatere hylde list view (se konference)
     private void selectedFadchanged() {
     }
 }

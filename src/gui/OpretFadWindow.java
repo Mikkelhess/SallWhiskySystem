@@ -92,32 +92,32 @@ public class OpretFadWindow extends Stage {
         FadType fadType = cbbFadType.getSelectionModel().getSelectedItem();
         String fadLiter = txfFadLiter.getText();
 
-        if (fadType != null) {
-            txfFadType.clear();
-            OpretFadWindow.this.hide();
-        } else {
+        if (fadType == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Opret fad");
             alert.setHeaderText("Manglende information");
             alert.setContentText("Indtast fad type");
             alert.show();
+            return;
         }
 
-        if (fadLiter.length() > 0) {
-            txfFadLiter.clear();
-            OpretFadWindow.this.hide();
-        } else {
+        double fadLiterValue;
+        try {
+            fadLiterValue = Double.parseDouble(fadLiter);
+        } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Opret fad");
-            alert.setHeaderText("Manglende information");
-            alert.setContentText("Indtast fad liter");
+            alert.setHeaderText("Ugyldigt input");
+            alert.setContentText("Indtast venligst et tal for fad liter");
             alert.show();
+            return;
         }
 
+        txfFadType.clear();
+        txfFadLiter.clear();
+        OpretFadWindow.this.hide();
 
-        double fadLiter1 = Double.parseDouble(fadLiter);
-        Fad fad1 = Controller.opretFad(fadLiter1,fadType);
-
+        Fad fad1 = Controller.opretFad(fadLiterValue, fadType);
     }
 
     // -------------------------------------------------------------------------
