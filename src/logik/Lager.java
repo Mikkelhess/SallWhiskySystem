@@ -24,11 +24,7 @@ public class Lager {
     public void addReol(Reol reol) {
         reolMap.put(reol.getReolId(), reol);
     }
-    /**
-     * Fjerner reolen fra lageret. Checker om reolen ikke er null
-     * Hvis reol ikke er null, fjerner den alle hylder fra reolen, ved et for-each loop
-     * @param reolId ID på den reol som skal fjernes
-     */
+
     public void removeReol(int reolId) {
         reolMap.remove(reolId);
     }
@@ -36,12 +32,12 @@ public class Lager {
         return lagerId;
     }
 
-    public List<Reol> getReolList() {
-        return new ArrayList<>(reolMap.values());
+    public HashMap<Integer,Reol> getReolMap() {
+        return reolMap;
     }
 
     public Reol getReol(int reolId) {
-        return reolMap.get(reolId);
+       return reolMap.get(reolId);
     }
 
     @Override
