@@ -32,7 +32,7 @@ public class FadPane extends GridPane {
         opretFadWindow = new OpretFadWindow("Opret fad",new Stage());
 
         lvwFade = new ListView<>();
-        this.add(lvwFade, 1, 1, 1, 1);
+        this.add(lvwFade, 0, 1, 1, 1);
         lvwFade.setPrefSize(350, 200);
         lvwFade.getItems().setAll(Controller.getFadMap().values());
 

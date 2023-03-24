@@ -1,5 +1,6 @@
 package gui;
 
+import controller.Controller;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import logik.Fad;
+import logik.FadType;
 
 public class OpretFadWindow extends Stage {
 
@@ -35,6 +37,8 @@ public class OpretFadWindow extends Stage {
     private final TextField txfFadType = new TextField();
     private final TextField txfFadLiter = new TextField();
 
+    private ComboBox<FadType> cbbFadType;
+
     private Fad actualFad = null;
 
 
@@ -47,7 +51,11 @@ public class OpretFadWindow extends Stage {
 
         Label lblFadType = new Label("Fad type:");
         pane.add(lblFadType, 0, 1);
-        pane.add(txfFadType, 1,1,2,1);
+        //pane.add(txfFadType, 1,1,2,1);
+
+        cbbFadType = new ComboBox<>();
+        pane.add(cbbFadType, 1, 1);
+        cbbFadType.getItems().addAll(FadType.values());
 
         Label lblFadLiter = new Label("Fad liter:");
         pane.add(lblFadLiter, 0, 2);
@@ -66,6 +74,7 @@ public class OpretFadWindow extends Stage {
         buttonBox.getChildren().add(btnOK);
         btnOK.setOnAction(event -> this.okAction());
 
+
     }
 
     // -------------------------------------------------------------------------
@@ -80,13 +89,10 @@ public class OpretFadWindow extends Stage {
     }
 
     private void okAction() {
+        FadType fadType = cbbFadType.getSelectionModel().getSelectedItem();
+        String fadLiter = txfFadLiter.getText();
 
-        String pris = txfFadType.getText().trim();
-        String prisDobbelt = txfFadLiter.getText();
-
-
-
-        if (pris.length() > 0) {
+        if (fadType != null) {
             txfFadType.clear();
             OpretFadWindow.this.hide();
         } else {
@@ -97,7 +103,7 @@ public class OpretFadWindow extends Stage {
             alert.show();
         }
 
-        if (prisDobbelt.length() > 0) {
+        if (fadLiter.length() > 0) {
             txfFadLiter.clear();
             OpretFadWindow.this.hide();
         } else {
@@ -107,6 +113,10 @@ public class OpretFadWindow extends Stage {
             alert.setContentText("Indtast fad liter");
             alert.show();
         }
+
+
+        double fadLiter1 = Double.parseDouble(fadLiter);
+        Fad fad1 = Controller.opretFad(fadLiter1,fadType);
 
     }
 
