@@ -2,6 +2,7 @@ package logik;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class Lager {
@@ -28,17 +29,21 @@ public class Lager {
     public void removeReol(int reolId) {
         Reol reol = reolMap.remove(reolId);
         if (reol != null) {
-            for (Hylde hylde : reol.getHyldeMap().values()) {
-                reol.removeHylde(hylde.getHyldeId());
+            Iterator<Hylde> iterator = reol.getHyldeMap().values().iterator();
+            while (iterator.hasNext()) {
+                Hylde hylde = iterator.next();
+                iterator.remove(); // Removes the hylde from the reol's hyldeMap
+                reol.removeHylde(hylde.getHyldeId()); // Perform any other necessary cleanup
             }
         }
     }
+
     public int getLagerId() {
         return lagerId;
     }
 
     public HashMap<Integer,Reol> getReolMap() {
-        return reolMap;
+        return new HashMap<>(reolMap);
     }
 
     public Reol getReol(int reolId) {

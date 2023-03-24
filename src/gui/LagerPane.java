@@ -15,6 +15,8 @@ import logik.Hylde;
 import logik.Lager;
 import logik.Reol;
 
+import java.util.Optional;
+
 
 public class LagerPane extends GridPane {
 
@@ -89,17 +91,22 @@ public class LagerPane extends GridPane {
         lagerButtons.setAlignment(Pos.CENTER);
 
         btnOpretReol = new Button("Opret");
+        btnOpretReol.setOnAction(event -> this.opretReolAction());
         btnFjernReol = new Button("Fjern");
+        btnFjernReol.setOnAction(event -> this.removeReolAction());
         VBox reolButtons = new VBox(10, btnOpretReol, btnFjernReol);
         reolButtons.setAlignment(Pos.CENTER);
 
         btnOpretHylde = new Button("Opret");
+        btnOpretHylde.setOnAction(event -> this.opretHyldeAction());
         btnFjernHylde = new Button("Fjern");
+        btnFjernHylde.setOnAction(event -> this.removeHyldeAction());
         VBox hyldeButtons = new VBox(10, btnOpretHylde, btnFjernHylde);
         hyldeButtons.setAlignment(Pos.CENTER);
 
         btnTilføjFad = new Button("Tilføj");
         btnFjernFad = new Button("Fjern");
+        btnFjernFad.setOnAction(event -> removeFadAction());
         VBox fadButtons = new VBox(10, btnTilføjFad, btnFjernFad);
         fadButtons.setAlignment(Pos.CENTER);
 
@@ -140,15 +147,111 @@ public class LagerPane extends GridPane {
         }
     }
 
+    private void opretReolAction() {
+        Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
+        Controller.opretReol(lager);
+        lvwReoler.getItems().setAll(lager.getReolMap().values());
+    }
+    private void removeReolAction() {
+        Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
+        Reol reol = lvwReoler.getSelectionModel().getSelectedItem();
+        if (reol != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Fjern reol");
+            alert.setHeaderText(null);
+            alert.setContentText("Er du sikker på, at du vil fjerne reolen? Dette vil også fjerne alle hylder i reolen.");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Controller.removeReol(lager.getLagerId(), reol.getReolId());
+                lvwReoler.getItems().setAll(lager.getReolMap().values());
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg en reol");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg en reol som du vil fjerne");
+            alert.showAndWait();
+        }
+    }
+
+    private void opretHyldeAction() {
+        Reol reol = lvwReoler.getSelectionModel().getSelectedItem();
+        if (reol != null) {
+            Controller.opretHylde(reol);
+            lvwHylder.getItems().setAll(reol.getHyldeMap().values());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg en reol");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg en reol først, hvor hylden skal oprettes");
+            alert.showAndWait();
+        }
+    }
+
+    private void removeHyldeAction() {
+        Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
+        Reol reol = lvwReoler.getSelectionModel().getSelectedItem();
+        Hylde hylde = lvwHylder.getSelectionModel().getSelectedItem();
+        if (hylde != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Fjern hylde");
+            alert.setHeaderText(null);
+            //fjerner den alle fad helt eller bare fra hylden!!!
+            alert.setContentText("Er du sikker på, at du vil fjerne hylden? Dette vil også fjerne alle fad på hylden");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Controller.removeHylde(lager.getLagerId(), reol.getReolId(), hylde.getHyldeId());
+                lvwHylder.getItems().setAll(reol.getHyldeMap().values());
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg en hylde");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg en hylde som du vil fjerne");
+            alert.showAndWait();
+        }
+    }
+
+    //skal åbne et vindue hvor man vælger et fad som ikke allerede er på en hylde, og som man så tilføjer.
+    //skal man kunne flytte et fad fra en hylde til en anden? i guess man bare kan gøre det via 2 steps
+    private void tilføjFadAction() {
+
+    }
+
+    private void removeFadAction() {
+        Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
+        Reol reol = lvwReoler.getSelectionModel().getSelectedItem();
+        Hylde hylde = lvwHylder.getSelectionModel().getSelectedItem();
+        Fad fad = lvwFade.getSelectionModel().getSelectedItem();
+        if (fad != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Fjern fad");
+            alert.setHeaderText(null);
+            alert.setContentText("Er du sikker på, at du vil fjerne fadet?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Controller.removeFad(lager.getLagerId(), reol.getReolId(), hylde.getHyldeId(), fad.getFadId());
+                lvwFade.getItems().setAll(hylde.getFadPåHyldeMap().values());
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg et fad");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg et fad som du vil fjerne");
+            alert.showAndWait();
+        }
+    }
+
+
+
+
+
+
+
     public void updateList() {
         lvwLagre.getItems().setAll(Controller.getLagerMap().values());
     }
 
-    private void filAction() {
-        Reol selectedReol = lvwReoler.getSelectionModel().getSelectedItem();
-        if (selectedReol != null) {
-        }
-    }
 
     //skal opdatere hylde list view (se konference)
     private void selectedLagerChanged() {
