@@ -33,6 +33,7 @@ public class Lager {
             }
         }
     }
+
     public int getLagerId() {
         return lagerId;
     }

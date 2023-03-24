@@ -60,9 +60,9 @@ public class FadPane extends GridPane {
         lvwFade.getItems().setAll(Controller.getFadMap().values());
     }
     private void removeFadAction() {
-        Fad fade = lvwFade.getSelectionModel().getSelectedItem();
-        if (fade != null) {
-            Controller.removeFad(fade);
+        Fad fad = lvwFade.getSelectionModel().getSelectedItem();
+        if (fad != null) {
+            Controller.removeFad(fad);
             lvwFade.getItems().setAll(Controller.getFadMap().values());
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
