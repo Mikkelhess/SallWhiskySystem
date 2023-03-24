@@ -3,8 +3,10 @@ package controller;
 import logik.*;
 import storage.Storage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class Controller {
 
@@ -68,7 +70,7 @@ public class Controller {
     }
 
     public static Lager getLager(int lagerId) {
-        return null;
+        return Storage.getLagerMap().get(lagerId);
     }
     public static void removeLager(Lager lager) {
         Storage.removeLager(lager);
@@ -79,9 +81,11 @@ public class Controller {
         return getFadMap().get(fadId);
     }
 
-    // Mangler begrænsninger
-    public static void removeFad(Fad fad) {
-        Storage.removeFad(fad);
+    public static void removeFad(int lagerId, int reolId, int hyldeId, int fadId) {
+        Hylde hylde = getHylde(lagerId, reolId, hyldeId);
+        if (hylde != null) {
+            hylde.removeFadFraHylde(fadId);
+        }
     }
 
     public static Reol getReol(int lagerId, int reolId) {
@@ -92,7 +96,9 @@ public class Controller {
     // Mangler begrænsninger
     public static void removeReol(int lagerId, int reolId) {
         Lager lager = getLager(lagerId);
-        lager.removeReol(reolId);
+        if (lager != null) {
+            lager.removeReol(reolId);
+        }
     }
 
     public static Hylde getHylde(int lagerId, int reolId, int hyldeId) {
@@ -121,9 +127,15 @@ public class Controller {
         return Storage.getFadMap();
     }
 
-    public static HashMap<Integer,Reol> getReolMap() {
-        return getReolMap();
+    public static List<Fad> getFadUdenHyldeMap() {
+        ArrayList<Fad> fadUdenHyldeListe = new ArrayList<>();
+
+
+
+        return null;
     }
+
+
 
 //--------------------------------------------------------------------------------------
 
