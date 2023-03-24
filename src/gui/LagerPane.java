@@ -133,12 +133,20 @@ public class LagerPane extends GridPane {
         Controller.opretLager();
         lvwLagre.getItems().setAll(Controller.getLagerMap().values());
     }
+
     private void removeLagerAction() {
         Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
         if (lager != null) {
-            Controller.removeLager(lager);
-            lvwLagre.getItems().setAll(Controller.getLagerMap().values());
-        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Fjern reol");
+            alert.setHeaderText(null);
+            alert.setContentText("Er du sikker på, at du vil fjerne lageret? Dette vil også fjerne alle reoler på lageret.");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Controller.removeLager(lager);
+                lvwLagre.getItems().setAll(Controller.getLagerMap().values());
+            }
+        }else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Vælg et Lager");
             alert.setHeaderText(null);
@@ -197,7 +205,7 @@ public class LagerPane extends GridPane {
             alert.setTitle("Fjern hylde");
             alert.setHeaderText(null);
             //fjerner den alle fad helt eller bare fra hylden!!!
-            alert.setContentText("Er du sikker på, at du vil fjerne hylden? Dette vil også fjerne alle fad på hylden");
+            alert.setContentText("Er du sikker på, at du vil fjerne hylden?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 Controller.removeHylde(lager.getLagerId(), reol.getReolId(), hylde.getHyldeId());
@@ -214,6 +222,8 @@ public class LagerPane extends GridPane {
 
     //skal åbne et vindue hvor man vælger et fad som ikke allerede er på en hylde, og som man så tilføjer.
     //skal man kunne flytte et fad fra en hylde til en anden? i guess man bare kan gøre det via 2 steps
+    //skal kunne tilføjere mere end et fad af gangen. måske 2 list views, et med alle fad og et med dem man vil tilføje
+    //to listviews, pil til højre og venstre.
     private void tilføjFadAction() {
 
     }
