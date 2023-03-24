@@ -130,9 +130,22 @@ public class Controller {
     public static List<Fad> getFadUdenHyldeMap() {
         ArrayList<Fad> fadUdenHyldeListe = new ArrayList<>();
 
-
-
         return null;
+    }
+
+    public static HashMap<Integer,Reol> getReolMap(int lagerId) {
+        Lager lager = getLager(lagerId);
+        return lager.getReolMap();
+    }
+
+    public static HashMap<Integer,Hylde> getHyldeMap(int lagerId, int reolId) {
+        Reol reol = getReol(lagerId, reolId);
+        return reol.getHyldeMap();
+    }
+
+    public static HashMap<Integer,Fad> getFadPåHyldeMap(int lagerId, int reolId, int hyldeId) {
+        Hylde hylde = getHylde(lagerId, reolId, hyldeId);
+        return hylde.getFadPåHyldeMap();
     }
 
 
