@@ -37,8 +37,8 @@ public class Storage {
         lagerMap.remove(lager.getLagerId());
     }
 
-    public static void removeFad(int fadId) {
-        fadMap.remove(fadId);
+    public static void removeFad(Fad fad) {
+        fadMap.remove(fad);
     }
 
     public static void removeReol(int reolId) {

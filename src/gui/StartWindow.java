@@ -46,7 +46,12 @@ public class StartWindow extends Application {
         tabLagerManager.setContent(lagerPane);
         tabLagerManager.setOnSelectionChanged(event -> lagerPane.updateList());
 
+        Tab tabKonference = new Tab("Fad");
+        tabPane.getTabs().add(tabKonference);
 
+        FadPane fadPane = new FadPane();
+        tabKonference.setContent(fadPane);
+        tabKonference.setOnSelectionChanged(event -> fadPane.updateList());
 
     }
 
