@@ -32,12 +32,7 @@ public class Hylde {
     }
 
     public Fad getFadPåHylde(int fadId) {
-        for (Fad fad : getFadPåHyldeList()) {
-            if (fadId == fad.getFadId()) {
-                return fad;
-            }
-        }
-        return null;
+        return fadPåHyldeMap.get(fadId);
     }
 
     @Override
