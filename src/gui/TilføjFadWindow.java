@@ -11,12 +11,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import logik.Fad;
-import logik.FadType;
+import logik.*;
+import storage.Storage;
+
+import java.util.ArrayList;
 
 public class TilføjFadWindow extends Stage {
 
-    public TilføjFadWindow(String title, Stage owner) {
+    private Hylde hylde;
+    ListView<Fad> listViewLedigeFad;
+    ListView<Fad> listViewTilfojFad;
+    private ArrayList<Fad> fadeUdenHylde = new ArrayList<>(Controller.getFadUdenHylde());
+    private ArrayList<Fad> tilføjFadListe = new ArrayList<>();
+
+    public TilføjFadWindow(String title, Stage owner, Hylde hylde) {
         this.initOwner(owner);
         this.initStyle(StageStyle.UTILITY);
         this.initModality(Modality.APPLICATION_MODAL);
@@ -30,35 +38,32 @@ public class TilføjFadWindow extends Stage {
 
         Scene scene = new Scene(pane);
         this.setScene(scene);
+
+        this.hylde = hylde;
     }
 
     // -------------------------------------------------------------------------
 
-    private Fad fad;
-    private final TextField txfFadType = new TextField();
-    private final TextField txfFadLiter = new TextField();
-
-    private ComboBox<FadType> cbbFadType;
-
-    private Fad actualFad = null;
     private void initContent(GridPane pane) {
         // pane.setGridLinesVisible(true);
         pane.setPadding(new Insets(20));
         pane.setHgap(10);
         pane.setVgap(10);
 
-        // Create labels
         Label labelAlleFad = new Label("Ledige Fade");
         Label labelTilfojFad = new Label("Tilføj Fad til Hylde");
 
-        // Create list views
-        ListView<String> listViewAlleFad = new ListView<>();
-        ListView<String> listViewTilfojFad = new ListView<>();
+        listViewLedigeFad = new ListView<>();
+        listViewLedigeFad.getItems().setAll(fadeUdenHylde);
+        listViewTilfojFad = new ListView<>();
 
-        // Create buttons
         Button btnRightArrow = new Button("--->");
+        btnRightArrow.setOnAction(event -> leftArrowAction()); // Corrected event handler
         Button btnLeftArrow = new Button("<---");
+        btnLeftArrow.setOnAction(event -> rightArrowAction()); // Corrected event handler
         Button btnAccept = new Button("Accept");
+        btnAccept.setOnAction(event -> acceptAction());
+
 
         // Create VBox for buttons
         VBox buttons = new VBox(10);
@@ -67,60 +72,36 @@ public class TilføjFadWindow extends Stage {
 
         // Add components to the grid pane
         pane.add(labelAlleFad, 0, 0);
-        pane.add(listViewAlleFad, 0, 1);
+        pane.add(listViewLedigeFad, 0, 1);
         pane.add(buttons, 1, 1);
         pane.add(labelTilfojFad, 2, 0);
         pane.add(listViewTilfojFad, 2, 1);
     }
 
-
-    // -------------------------------------------------------------------------
-    // Button actions
-
     private void leftArrowAction() {
-
+        Fad selectedFad = listViewLedigeFad.getSelectionModel().getSelectedItem();
+        if (selectedFad != null) {
+            listViewLedigeFad.getItems().remove(selectedFad);
+            listViewTilfojFad.getItems().add(selectedFad);
+        }
     }
 
-    private void RightArrowAction() {
-
-    }
-
-    private void Accept() {
-        FadType fadType = cbbFadType.getSelectionModel().getSelectedItem();
-        String fadLiter = txfFadLiter.getText();
-
-        if (fadType == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Opret fad");
-            alert.setHeaderText("Manglende information");
-            alert.setContentText("Indtast fad type");
-            alert.show();
-            return;
+    private void rightArrowAction() {
+        Fad selectedFad = listViewTilfojFad.getSelectionModel().getSelectedItem();
+        if (selectedFad != null) {
+            listViewTilfojFad.getItems().remove(selectedFad);
+            listViewLedigeFad.getItems().add(selectedFad);
         }
 
-        double fadLiterValue;
-        try {
-            fadLiterValue = Double.parseDouble(fadLiter);
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Opret fad");
-            alert.setHeaderText("Ugyldigt input");
-            alert.setContentText("Indtast venligst et tal for fad liter");
-            alert.show();
-            return;
+    }
+
+    private void acceptAction() {
+        tilføjFadListe.clear();
+        tilføjFadListe.addAll(listViewTilfojFad.getItems());
+        tilføjFadListe.forEach(fad -> hylde.addFadTilHylde(fad));
+        this.hide();
         }
 
-        txfFadType.clear();
-        txfFadLiter.clear();
-        TilføjFadWindow.this.hide();
-
-        Fad fad1 = Controller.opretFad(fadLiterValue, fadType);
     }
 
-    // -------------------------------------------------------------------------
-
-    public Fad getActualFad() {
-        return actualFad;
-    }
-}
 

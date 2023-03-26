@@ -12,15 +12,13 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import logik.Fad;
 import logik.Hylde;
-import logik.Lager;
 import logik.Reol;
+import logik.Lager;
 
 import java.util.Optional;
 
 
 public class LagerPane extends GridPane {
-
-
 
     // -------------------------------------------------------------------------
     private ListView<Lager> lvwLagre;
@@ -33,15 +31,11 @@ public class LagerPane extends GridPane {
     private Button btnFjernLager, btnFjernReol, btnFjernHylde, btnFjernFad;
     private TilføjFadWindow tilføjFadWindow;
 
-
-
     public LagerPane() {
         this.setGridLinesVisible(false);
         this.setPadding(new Insets(20));
         this.setHgap(20);
         this.setVgap(10);
-
-        tilføjFadWindow = new TilføjFadWindow("Tilføj Fade", new Stage());
 
         lvwLagre = new ListView<>();
         this.add(lvwLagre, 0, 1, 1, 1);
@@ -233,15 +227,19 @@ public class LagerPane extends GridPane {
         }
     }
 
-    //skal åbne et vindue hvor man vælger et fad som ikke allerede er på en hylde, og som man så tilføjer.
-    //skal man kunne flytte et fad fra en hylde til en anden? i guess man bare kan gøre det via 2 steps
-    //skal kunne tilføjere mere end et fad af gangen. måske 2 list views, et med alle fad og et med dem man vil tilføje
-    //to listviews, pil til højre og venstre.
     private void tilføjFadAction() {
-            Hylde hylde = lvwHylder.getSelectionModel().getSelectedItem();
+        Hylde selectedHylde = lvwHylder.getSelectionModel().getSelectedItem();
+        if (selectedHylde != null) {
+            tilføjFadWindow = new TilføjFadWindow("Tilføj Fade", new Stage(), selectedHylde);
             tilføjFadWindow.showAndWait();
-            lvwFade.getItems().setAll(hylde.getFadPåHyldeMap().values());
-
+            lvwFade.getItems().setAll(selectedHylde.getFadPåHyldeMap().values());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg en hylde");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg en hylde som du vil tilføje fade til");
+            alert.showAndWait();
+        }
     }
 
     private void removeFadAction() {

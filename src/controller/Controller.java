@@ -127,10 +127,18 @@ public class Controller {
         return Storage.getFadMap();
     }
 
-    public static List<Fad> getFadUdenHyldeMap() {
-        ArrayList<Fad> fadUdenHyldeListe = new ArrayList<>();
-
-        return null;
+    public static List<Fad> getFadUdenHylde() {
+        ArrayList<Fad> fadUdenHyldeListe = new ArrayList<>(getFadMap().values());
+        for (Lager lager : Storage.getLagerMap().values()) {
+            for (Reol reol : lager.getReolMap().values()) {
+                for (Hylde hylde : reol.getHyldeMap().values()) {
+                    for (Fad fad : hylde.getFadPåHyldeMap().values()) {
+                        fadUdenHyldeListe.remove(fad);
+                    }
+                }
+            }
+        }
+        return fadUdenHyldeListe;
     }
 
     public static HashMap<Integer,Reol> getReolMap(int lagerId) {
