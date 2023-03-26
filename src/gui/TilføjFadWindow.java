@@ -61,13 +61,13 @@ public class TilføjFadWindow extends Stage {
         btnRightArrow.setOnAction(event -> leftArrowAction()); // Corrected event handler
         Button btnLeftArrow = new Button("<---");
         btnLeftArrow.setOnAction(event -> rightArrowAction()); // Corrected event handler
-        Button btnAccept = new Button("Accept");
-        btnAccept.setOnAction(event -> acceptAction());
+        Button btnAccepter = new Button("Accepter");
+        btnAccepter.setOnAction(event -> accepterAction());
 
 
         // Create VBox for buttons
         VBox buttons = new VBox(10);
-        buttons.getChildren().addAll(btnRightArrow, btnLeftArrow, btnAccept);
+        buttons.getChildren().addAll(btnRightArrow, btnLeftArrow, btnAccepter);
         buttons.setAlignment(Pos.CENTER);
 
         // Add components to the grid pane
@@ -95,7 +95,7 @@ public class TilføjFadWindow extends Stage {
 
     }
 
-    private void acceptAction() {
+    private void accepterAction() {
         tilføjFadListe.clear();
         tilføjFadListe.addAll(listViewTilfojFad.getItems());
         tilføjFadListe.forEach(fad -> hylde.addFadTilHylde(fad));
