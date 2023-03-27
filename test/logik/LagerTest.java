@@ -15,8 +15,8 @@ private Reol reol;
 
         //Assert
         assertNotNull(reol);
-        assertEquals(1, lager.getReolMap().size()); // Tjek om der er tilføjet en ny reol til lager
-        assertTrue(lager.getReolMap().containsKey(reol.getReolId())); // Tjek om reol findes i lagers hyldeMap
+        assertEquals(1, lager.getReolMap().size()); // Vi tjekker, om der er tilføjet en ny reol til lager
+        assertTrue(lager.getReolMap().containsKey(reol.getReolId())); // Tjekker om reol findes i lagers hyldeMap
     }
 
     @org.junit.jupiter.api.Test
