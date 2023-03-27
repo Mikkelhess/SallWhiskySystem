@@ -16,10 +16,10 @@ class ControllerTest {
     @Test
     void opretFad() {
             //Arrange
-            Controller controller = Controller.getController();
+            Controller controller = Controller.getTestController();
 
             //Act
-            double faktiskResultat = controller.
+            double faktiskResultat = controller
 
             //Assert
             double forventetResultat = 0;
