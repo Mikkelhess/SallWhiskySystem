@@ -44,9 +44,9 @@ private Reol reol;
         lager.removeReol(reol.getReolId());
 
         //Assert
-        assertNull(lager.getReol(reol.getReolId())); // Tjek om reolen er blevet fjernet fra lageret
-        assertEquals(0, lager.getReolMap().size()); // Tjek om lageret er tomt
-        assertNull(reol.getHylde(hylde1.getHyldeId())); // Tjek om den første hylde er blevet fjernet fra reolen
-        assertNull(reol.getHylde(hylde2.getHyldeId())); // Tjek om den anden hylde er blevet fjernet fra reolen
+        assertNull(lager.getReol(reol.getReolId())); // Vi tjekker om reolen er blevet fjernet fra lageret
+        assertEquals(0, lager.getReolMap().size()); // Tjekker om lageret er tomt
+        assertNull(reol.getHylde(hylde1.getHyldeId())); // Tjekker om den første hylde er blevet fjernet fra reolen
+        assertNull(reol.getHylde(hylde2.getHyldeId())); // Tjekker om den anden hylde er blevet fjernet fra reolen
     }
 }
