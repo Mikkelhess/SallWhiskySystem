@@ -9,7 +9,16 @@ import java.util.List;
 
 
 public class Controller {
-
+    private static Controller controller;
+    public static Controller getController() {
+        if (controller == null) {
+            controller = new Controller();
+        }
+        return controller;
+    }
+    public static Controller getTestController() {
+        return new Controller();
+    }
     /**
      * Opretter et nyt lager
      * @return lager
@@ -127,12 +136,33 @@ public class Controller {
         return Storage.getFadMap();
     }
 
-    public static List<Fad> getFadUdenHyldeMap() {
-        ArrayList<Fad> fadUdenHyldeListe = new ArrayList<>();
+    public static List<Fad> getFadUdenHylde() {
+        ArrayList<Fad> fadUdenHyldeListe = new ArrayList<>(getFadMap().values());
+        for (Lager lager : Storage.getLagerMap().values()) {
+            for (Reol reol : lager.getReolMap().values()) {
+                for (Hylde hylde : reol.getHyldeMap().values()) {
+                    for (Fad fad : hylde.getFadPåHyldeMap().values()) {
+                        fadUdenHyldeListe.remove(fad);
+                    }
+                }
+            }
+        }
+        return fadUdenHyldeListe;
+    }
 
+    public static HashMap<Integer,Reol> getReolMap(int lagerId) {
+        Lager lager = getLager(lagerId);
+        return lager.getReolMap();
+    }
 
+    public static HashMap<Integer,Hylde> getHyldeMap(int lagerId, int reolId) {
+        Reol reol = getReol(lagerId, reolId);
+        return reol.getHyldeMap();
+    }
 
-        return null;
+    public static HashMap<Integer,Fad> getFadPåHyldeMap(int lagerId, int reolId, int hyldeId) {
+        Hylde hylde = getHylde(lagerId, reolId, hyldeId);
+        return hylde.getFadPåHyldeMap();
     }
 
 

@@ -12,15 +12,13 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import logik.Fad;
 import logik.Hylde;
-import logik.Lager;
 import logik.Reol;
+import logik.Lager;
 
 import java.util.Optional;
 
 
 public class LagerPane extends GridPane {
-
-
 
     // -------------------------------------------------------------------------
     private ListView<Lager> lvwLagre;
@@ -31,7 +29,7 @@ public class LagerPane extends GridPane {
     private ListView <Fad> lvwFade;
     private Button btnOpretLager, btnOpretReol, btnOpretHylde, btnTilføjFad;
     private Button btnFjernLager, btnFjernReol, btnFjernHylde, btnFjernFad;
-
+    private TilføjFadWindow tilføjFadWindow;
 
     public LagerPane() {
         this.setGridLinesVisible(false);
@@ -105,6 +103,7 @@ public class LagerPane extends GridPane {
         hyldeButtons.setAlignment(Pos.CENTER);
 
         btnTilføjFad = new Button("Tilføj");
+        btnTilføjFad.setOnAction(event -> tilføjFadAction());
         btnFjernFad = new Button("Fjern");
         btnFjernFad.setOnAction(event -> removeFadAction());
         VBox fadButtons = new VBox(10, btnTilføjFad, btnFjernFad);
@@ -157,8 +156,16 @@ public class LagerPane extends GridPane {
 
     private void opretReolAction() {
         Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
-        Controller.opretReol(lager);
-        lvwReoler.getItems().setAll(lager.getReolMap().values());
+        if (lager != null) {
+            Controller.opretReol(lager);
+            lvwReoler.getItems().setAll(lager.getReolMap().values());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg et lager");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg et lager først, hvor reolen skal oprettes");
+            alert.showAndWait();
+        }
     }
     private void removeReolAction() {
         Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
@@ -220,12 +227,19 @@ public class LagerPane extends GridPane {
         }
     }
 
-    //skal åbne et vindue hvor man vælger et fad som ikke allerede er på en hylde, og som man så tilføjer.
-    //skal man kunne flytte et fad fra en hylde til en anden? i guess man bare kan gøre det via 2 steps
-    //skal kunne tilføjere mere end et fad af gangen. måske 2 list views, et med alle fad og et med dem man vil tilføje
-    //to listviews, pil til højre og venstre.
     private void tilføjFadAction() {
-
+        Hylde selectedHylde = lvwHylder.getSelectionModel().getSelectedItem();
+        if (selectedHylde != null) {
+            tilføjFadWindow = new TilføjFadWindow("Tilføj Fade", new Stage(), selectedHylde);
+            tilføjFadWindow.showAndWait();
+            lvwFade.getItems().setAll(selectedHylde.getFadPåHyldeMap().values());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg en hylde");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg en hylde som du vil tilføje fade til");
+            alert.showAndWait();
+        }
     }
 
     private void removeFadAction() {
