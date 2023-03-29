@@ -1,24 +1,30 @@
 package logik;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Hylde {
 
     private static int idCounter = 1;
     private final int hyldeId;
-    private HashMap<Integer, Fad> fadMap = new HashMap<>();
+    private HashMap<Integer, Fad> fadPåHyldeMap = new HashMap<>();
 
     public Hylde() {
         this.hyldeId = idCounter;
         idCounter++;
     }
 
-    public void addFad(Fad fad) {
-        fadMap.put(fad.getFadId(), fad);
+    public HashMap<Integer, Fad> getFadPåHyldeMap() {
+        return fadPåHyldeMap;
     }
 
-    public void removeFad(int fadId) {
-        fadMap.remove(fadId);
+    public void addFadTilHylde(Fad fad) {
+        fadPåHyldeMap.put(fad.getFadId(), fad);
+    }
+
+    public void removeFadFraHylde(int fadId) {
+        fadPåHyldeMap.remove(fadId);
     }
 
     public int getHyldeId() {
@@ -26,6 +32,8 @@ public class Hylde {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "Hylde " + hyldeId;
+    }
 }
