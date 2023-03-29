@@ -1,6 +1,4 @@
-package logik;
-
-import java.util.ArrayList;
+package version12;
 
 public class Whisky {
 
