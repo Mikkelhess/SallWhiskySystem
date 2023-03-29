@@ -1,5 +1,7 @@
 package logik;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LagerTest {
@@ -18,6 +20,22 @@ private Reol reol;
         assertEquals(1, lager.getReolMap().size()); // Vi tjekker, om der er tilføjet en ny reol til lager
         assertTrue(lager.getReolMap().containsKey(reol.getReolId())); // Tjekker om reol findes i lagers hyldeMap
     }
+
+    @Test
+    void createReol_increasesID() {
+        //Arrange
+        lager = new Lager();
+
+        //Act
+        Reol reol = lager.createReol();
+        Reol reol1 = lager.createReol();
+
+        //Assert
+        assertEquals(reol.getReolId(),1);
+        assertEquals(reol1.getReolId(),2);
+
+    }
+
 
     @org.junit.jupiter.api.Test
     void addReol() {
