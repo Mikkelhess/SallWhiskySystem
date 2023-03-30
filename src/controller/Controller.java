@@ -29,10 +29,10 @@ public class Controller {
      * @param fadType hvad der har lagret i fadet inden, eks. sherry
      * @return fad
      */
-    public static Fad opretFad(double størrelse, FadType fadType) {
+    public static Fad opretFad(double størrelse, FadType fadType, String leverandør) {
         if (størrelse <= 0 || fadType == null) {throw new NullPointerException("Angiv korrekte oplysninger.");}
 
-        Fad fad = new Fad(størrelse, fadType);
+        Fad fad = new Fad(størrelse, fadType, leverandør);
         Storage.addFad(fad);
         return fad;
     }
@@ -188,22 +188,22 @@ public class Controller {
         Hylde hylde5 = opretHylde(reol2);
         Hylde hylde6 = opretHylde(reol2);
 
-        Fad fad1 = opretFad(50, FadType.SHERRY);
-        Fad fad2 = opretFad(30, FadType.PORTVIN);
-        Fad fad3 = opretFad(100, FadType.BOURBON);
-        Fad fad4 = opretFad(20, FadType.COGNAC);
-        Fad fad5 = opretFad(40, FadType.RØDVIN);
-        Fad fad6 = opretFad(57, FadType.COGNAC);
-        Fad fad7 = opretFad(80, FadType.RØDVIN);
-        Fad fad8 = opretFad(104, FadType.BOURBON);
-        Fad fad9 = opretFad(44, FadType.COGNAC);
-        Fad fad10 = opretFad(47, FadType.RØDVIN);
-        Fad fad11 = opretFad(77, FadType.SHERRY);
-        Fad fad12 = opretFad(22, FadType.RØDVIN);
-        Fad fad13 = opretFad(99, FadType.PORTVIN);
-        Fad fad14 = opretFad(88, FadType.BOURBON);
-        Fad fad15 = opretFad(64, FadType.COGNAC);
-        Fad fad16 = opretFad(75, FadType.RØDVIN);
+        Fad fad1 = opretFad(50, FadType.SHERRY, "Leverandør 1");
+        Fad fad2 = opretFad(30, FadType.PORTVIN, "Leverandør 2");
+        Fad fad3 = opretFad(100, FadType.BOURBON, "Leverandør 3");
+        Fad fad4 = opretFad(20, FadType.COGNAC, "Leverandør 4");
+        Fad fad5 = opretFad(40, FadType.RØDVIN, "Leverandør 5");
+        Fad fad6 = opretFad(57, FadType.COGNAC, "Leverandør 6");
+        Fad fad7 = opretFad(80, FadType.RØDVIN,"Leverandør..." );
+        Fad fad8 = opretFad(104, FadType.BOURBON, "...");
+        Fad fad9 = opretFad(44, FadType.COGNAC, "...");
+        Fad fad10 = opretFad(47, FadType.RØDVIN, "...");
+        Fad fad11 = opretFad(77, FadType.SHERRY, "...");
+        Fad fad12 = opretFad(22, FadType.RØDVIN, "...");
+        Fad fad13 = opretFad(99, FadType.PORTVIN, "...");
+        Fad fad14 = opretFad(88, FadType.BOURBON, "...");
+        Fad fad15 = opretFad(64, FadType.COGNAC, "...");
+        Fad fad16 = opretFad(75, FadType.RØDVIN, "...");
 
         addFadtilHylde(hylde, fad1);
         addFadtilHylde(hylde, fad2);

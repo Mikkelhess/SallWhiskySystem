@@ -36,6 +36,7 @@ public class OpretFadWindow extends Stage {
    private Fad fad;
     private final TextField txfFadType = new TextField();
     private final TextField txfFadLiter = new TextField();
+    private final TextField txfLeverandør = new TextField();
 
     private ComboBox<FadType> cbbFadType;
 
@@ -60,6 +61,10 @@ public class OpretFadWindow extends Stage {
         Label lblFadLiter = new Label("Fad liter:");
         pane.add(lblFadLiter, 0, 2);
         pane.add(txfFadLiter, 1,2,2,1);
+
+        Label lblLeverandør = new Label("Leverandør:");
+        pane.add(lblLeverandør, 0, 3);
+        pane.add(txfLeverandør, 1, 3,2,1);
 
         HBox buttonBox = new HBox(20);
         pane.add(buttonBox, 0, 6);
@@ -91,6 +96,7 @@ public class OpretFadWindow extends Stage {
     private void okAction() {
         FadType fadType = cbbFadType.getSelectionModel().getSelectedItem();
         String fadLiter = txfFadLiter.getText();
+        String leverandør = txfLeverandør.getText();
 
         if (fadType == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -115,9 +121,10 @@ public class OpretFadWindow extends Stage {
 
         txfFadType.clear();
         txfFadLiter.clear();
+        txfLeverandør.clear();
         OpretFadWindow.this.hide();
 
-        Fad fad1 = Controller.opretFad(fadLiterValue, fadType);
+        Fad fad1 = Controller.opretFad(fadLiterValue, fadType, leverandør);
     }
 
     // -------------------------------------------------------------------------

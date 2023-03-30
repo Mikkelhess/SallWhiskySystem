@@ -18,6 +18,7 @@ public class FadPane extends GridPane {
     private ListView<Fad> lvwFade;
     private Button btnOpretFad;
     private Button btnFjernFad;
+    private Button btnHistorik;
 
     private HBox btnFadBox, btnServBox;
 
@@ -57,6 +58,9 @@ public class FadPane extends GridPane {
         btnFadBox.getChildren().add(btnFjernFad);
         btnFjernFad.setOnAction(event -> this.removeFadAction());
 
+        btnHistorik = new Button("Historik");
+        btnFadBox.getChildren().add(btnHistorik);
+        btnHistorik.setOnAction(event -> this.historikAction());
 
     }
 
@@ -78,6 +82,10 @@ public class FadPane extends GridPane {
             alert.setContentText("Vælg et fad som du vil fjerne");
             alert.showAndWait();
         }
+    }
+
+    private void historikAction() {
+
     }
 
     public void updateList() {
