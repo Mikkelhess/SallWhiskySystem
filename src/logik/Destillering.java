@@ -29,7 +29,7 @@ public class Destillering {
         this.rygeMateriale = rygeMateriale;
         this.kommentar = kommentar;
 
-        liter = totalLiter;
+        liter = udregnLiter();
 
         destilleringId = idCounter;
         idCounter++;
@@ -48,6 +48,15 @@ public class Destillering {
 
     public void removeDestillat(int newMakeNummer){
         destillatMap.remove(newMakeNummer);
+    }
+
+    public double udregnLiter() {
+        double liter = 0;
+
+        for (Destillat destillat : destillatMap.values()) {
+            liter += destillat.getLiter();
+        }
+        return totalLiter - liter;
     }
 
     public int getDestilleringId() {
