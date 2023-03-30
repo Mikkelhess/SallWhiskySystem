@@ -9,16 +9,9 @@ import java.util.List;
 
 
 public class Controller {
-    private static Controller controller;
-    public static Controller getController() {
-        if (controller == null) {
-            controller = new Controller();
-        }
-        return controller;
-    }
-    public static Controller getTestController() {
-        return new Controller();
-    }
+
+
+
     /**
      * Opretter et nyt lager
      * @return lager

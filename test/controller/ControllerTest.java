@@ -9,21 +9,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
     Fad fad;
+
     @BeforeEach
-    void setUp(){
+    void setUp() {
         this.fad = new Fad(20.00, FadType.BOURBON);
     }
+
     @Test
     void opretFad() {
-            //Arrange
-            Controller controller = Controller.getTestController();
+        //Arrange
 
-            //Act
-            double faktiskResultat = controller
+        double størrelse = 20.00;
+        FadType fadType = FadType.BOURBON;
+        //Act
+        Fad actualFad = Controller.opretFad(størrelse,fadType);
 
-            //Assert
-            double forventetResultat = 0;
-            assertEquals(forventetResultat,faktiskResultat);
-        }
+        //Assert
+        double forventetResultat = 0;
+        assertEquals(størrelse,actualFad.getFadLiter());
+        assertEquals(fadType,actualFad.getFadType());
     }
 }
