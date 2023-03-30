@@ -1,9 +1,11 @@
 package logik;
 
+import java.util.HashMap;
+
 public class Fad {
 
     private double fadLiter;
-
+    private HashMap<Integer, Destillat> destillatMap = new HashMap<>();
     private static int idCounter = 1;
     private final int fadId;
     private FadType fadType;
@@ -13,6 +15,14 @@ public class Fad {
         this.fadLiter = fadLiter;
         fadId = idCounter;
         idCounter++;
+    }
+
+    public void addDestillat(int newMakeNummer, Destillat destillat) {
+        destillatMap.put(newMakeNummer, destillat);
+    }
+
+    public void removeDestillat(int newMakeNummer) {
+        destillatMap.remove(newMakeNummer);
     }
 
     public int getFadId() {
