@@ -10,6 +10,7 @@ public class Fad {
     private final int fadId;
     private FadType fadType;
 
+
     public Fad(double fadLiter, FadType fadType) {
         this.fadType = fadType;
         this.fadLiter = fadLiter;

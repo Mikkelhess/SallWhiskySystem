@@ -33,8 +33,8 @@ public class Destillering {
     }
 
 
-    public Destillat createDestillat(double liter, int NewMakeNummer, double alkoholProcent) {
-        Destillat destillat = new Destillat(liter, NewMakeNummer, alkoholProcent);
+    public Destillat createDestillat(double liter, double alkoholProcent) {
+        Destillat destillat = new Destillat(liter, alkoholProcent);
         addDestillat(destillat.getNewMakeNummer(), destillat);
         return destillat;
     }
@@ -47,8 +47,52 @@ public class Destillering {
         destillatMap.remove(newMakeNummer);
     }
 
+    public int getDestilleringId() {
+        return destilleringId;
+    }
 
+    public static int getIdCounter() {
+        return idCounter;
+    }
 
+    public String getMedarbejderNavn() {
+        return medarbejderNavn;
+    }
 
+    public LocalDate getStartDato() {
+        return startDato;
+    }
 
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
+    public String getMaltBatch() {
+        return maltBatch;
+    }
+
+    public String getKornsort() {
+        return kornsort;
+    }
+
+    public double getTotalLiter() {
+        return totalLiter;
+    }
+
+    public String getRygeMateriale() {
+        return rygeMateriale;
+    }
+
+    public String getKommentar() {
+        return kommentar;
+    }
+
+    public HashMap<Integer, Destillat> getDestillatMap() {
+        return new HashMap<>(destillatMap);
+    }
+
+    @Override
+    public String toString() {
+        return "Destillering " + destilleringId;
+    }
 }

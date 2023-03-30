@@ -3,6 +3,7 @@ package controller;
 import logik.*;
 import storage.Storage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +58,13 @@ public class Controller {
         Hylde hylde = reol.createHylde();
         return hylde;
     }
+
+    public static Destillering opretDestillering(String medarbejderNavn, LocalDate startDato, LocalDate slutdato, String maltBatch, String kornsort, double totalLiter, String rygemateriale, String kommentar) {
+        Destillering destillering = new Destillering(medarbejderNavn, startDato, slutdato, maltBatch, kornsort, totalLiter, rygemateriale, kommentar);
+        Storage.addDestillering(destillering);
+        return destillering;
+    }
+
 
 
 
@@ -158,6 +166,10 @@ public class Controller {
         return hylde.getFadPåHyldeMap();
     }
 
+    public static HashMap<Integer,Destillering> getDestilleringMap() {
+        return Storage.getDestilleringMap();
+    }
+
 
 
 //--------------------------------------------------------------------------------------
@@ -203,6 +215,12 @@ public class Controller {
         addFadtilHylde(hylde5, fad8);
         addFadtilHylde(hylde6, fad9);
         addFadtilHylde(hylde6, fad10);
+
+        Destillering destillering1 = opretDestillering("Kim", LocalDate.of(2023, 3, 30), LocalDate.of(2023, 4, 1), "MALT", "KORN", 800.0, "RYGEMATERIALE", "Sådan venner");
+        destillering1.createDestillat(100.0, 60.0);
+
+
+
 
     }
 
