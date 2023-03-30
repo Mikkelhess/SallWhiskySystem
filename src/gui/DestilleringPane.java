@@ -19,10 +19,10 @@ public class DestilleringPane extends GridPane {
     // -------------------------------------------------------------------------
     private ListView<Destillering> lvwDestilleringer;
     private ListView<Destillat> lvwDestillater;
-
-
-
-
+    private Button btnOpretDestillering;
+    private Button btnFjernDestillering;
+    private Button btnOpretDestillat;
+    private Button btnFjernDestillat;
 
     public DestilleringPane() {
         this.setGridLinesVisible(false);
@@ -47,7 +47,40 @@ public class DestilleringPane extends GridPane {
         ChangeListener<Destillering> listener = (ov, o, n) -> this.selectedDestilleringChanged();
         lvwDestilleringer.getSelectionModel().selectedItemProperty().addListener(listener);
 
+        btnOpretDestillering = new Button("Opret");
+        btnOpretDestillering.setOnAction(event -> this.opretDestilleringAction());
+        btnFjernDestillering = new Button("Fjern");
+        btnFjernDestillering.setOnAction(event -> this.removeDestilleringAction());
+        HBox destilleringButtons = new HBox(10, btnOpretDestillering, btnFjernDestillering);
+        destilleringButtons.setAlignment(Pos.CENTER);
 
+        btnOpretDestillat = new Button("Opret");
+        btnOpretDestillat.setOnAction(event -> this.opretDestillatAction());
+        btnFjernDestillat = new Button("Fjern");
+        btnFjernDestillat.setOnAction(event -> this.fjernDestillatAction());
+        HBox destillatButtons = new HBox(10, btnOpretDestillat, btnFjernDestillat);
+        destillatButtons.setAlignment(Pos.CENTER);
+
+        VBox destilleringVBox = new VBox(label, lvwDestilleringer, destilleringButtons);
+        VBox destillatVBox = new VBox(label2, lvwDestillater, destillatButtons);
+
+        destilleringVBox.setSpacing(10);
+        destillatVBox.setSpacing(10);
+
+        this.add(destilleringVBox, 0, 0);
+        this.add(destillatVBox, 1, 0);
+    }
+
+    private void fjernDestillatAction() {
+    }
+
+    private void opretDestillatAction() {
+    }
+
+    private void removeDestilleringAction() {
+    }
+
+    private void opretDestilleringAction() {
     }
 
     private void selectedDestilleringChanged() {

@@ -13,7 +13,8 @@ public class Destillering {
     private LocalDate slutDato;
     private String maltBatch;
     private String kornsort;
-    private final double totalLiter;
+    private double totalLiter;
+    private double liter;
     private String rygeMateriale;
     private String kommentar;
 
@@ -27,6 +28,7 @@ public class Destillering {
         this.totalLiter = totalLiter;
         this.rygeMateriale = rygeMateriale;
         this.kommentar = kommentar;
+        liter = totalLiter;
 
         destilleringId = idCounter;
         idCounter++;
@@ -93,6 +95,6 @@ public class Destillering {
 
     @Override
     public String toString() {
-        return "Destillering " + destilleringId;
+        return "Destillering " + destilleringId + ": " + liter + " / " + totalLiter + " liter";
     }
 }
