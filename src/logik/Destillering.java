@@ -28,6 +28,7 @@ public class Destillering {
         this.totalLiter = totalLiter;
         this.rygeMateriale = rygeMateriale;
         this.kommentar = kommentar;
+
         liter = totalLiter;
 
         destilleringId = idCounter;

@@ -23,6 +23,7 @@ public class DestilleringPane extends GridPane {
     private Button btnFjernDestillering;
     private Button btnOpretDestillat;
     private Button btnFjernDestillat;
+    private OpretDestilleringWindow opretDestilleringWindow;
 
     public DestilleringPane() {
         this.setGridLinesVisible(false);
@@ -30,6 +31,7 @@ public class DestilleringPane extends GridPane {
         this.setHgap(20);
         this.setVgap(10);
 
+        opretDestilleringWindow = new OpretDestilleringWindow("Opret Destillering", new Stage());
 
         Label label = new Label("Destilleringer");
         this.add(label, 0, 0);
@@ -71,16 +73,36 @@ public class DestilleringPane extends GridPane {
         this.add(destillatVBox, 1, 0);
     }
 
+    private void opretDestilleringAction() {
+        opretDestilleringWindow.showAndWait();
+        lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
+    }
+
+    private void removeDestilleringAction() {
+        Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
+        if (destillering != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Fjern reol");
+            alert.setHeaderText(null);
+            alert.setContentText("Er du sikker på, at du vil fjerne destilleringen? Dette vil også fjerne dens indhold.");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Controller.removeDestillering(destillering);
+                lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
+            }
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg et Lager");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg et lager som du vil fjerne");
+            alert.showAndWait();
+        }
+    }
+
     private void fjernDestillatAction() {
     }
 
     private void opretDestillatAction() {
-    }
-
-    private void removeDestilleringAction() {
-    }
-
-    private void opretDestilleringAction() {
     }
 
     private void selectedDestilleringChanged() {

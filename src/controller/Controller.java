@@ -65,8 +65,8 @@ public class Controller {
         return destillering;
     }
 
-
-
+    public static void removeDestillering(Destillering destillering) {
+    }
 
     /**
      * Tilføjer et fad til en hylde
@@ -223,5 +223,4 @@ public class Controller {
 
 
     }
-
 }
