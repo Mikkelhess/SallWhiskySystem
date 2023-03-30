@@ -6,12 +6,14 @@ import java.util.HashMap;
 public class Destillering {
 
     private HashMap<Integer, Destillat> destillatMap = new HashMap<>();
+    private int destilleringId;
+    private static int idCounter = 1;
     private String medarbejderNavn;
     private LocalDate startDato;
     private LocalDate slutDato;
     private String maltBatch;
     private String kornsort;
-    private double totalLiter;
+    private final double totalLiter;
     private String rygeMateriale;
     private String kommentar;
 
@@ -25,6 +27,9 @@ public class Destillering {
         this.totalLiter = totalLiter;
         this.rygeMateriale = rygeMateriale;
         this.kommentar = kommentar;
+
+        destilleringId = idCounter;
+        idCounter++;
     }
 
 
