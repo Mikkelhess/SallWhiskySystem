@@ -1,5 +1,7 @@
 package logik;
 
+import storage.Storage;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 
@@ -44,6 +46,7 @@ public class Destillering {
 
     public void addDestillat(int newMakeNummer, Destillat destillat) {
         destillatMap.put(newMakeNummer, destillat);
+        Storage.addDestillat(destillat);
     }
 
     public void removeDestillat(int newMakeNummer){

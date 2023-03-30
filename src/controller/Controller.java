@@ -170,6 +170,10 @@ public class Controller {
         return Storage.getDestilleringMap();
     }
 
+    public static HashMap<Integer,Destillat> getDestillatMap (){
+        return Storage.getDestillatMap();
+    }
+
 
 
 //--------------------------------------------------------------------------------------
