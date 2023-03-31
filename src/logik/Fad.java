@@ -40,6 +40,10 @@ public class Fad {
         return fadLiter;
     }
 
+    public HashMap<Integer, Destillat> getDestillatMap() {
+        return destillatMap;
+    }
+
     @Override
     public String toString() {
         return "Fad " + fadId + ": " + fadType + ". Kapacitet: " + fadLiter + " liter. " + "Leverandør: " + leverandør;
