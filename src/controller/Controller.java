@@ -66,6 +66,7 @@ public class Controller {
     }
 
     public static void removeDestillering(Destillering destillering) {
+        getDestilleringMap().values().remove(destillering);
     }
 
     /**
@@ -221,8 +222,7 @@ public class Controller {
         addFadtilHylde(hylde6, fad10);
 
         Destillering destillering1 = opretDestillering("Kim", LocalDate.of(2023, 3, 30), LocalDate.of(2023, 4, 1), "MALT", "KORN", 800.0, "RYGEMATERIALE", "Sådan venner");
-        destillering1.createDestillat(100.0, 60.0);
-
+        Destillat destillat1 = destillering1.createDestillat(100.0, 60.0);
 
 
 

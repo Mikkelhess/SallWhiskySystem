@@ -31,8 +31,6 @@ public class Destillering {
         this.rygeMateriale = rygeMateriale;
         this.kommentar = kommentar;
 
-        liter = udregnLiter();
-
         destilleringId = idCounter;
         idCounter++;
     }
@@ -41,6 +39,7 @@ public class Destillering {
     public Destillat createDestillat(double liter, double alkoholProcent) {
         Destillat destillat = new Destillat(liter, alkoholProcent);
         addDestillat(destillat.getNewMakeNummer(), destillat);
+        udregnLiter();
         return destillat;
     }
 
@@ -58,6 +57,7 @@ public class Destillering {
         for (Destillat destillat : destillatMap.values()) {
             liter += destillat.getLiter();
         }
+        setLiter(totalLiter-liter);
         return totalLiter - liter;
     }
 
@@ -67,6 +67,10 @@ public class Destillering {
 
     public static int getIdCounter() {
         return idCounter;
+    }
+
+    public void setLiter(double liter) {
+        this.liter = liter;
     }
 
     public String getMedarbejderNavn() {
