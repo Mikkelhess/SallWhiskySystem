@@ -66,6 +66,7 @@ public class Controller {
     }
 
     public static void removeDestillering(Destillering destillering) {
+        getDestilleringMap().values().remove(destillering);
     }
 
     /**

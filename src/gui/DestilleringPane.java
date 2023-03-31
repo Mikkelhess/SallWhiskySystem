@@ -82,7 +82,7 @@ public class DestilleringPane extends GridPane {
         Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
         if (destillering != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Fjern reol");
+            alert.setTitle("Fjern Destillering");
             alert.setHeaderText(null);
             alert.setContentText("Er du sikker på, at du vil fjerne destilleringen? Dette vil også fjerne dens indhold.");
             Optional<ButtonType> result = alert.showAndWait();
