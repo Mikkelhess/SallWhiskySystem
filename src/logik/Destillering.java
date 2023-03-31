@@ -34,6 +34,10 @@ public class Destillering {
         return destillat;
     }
 
+    public boolean checkTilgængeligLiter(double liter) {
+        // TODO
+    }
+
     public void addDestillat(int newMakeNummer, Destillat destillat) {
         destillatMap.put(newMakeNummer, destillat);
     }
