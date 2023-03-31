@@ -166,7 +166,7 @@ public class Controller {
         return hylde.getFadPåHyldeMap();
     }
 
-    public static HashMap<Integer,Destillat> getDestillatMap(int fadId) {
+    public static HashMap<Integer,Destillat> getDestillatPåFadMap(int fadId) {
         Fad fad = getFad(fadId);
         return fad.getDestillatMap();
     }
