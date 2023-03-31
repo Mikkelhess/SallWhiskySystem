@@ -1,20 +1,22 @@
 package logik;
 
-import com.sun.jdi.Value;
+import storage.Storage;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Destillering {
 
     private HashMap<Integer, Destillat> destillatMap = new HashMap<>();
+    private int destilleringId;
+    private static int idCounter = 1;
     private String medarbejderNavn;
     private LocalDate startDato;
     private LocalDate slutDato;
     private String maltBatch;
     private String kornsort;
     private double totalLiter;
+    private double liter;
     private String rygeMateriale;
     private String kommentar;
 
@@ -28,43 +30,84 @@ public class Destillering {
         this.totalLiter = totalLiter;
         this.rygeMateriale = rygeMateriale;
         this.kommentar = kommentar;
+
+        liter = udregnLiter();
+
+        destilleringId = idCounter;
+        idCounter++;
     }
 
 
-    public Destillat createDestillat(double liter, int NewMakeNummer, double alkoholProcent) {
-        Destillat destillat = new Destillat(liter, NewMakeNummer, alkoholProcent);
+    public Destillat createDestillat(double liter, double alkoholProcent) {
+        Destillat destillat = new Destillat(liter, alkoholProcent);
         addDestillat(destillat.getNewMakeNummer(), destillat);
         return destillat;
     }
 
-    /**
-     * Looper igennem destillatMap vha. for-each loop
-     * og checker om hvorvidt liter er mindre eller lig med litreBrugt - totalLiter
-     * @param liter den værdi som skal tjekkes imod litre som er tilgængelige
-     * @return true eller false alt efter om der er litre tilgængelig
-     */
-    public boolean checkIfTilgængeligLiter(double liter) {
-        double litreBrugt = 0;
-        for (Map.Entry<Integer, Destillat> entry : destillatMap.entrySet()) {
-            litreBrugt += entry.getValue().getLiter();
-        }
-        if (liter <= (totalLiter - litreBrugt)) {
-            return true;
-        }
-        return false;
-    }
-
-
     public void addDestillat(int newMakeNummer, Destillat destillat) {
         destillatMap.put(newMakeNummer, destillat);
+        Storage.addDestillat(destillat);
     }
 
     public void removeDestillat(int newMakeNummer){
         destillatMap.remove(newMakeNummer);
     }
 
+    public double udregnLiter() {
+        double liter = 0;
 
+        for (Destillat destillat : destillatMap.values()) {
+            liter += destillat.getLiter();
+        }
+        return totalLiter - liter;
+    }
 
+    public int getDestilleringId() {
+        return destilleringId;
+    }
 
+    public static int getIdCounter() {
+        return idCounter;
+    }
 
+    public String getMedarbejderNavn() {
+        return medarbejderNavn;
+    }
+
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
+    public String getMaltBatch() {
+        return maltBatch;
+    }
+
+    public String getKornsort() {
+        return kornsort;
+    }
+
+    public double getTotalLiter() {
+        return totalLiter;
+    }
+
+    public String getRygeMateriale() {
+        return rygeMateriale;
+    }
+
+    public String getKommentar() {
+        return kommentar;
+    }
+
+    public HashMap<Integer, Destillat> getDestillatMap() {
+        return new HashMap<>(destillatMap);
+    }
+
+    @Override
+    public String toString() {
+        return "Destillering " + destilleringId + ": " + liter + " / " + totalLiter + " liter";
+    }
 }

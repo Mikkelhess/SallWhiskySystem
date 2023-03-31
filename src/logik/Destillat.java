@@ -1,5 +1,6 @@
 package logik;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Destillat {
@@ -9,7 +10,8 @@ public class Destillat {
     private static int newMakeCounter = 1;
     private double alkoholProcent;
 
-    public Destillat(double liter, int newMakeNummer, double alkoholProcent) {
+
+    public Destillat(double liter, double alkoholProcent) {
         this.liter = liter;
         this.alkoholProcent = alkoholProcent;
 
@@ -31,5 +33,10 @@ public class Destillat {
 
     public double getAlkoholProcent() {
         return alkoholProcent;
+    }
+
+    @Override
+    public String toString() {
+        return "Destillat " + newMakeNummer + ": " + liter + " liter," + " Alkoholprocent: " + alkoholProcent;
     }
 }

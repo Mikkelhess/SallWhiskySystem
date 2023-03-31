@@ -13,9 +13,9 @@ import javafx.stage.StageStyle;
 import logik.Fad;
 import logik.FadType;
 
-public class OpretFadWindow extends Stage {
+public class OpretDestilleringWindow extends Stage {
 
-    public OpretFadWindow(String title, Stage owner) {
+    public OpretDestilleringWindow(String title, Stage owner) {
         this.initOwner(owner);
         this.initStyle(StageStyle.UTILITY);
         this.initModality(Modality.APPLICATION_MODAL);
@@ -33,7 +33,7 @@ public class OpretFadWindow extends Stage {
 
     // -------------------------------------------------------------------------
 
-   private Fad fad;
+    private Fad fad;
     private final TextField txfFadType = new TextField();
     private final TextField txfFadLiter = new TextField();
     private final TextField txfLeverandør = new TextField();
@@ -90,7 +90,7 @@ public class OpretFadWindow extends Stage {
         txfFadType.clear();
         txfFadLiter.clear();
         actualFad = null;
-        OpretFadWindow.this.hide();
+        OpretDestilleringWindow.this.hide();
     }
 
     private void okAction() {
@@ -122,7 +122,7 @@ public class OpretFadWindow extends Stage {
         txfFadType.clear();
         txfFadLiter.clear();
         txfLeverandør.clear();
-        OpretFadWindow.this.hide();
+        OpretDestilleringWindow.this.hide();
 
         Fad fad1 = Controller.opretFad(fadLiterValue, fadType, leverandør);
     }
@@ -133,4 +133,5 @@ public class OpretFadWindow extends Stage {
         return actualFad;
     }
 }
+
 

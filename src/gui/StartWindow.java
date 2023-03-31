@@ -49,12 +49,28 @@
             tabLagerManager.setContent(lagerPane);
             tabLagerManager.setOnSelectionChanged(event -> lagerPane.updateList());
 
-            Tab tabKonference = new Tab("Fad");
-            tabPane.getTabs().add(tabKonference);
+            Tab tabFad = new Tab("Fad");
+            tabPane.getTabs().add(tabFad);
 
             FadPane fadPane = new FadPane();
-            tabKonference.setContent(fadPane);
-            tabKonference.setOnSelectionChanged(event -> fadPane.updateList());
+            tabFad.setContent(fadPane);
+            tabFad.setOnSelectionChanged(event -> fadPane.updateList());
+
+            Tab tabDestillering = new Tab("Destillering");
+            tabPane.getTabs().add(tabDestillering);
+
+            DestilleringPane destilleringPane = new DestilleringPane();
+            tabDestillering.setContent(destilleringPane);
+            //tabDestillering.setOnSelectionChanged(event -> destilleringPane.updateList());
+
+
+
+
+
+
+
+
+
 
         }
 

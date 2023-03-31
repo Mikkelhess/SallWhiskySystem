@@ -3,6 +3,7 @@ package controller;
 import logik.*;
 import storage.Storage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,10 +29,10 @@ public class Controller {
      * @param fadType hvad der har lagret i fadet inden, eks. sherry
      * @return fad
      */
-    public static Fad opretFad(double størrelse, FadType fadType) {
+    public static Fad opretFad(double størrelse, FadType fadType, String leverandør) {
         if (størrelse <= 0 || fadType == null) {throw new NullPointerException("Angiv korrekte oplysninger.");}
 
-        Fad fad = new Fad(størrelse, fadType);
+        Fad fad = new Fad(størrelse, fadType, leverandør);
         Storage.addFad(fad);
         return fad;
     }
@@ -58,7 +59,14 @@ public class Controller {
         return hylde;
     }
 
+    public static Destillering opretDestillering(String medarbejderNavn, LocalDate startDato, LocalDate slutdato, String maltBatch, String kornsort, double totalLiter, String rygemateriale, String kommentar) {
+        Destillering destillering = new Destillering(medarbejderNavn, startDato, slutdato, maltBatch, kornsort, totalLiter, rygemateriale, kommentar);
+        Storage.addDestillering(destillering);
+        return destillering;
+    }
 
+    public static void removeDestillering(Destillering destillering) {
+    }
 
     /**
      * Tilføjer et fad til en hylde
@@ -158,6 +166,14 @@ public class Controller {
         return hylde.getFadPåHyldeMap();
     }
 
+    public static HashMap<Integer,Destillering> getDestilleringMap() {
+        return Storage.getDestilleringMap();
+    }
+
+    public static HashMap<Integer,Destillat> getDestillatMap (){
+        return Storage.getDestillatMap();
+    }
+
 
 
 //--------------------------------------------------------------------------------------
@@ -176,22 +192,22 @@ public class Controller {
         Hylde hylde5 = opretHylde(reol2);
         Hylde hylde6 = opretHylde(reol2);
 
-        Fad fad1 = opretFad(50, FadType.SHERRY);
-        Fad fad2 = opretFad(30, FadType.PORTVIN);
-        Fad fad3 = opretFad(100, FadType.BOURBON);
-        Fad fad4 = opretFad(20, FadType.COGNAC);
-        Fad fad5 = opretFad(40, FadType.RØDVIN);
-        Fad fad6 = opretFad(57, FadType.COGNAC);
-        Fad fad7 = opretFad(80, FadType.RØDVIN);
-        Fad fad8 = opretFad(104, FadType.BOURBON);
-        Fad fad9 = opretFad(44, FadType.COGNAC);
-        Fad fad10 = opretFad(47, FadType.RØDVIN);
-        Fad fad11 = opretFad(77, FadType.SHERRY);
-        Fad fad12 = opretFad(22, FadType.RØDVIN);
-        Fad fad13 = opretFad(99, FadType.PORTVIN);
-        Fad fad14 = opretFad(88, FadType.BOURBON);
-        Fad fad15 = opretFad(64, FadType.COGNAC);
-        Fad fad16 = opretFad(75, FadType.RØDVIN);
+        Fad fad1 = opretFad(50, FadType.SHERRY, "Leverandør 1");
+        Fad fad2 = opretFad(30, FadType.PORTVIN, "Leverandør 2");
+        Fad fad3 = opretFad(100, FadType.BOURBON, "Leverandør 3");
+        Fad fad4 = opretFad(20, FadType.COGNAC, "Leverandør 4");
+        Fad fad5 = opretFad(40, FadType.RØDVIN, "Leverandør 5");
+        Fad fad6 = opretFad(57, FadType.COGNAC, "Leverandør 6");
+        Fad fad7 = opretFad(80, FadType.RØDVIN,"Leverandør..." );
+        Fad fad8 = opretFad(104, FadType.BOURBON, "...");
+        Fad fad9 = opretFad(44, FadType.COGNAC, "...");
+        Fad fad10 = opretFad(47, FadType.RØDVIN, "...");
+        Fad fad11 = opretFad(77, FadType.SHERRY, "...");
+        Fad fad12 = opretFad(22, FadType.RØDVIN, "...");
+        Fad fad13 = opretFad(99, FadType.PORTVIN, "...");
+        Fad fad14 = opretFad(88, FadType.BOURBON, "...");
+        Fad fad15 = opretFad(64, FadType.COGNAC, "...");
+        Fad fad16 = opretFad(75, FadType.RØDVIN, "...");
 
         addFadtilHylde(hylde, fad1);
         addFadtilHylde(hylde, fad2);
@@ -204,6 +220,11 @@ public class Controller {
         addFadtilHylde(hylde6, fad9);
         addFadtilHylde(hylde6, fad10);
 
-    }
+        Destillering destillering1 = opretDestillering("Kim", LocalDate.of(2023, 3, 30), LocalDate.of(2023, 4, 1), "MALT", "KORN", 800.0, "RYGEMATERIALE", "Sådan venner");
+        destillering1.createDestillat(100.0, 60.0);
 
+
+
+
+    }
 }

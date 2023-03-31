@@ -9,12 +9,15 @@ public class Fad {
     private static int idCounter = 1;
     private final int fadId;
     private FadType fadType;
+    private String leverandør;
 
-    public Fad(double fadLiter, FadType fadType) {
+
+    public Fad(double fadLiter, FadType fadType, String leverandør) {
         this.fadType = fadType;
         this.fadLiter = fadLiter;
         fadId = idCounter;
         idCounter++;
+        this.leverandør = leverandør;
     }
 
     public void addDestillat(int newMakeNummer, Destillat destillat) {
@@ -39,6 +42,6 @@ public class Fad {
 
     @Override
     public String toString() {
-        return "Fad " + fadId + ": " + fadType + ". " + fadLiter + " liter i fadet.";
+        return "Fad " + fadId + ": " + fadType + ". Kapacitet: " + fadLiter + " liter. " + "Leverandør: " + leverandør;
     }
 }

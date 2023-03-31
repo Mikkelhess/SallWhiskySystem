@@ -12,7 +12,7 @@ class ControllerTest {
 
     @BeforeEach
     void setUp() {
-        this.fad = new Fad(20.00, FadType.BOURBON);
+        this.fad = new Fad(20.00, FadType.BOURBON, "Leverandør");
     }
 
     @Test
@@ -22,7 +22,7 @@ class ControllerTest {
         double størrelse = 20.00;
         FadType fadType = FadType.BOURBON;
         //Act
-        Fad actualFad = Controller.opretFad(størrelse,fadType);
+        Fad actualFad = Controller.opretFad(størrelse,fadType, "Leverandør");
 
         //Assert
         double forventetResultat = 0;
