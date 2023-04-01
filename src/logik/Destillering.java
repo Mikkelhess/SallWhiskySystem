@@ -45,7 +45,6 @@ public class Destillering {
 
     public void addDestillat(int newMakeNummer, Destillat destillat) {
         destillatMap.put(newMakeNummer, destillat);
-        Storage.addDestillat(destillat);
     }
 
     public void removeDestillat(int newMakeNummer){

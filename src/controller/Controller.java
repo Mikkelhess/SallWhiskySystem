@@ -167,14 +167,14 @@ public class Controller {
         return hylde.getFadPåHyldeMap();
     }
 
+    public static HashMap<Integer,Destillat> getDestillatPåFadMap(int fadId) {
+        Fad fad = getFad(fadId);
+        return fad.getDestillatMap();
+    }
+
     public static HashMap<Integer,Destillering> getDestilleringMap() {
         return Storage.getDestilleringMap();
     }
-
-    public static HashMap<Integer,Destillat> getDestillatMap (){
-        return Storage.getDestillatMap();
-    }
-
 
 
 //--------------------------------------------------------------------------------------
