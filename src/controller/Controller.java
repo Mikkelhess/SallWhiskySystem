@@ -233,8 +233,16 @@ public class Controller {
         addFadtilHylde(hylde6, fad9);
         addFadtilHylde(hylde6, fad10);
 
-        Destillering destillering1 = opretDestillering("Kim", LocalDate.of(2023, 3, 30), LocalDate.of(2023, 4, 1), "MALT", "KORN", 800.0, "RYGEMATERIALE", "Sådan venner");
+        Destillering destillering1 = opretDestillering("Snævar", LocalDate.of(2023, 3, 30), LocalDate.of(2023, 4, 1), "Batch 1", "Evergreen", 800.0, "Tørv", "Sådan venner");
+        Destillering destillering2 = opretDestillering("Martin", LocalDate.of(2019, 10, 10), LocalDate.of(2023, 10, 11), "Batch 2", "Stairway", 5000.0, "Halm", "Det sku' en ommer");
+
         Destillat destillat1 = destillering1.createDestillat(100.0, 60.0);
+        Destillat destillat2 = destillering1.createDestillat(150.0, 65);
+        Destillat destillat3 = destillering1.createDestillat(65.0,80);
+
+        destillering2.createDestillat(500.0, 60);
+        destillering2.createDestillat(300.0, 70);
+        destillering2.createDestillat(1000.0, 65);
 
 
 
