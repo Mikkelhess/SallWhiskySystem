@@ -1,6 +1,8 @@
 package gui;
 
 import controller.Controller;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -9,8 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import logik.Destillat;
 import logik.Destillering;
 import logik.Fad;
@@ -28,9 +32,10 @@ public class FadPane extends GridPane {
 
     private Button btnFjernDestillat;
 
-    private HBox btnFadBox, btnDestillatBox;
+    private HBox btnFadBox, destillatBox;
 
     private OpretFadWindow opretFadWindow;
+    private Label lblTilføjet = new Label();
 
     public FadPane() {
         this.setGridLinesVisible(false);
@@ -60,9 +65,9 @@ public class FadPane extends GridPane {
         this.add(btnFadBox, 0, 4);
         btnFadBox.setSpacing(20);
 
-        btnDestillatBox = new HBox();
-        this.add(btnDestillatBox, 1, 4);
-        btnDestillatBox.setSpacing(20);
+        destillatBox = new HBox();
+        this.add(destillatBox, 1, 4);
+        destillatBox.setSpacing(20);
 
 
         btnOpretFad = new Button("Opret");
@@ -77,9 +82,17 @@ public class FadPane extends GridPane {
         btnFadBox.getChildren().add(btnHistorik);
         btnHistorik.setOnAction(event -> this.historikAction());
 
-        btnTilføj = new Button("Tilføj til Fad");
-        btnDestillatBox.getChildren().add(btnTilføj);
+        btnTilføj = new Button("Tilføj Destillat til Fad");
+        destillatBox.getChildren().add(btnTilføj);
         btnTilføj.setOnAction(event -> this.tilføjDestillatAction());
+
+        lblTilføjet.setTextFill(Color.GREEN);
+        lblTilføjet.setVisible(false);
+        lblTilføjet.setTranslateY(4);
+        destillatBox.getChildren().add(lblTilføjet);
+
+
+
 
     }
 
@@ -88,6 +101,13 @@ public class FadPane extends GridPane {
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
         Destillat destillat = lvwDestillat.getSelectionModel().getSelectedItem();
         fad.addDestillat(destillat.getNewMakeNummer(), destillat);
+        lblTilføjet.setText("Destillat " + destillat.getNewMakeNummer() + " tilføjet til fad " + fad.getFadId());
+        lblTilføjet.setVisible(true);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+            lblTilføjet.setVisible(false);
+        }));
+        timeline.play();
+
 
     }
 
@@ -143,7 +163,6 @@ public class FadPane extends GridPane {
             //Label addedDateLabel = new Label("Added to Fad:");
             //Label removedDateLabel = new Label("Removed from Fad:");
 
-            Label newMakeNummerValueLabel = new Label(destillat.getNewMakeNummer() + "");
             //Label addedDateValueLabel = new Label(destillat.getAddedDate());
             //Label removedDateValueLabel = new Label(destillat.getRemovedDate());
 
