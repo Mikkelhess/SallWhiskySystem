@@ -32,7 +32,7 @@ public class FadPane extends GridPane {
 
     private Button btnFjernDestillat;
 
-    private HBox btnFadBox, destillatBox;
+    private HBox FadHBox, destillatHBox;
 
     private OpretFadWindow opretFadWindow;
     private Label lblTilføjet = new Label();
@@ -61,35 +61,35 @@ public class FadPane extends GridPane {
         this.add(lblFade, 0, 0);
         lblFade.setAlignment(Pos.TOP_LEFT);
 
-        btnFadBox = new HBox();
-        this.add(btnFadBox, 0, 4);
-        btnFadBox.setSpacing(20);
+        FadHBox = new HBox();
+        this.add(FadHBox, 0, 4);
+        FadHBox.setSpacing(20);
 
-        destillatBox = new HBox();
-        this.add(destillatBox, 1, 4);
-        destillatBox.setSpacing(20);
+        destillatHBox = new HBox();
+        this.add(destillatHBox, 1, 4);
+        destillatHBox.setSpacing(20);
 
 
         btnOpretFad = new Button("Opret");
-        btnFadBox.getChildren().add(btnOpretFad);
+        FadHBox.getChildren().add(btnOpretFad);
         btnOpretFad.setOnAction(event -> this.opretFadAction());
 
         btnFjernFad = new Button("Fjern");
-        btnFadBox.getChildren().add(btnFjernFad);
+        FadHBox.getChildren().add(btnFjernFad);
         btnFjernFad.setOnAction(event -> this.removeFadAction());
 
         btnHistorik = new Button("Historik");
-        btnFadBox.getChildren().add(btnHistorik);
+        FadHBox.getChildren().add(btnHistorik);
         btnHistorik.setOnAction(event -> this.historikAction());
 
         btnTilføj = new Button("Tilføj Destillat til Fad");
-        destillatBox.getChildren().add(btnTilføj);
+        destillatHBox.getChildren().add(btnTilføj);
         btnTilføj.setOnAction(event -> this.tilføjDestillatAction());
 
         lblTilføjet.setTextFill(Color.GREEN);
         lblTilføjet.setVisible(false);
         lblTilføjet.setTranslateY(4);
-        destillatBox.getChildren().add(lblTilføjet);
+        destillatHBox.getChildren().add(lblTilføjet);
 
 
 
