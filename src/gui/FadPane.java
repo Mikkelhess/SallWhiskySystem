@@ -93,13 +93,18 @@ public class FadPane extends GridPane {
 
 
 
-
     }
 
 
     private void tilføjDestillatAction() {
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
         Destillat destillat = lvwDestillat.getSelectionModel().getSelectedItem();
+
+        if (fad == null || destillat == null) {
+            showAlert("Fejl", "Vælg venligst et fad og et destillat");
+            return;
+        }
+
         fad.addDestillat(destillat.getNewMakeNummer(), destillat);
         lblTilføjet.setText("Destillat " + destillat.getNewMakeNummer() + " tilføjet til fad " + fad.getFadId());
         lblTilføjet.setVisible(true);
@@ -107,8 +112,14 @@ public class FadPane extends GridPane {
             lblTilføjet.setVisible(false);
         }));
         timeline.play();
+    }
 
-
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private void opretFadAction() {
