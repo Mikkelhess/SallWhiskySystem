@@ -152,6 +152,18 @@ public class Controller {
         return fadUdenHyldeListe;
     }
 
+    public static void addDestillat(Destillat destillat){
+        Storage.addDestillat(destillat);
+    }
+
+    public static void removeDestillat(Destillat destillat){
+        Storage.removeDestillat(destillat);
+    }
+
+    public static HashMap<Integer,Destillat> getDestillatMap(){
+        return Storage.getDestillatMap();
+    }
+
     public static HashMap<Integer,Reol> getReolMap(int lagerId) {
         Lager lager = getLager(lagerId);
         return lager.getReolMap();

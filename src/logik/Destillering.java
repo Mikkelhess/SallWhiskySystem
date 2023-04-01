@@ -1,5 +1,6 @@
 package logik;
 
+import controller.Controller;
 import storage.Storage;
 
 import java.time.LocalDate;
@@ -45,10 +46,12 @@ public class Destillering {
 
     public void addDestillat(int newMakeNummer, Destillat destillat) {
         destillatMap.put(newMakeNummer, destillat);
+        Controller.addDestillat(destillat);
     }
 
     public void removeDestillat(int newMakeNummer){
-        destillatMap.remove(newMakeNummer);
+        Destillat destillat = destillatMap.remove(newMakeNummer);
+        Controller.removeDestillat(destillat);
     }
 
     public double udregnLiter() {
@@ -103,6 +106,10 @@ public class Destillering {
 
     public String getKommentar() {
         return kommentar;
+    }
+
+    public double getLiter() {
+        return liter;
     }
 
     public HashMap<Integer, Destillat> getDestillatMap() {

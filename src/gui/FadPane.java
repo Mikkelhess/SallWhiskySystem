@@ -47,7 +47,7 @@ public class FadPane extends GridPane {
         lvwDestillat = new ListView<>();
         this.add(lvwDestillat, 1, 1, 1, 1);
         lvwDestillat.setPrefSize(350, 400);
-        //lvwDestillat.getItems().setAll(Controller.getDestillatPåFadMap().values());
+        lvwDestillat.getItems().setAll(Controller.getDestillatMap().values());
 
         ChangeListener<Fad> listener = (ov, o, n) -> this.selectedFadchanged();
         lvwFade.getSelectionModel().selectedItemProperty().addListener(listener);
@@ -84,19 +84,21 @@ public class FadPane extends GridPane {
         btnTilføj = new Button("Tilføj");
         btnDestillatBox.getChildren().add(btnTilføj);
         btnTilføj.setOnAction(event -> this.tilføjDestillatAction());
-
+        /*
         btnFjernDestillat = new Button("Fjern");
         btnDestillatBox.getChildren().add(btnFjernDestillat);
         btnFjernDestillat.setOnAction(event -> this.removeDestillatAction());
+         */
 
 
     }
 
+    /*
     private void removeDestillatAction() {
        Destillat destillat = lvwDestillat.getSelectionModel().getSelectedItem();
         if (destillat != null) {
-            //Controller.getDestillatPåFadMap().values().remove(destillat);
-            //lvwDestillat.getItems().setAll(Controller.getDestillatPåFadMap().values());
+            Controller.removeDestillat(destillat);
+            lvwDestillat.getItems().setAll(Controller.getDestillatPåFadMap().values());
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Vælg et Destillat");
@@ -105,6 +107,8 @@ public class FadPane extends GridPane {
             alert.showAndWait();
         }
     }
+
+     */
 
     private void tilføjDestillatAction() {
 

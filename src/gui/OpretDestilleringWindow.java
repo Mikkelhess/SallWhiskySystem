@@ -133,20 +133,18 @@ public class OpretDestilleringWindow extends Stage {
         String rygeMateriale = txfRygeMateriale.getText();
         String kommentar = txfKommentar.getText();
         double totalLiter;
+
         try {
             totalLiter = Double.parseDouble(liter);
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Opret fad");
-            alert.setHeaderText("Ugyldigt input");
-            alert.setContentText("Indtast venligst et tal for fad liter");
-            alert.show();
+            showAlert("Ugyldigt input", "Indtast venligst et tal for destillering liter");
             return;
         }
 
-
-
-
+        if (slutDato.isBefore(startDato)) {
+            showAlert("Ugyldigt input", "Start dato skal være før slut dato");
+            return;
+        }
 
         txfMedarbejderNavn.clear();
         dpStartDato.setValue(null);
@@ -161,7 +159,13 @@ public class OpretDestilleringWindow extends Stage {
         Destillering destillering = Controller.opretDestillering(medarbejderNavn, startDato, slutDato, maltBatch, kornsort, totalLiter, rygeMateriale, kommentar);
     }
 
-    // -------------------------------------------------------------------------
+    private void showAlert(String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Opret Destillering");
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.show();
+    }
 
 }
 

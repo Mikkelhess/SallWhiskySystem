@@ -28,6 +28,7 @@ public class DestilleringPane extends GridPane {
     private Button btnFjernDestillat;
     private Button btnVisDetaljer;
     private OpretDestilleringWindow opretDestilleringWindow;
+    private OpretDestillatWindow opretDestillatWindow;
 
     public DestilleringPane() {
         this.setGridLinesVisible(false);
@@ -124,6 +125,13 @@ public class DestilleringPane extends GridPane {
     }
 
     private void opretDestillatAction() {
+        Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
+        if (destillering != null) {
+            OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat",new Stage(),destillering);
+            opretDestillatWindow.showAndWait();
+            lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
+            lvwDestillater.getItems().setAll(destillering.getDestillatMap().values());
+        }
     }
 
     private void selectedDestilleringChanged() {
@@ -151,7 +159,7 @@ public class DestilleringPane extends GridPane {
         gridPane.addRow(2, new Label("Slut Dato: "), new Label(destillering.getSlutDato().toString()));
         gridPane.addRow(3, new Label("Malt batch: "), new Label(destillering.getMaltBatch()));
         gridPane.addRow(4, new Label("Kornsort: "), new Label(destillering.getKornsort()));
-        gridPane.addRow(5, new Label("Kapacitet: (L)"), new Label(String.valueOf(destillering.getTotalLiter())));
+        gridPane.addRow(5, new Label("Kapacitet: "), new Label(destillering.getLiter() + " ud af " + destillering.getTotalLiter() + " liter"));
         gridPane.addRow(6, new Label("Ryge materiale: "), new Label(destillering.getRygeMateriale()));
         gridPane.addRow(7, new Label("Kommentar: "), new Label(destillering.getKommentar()));
 
