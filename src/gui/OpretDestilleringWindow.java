@@ -10,8 +10,13 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import logik.Destillering;
 import logik.Fad;
 import logik.FadType;
+import org.w3c.dom.Text;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 public class OpretDestilleringWindow extends Stage {
 
@@ -33,14 +38,16 @@ public class OpretDestilleringWindow extends Stage {
 
     // -------------------------------------------------------------------------
 
-    private Fad fad;
-    private final TextField txfFadType = new TextField();
-    private final TextField txfFadLiter = new TextField();
-    private final TextField txfLeverandør = new TextField();
+    private final TextField txfMedarbejderNavn = new TextField();
+    private final DatePicker dpStartDato = new DatePicker();
+    private final DatePicker dpSlutDato = new DatePicker();
+    private final TextField txfMaltBatch = new TextField();
+    private final TextField txfKornsort = new TextField();
+    private final TextField txfTotalLiter = new TextField();
+    private final TextField txfRygeMateriale = new TextField();
+    private final TextField txfKommentar = new TextField();
 
-    private ComboBox<FadType> cbbFadType;
 
-    private Fad actualFad = null;
 
 
     private void initContent(GridPane pane) {
@@ -50,24 +57,41 @@ public class OpretDestilleringWindow extends Stage {
         pane.setVgap(10);
 
 
-        Label lblFadType = new Label("Fad type:");
-        pane.add(lblFadType, 0, 1);
-        //pane.add(txfFadType, 1,1,2,1);
+        Label lblMedarbejderNavn = new Label("Medarbejder Navn:");
+        pane.add(lblMedarbejderNavn, 0, 1);
+        pane.add(txfMedarbejderNavn, 1,1,2,1);
 
-        cbbFadType = new ComboBox<>();
-        pane.add(cbbFadType, 1, 1);
-        cbbFadType.getItems().addAll(FadType.values());
+        Label lblStartDato = new Label("Start Dato:");
+        pane.add(lblStartDato, 0, 2);
+        pane.add(dpStartDato, 1, 2,2,1);
 
-        Label lblFadLiter = new Label("Fad liter:");
-        pane.add(lblFadLiter, 0, 2);
-        pane.add(txfFadLiter, 1,2,2,1);
+        Label lblSlutDato = new Label("Slut Dato:");
+        pane.add(lblSlutDato, 0, 3);
+        pane.add(dpSlutDato, 1, 3,2,1);
 
-        Label lblLeverandør = new Label("Leverandør:");
-        pane.add(lblLeverandør, 0, 3);
-        pane.add(txfLeverandør, 1, 3,2,1);
+        Label lblMaltBatch = new Label("Malt Batch: ");
+        pane.add(lblMaltBatch, 0, 4);
+        pane.add(txfMaltBatch, 1, 4,2,1);
+
+        Label lblKornsort = new Label("Kornsort: ");
+        pane.add(lblKornsort, 0, 5);
+        pane.add(txfKornsort, 1, 5,2,1);
+
+        Label lblTotalLiter = new Label("Total Liter: ");
+        pane.add(lblTotalLiter, 0, 6);
+        pane.add(txfTotalLiter,1, 6, 2,1);
+
+        Label lblRygeMateriale = new Label("Ryge materiale: ");
+        pane.add(lblRygeMateriale, 0, 7);
+        pane.add(txfRygeMateriale, 1, 7,2,1);
+
+        Label lblKommentar = new Label("Kommentar: ");
+        pane.add(lblKommentar, 0, 8);
+        pane.add(txfKommentar, 1, 8,2,1);
+
 
         HBox buttonBox = new HBox(20);
-        pane.add(buttonBox, 0, 6);
+        pane.add(buttonBox, 0, 10);
         buttonBox.setPadding(new Insets(10, 10, 0, 10));
         buttonBox.setAlignment(Pos.TOP_RIGHT);
 
@@ -87,29 +111,30 @@ public class OpretDestilleringWindow extends Stage {
 
     private void cancelAction() {
 
-        txfFadType.clear();
-        txfFadLiter.clear();
-        actualFad = null;
+        txfMedarbejderNavn.clear();
+        dpStartDato.setValue(null);
+        dpSlutDato.setValue(null);
+        txfMaltBatch.clear();
+        txfKornsort.clear();
+        txfTotalLiter.clear();
+        txfRygeMateriale.clear();
+        txfKommentar.clear();
+
         OpretDestilleringWindow.this.hide();
     }
 
     private void okAction() {
-        FadType fadType = cbbFadType.getSelectionModel().getSelectedItem();
-        String fadLiter = txfFadLiter.getText();
-        String leverandør = txfLeverandør.getText();
-
-        if (fadType == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Opret fad");
-            alert.setHeaderText("Manglende information");
-            alert.setContentText("Indtast fad type");
-            alert.show();
-            return;
-        }
-
-        double fadLiterValue;
+        String medarbejderNavn = txfMedarbejderNavn.getText();
+        LocalDate startDato = dpStartDato.getValue();
+        LocalDate slutDato = dpSlutDato.getValue();
+        String maltBatch = txfMaltBatch.getText();
+        String kornsort = txfKornsort.getText();
+        String liter = txfTotalLiter.getText();
+        String rygeMateriale = txfRygeMateriale.getText();
+        String kommentar = txfKommentar.getText();
+        double totalLiter;
         try {
-            fadLiterValue = Double.parseDouble(fadLiter);
+            totalLiter = Double.parseDouble(liter);
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Opret fad");
@@ -119,19 +144,25 @@ public class OpretDestilleringWindow extends Stage {
             return;
         }
 
-        txfFadType.clear();
-        txfFadLiter.clear();
-        txfLeverandør.clear();
+
+
+
+
+        txfMedarbejderNavn.clear();
+        dpStartDato.setValue(null);
+        dpSlutDato.setValue(null);
+        txfMaltBatch.clear();
+        txfKornsort.clear();
+        txfTotalLiter.clear();
+        txfRygeMateriale.clear();
+        txfKommentar.clear();
         OpretDestilleringWindow.this.hide();
 
-        Fad fad1 = Controller.opretFad(fadLiterValue, fadType, leverandør);
+        Destillering destillering = Controller.opretDestillering(medarbejderNavn, startDato, slutDato, maltBatch, kornsort, totalLiter, rygeMateriale, kommentar);
     }
 
     // -------------------------------------------------------------------------
 
-    public Fad getActualFad() {
-        return actualFad;
-    }
 }
 
 

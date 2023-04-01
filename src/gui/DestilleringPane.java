@@ -23,6 +23,7 @@ public class DestilleringPane extends GridPane {
     private Button btnFjernDestillering;
     private Button btnOpretDestillat;
     private Button btnFjernDestillat;
+    private Button btnVisDetaljer;
     private OpretDestilleringWindow opretDestilleringWindow;
 
     public DestilleringPane() {
@@ -53,7 +54,9 @@ public class DestilleringPane extends GridPane {
         btnOpretDestillering.setOnAction(event -> this.opretDestilleringAction());
         btnFjernDestillering = new Button("Fjern");
         btnFjernDestillering.setOnAction(event -> this.removeDestilleringAction());
-        HBox destilleringButtons = new HBox(10, btnOpretDestillering, btnFjernDestillering);
+        btnVisDetaljer = new Button("Vis Detaljer");
+        btnVisDetaljer.setOnAction(event -> this.visDetaljerAction());
+        HBox destilleringButtons = new HBox(10, btnOpretDestillering, btnFjernDestillering, btnVisDetaljer);
         destilleringButtons.setAlignment(Pos.CENTER);
 
         btnOpretDestillat = new Button("Opret");
@@ -97,6 +100,9 @@ public class DestilleringPane extends GridPane {
             alert.setContentText("Vælg et lager som du vil fjerne");
             alert.showAndWait();
         }
+    }
+
+    private void visDetaljerAction() {
     }
 
     private void fjernDestillatAction() {
