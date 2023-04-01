@@ -3,15 +3,16 @@ package gui;
 import controller.Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logik.Destillat;
+import logik.Destillering;
 import logik.Fad;
 
 public class FadPane extends GridPane {
@@ -49,11 +50,6 @@ public class FadPane extends GridPane {
         lvwDestillat.setPrefSize(350, 400);
         lvwDestillat.getItems().setAll(Controller.getDestillatMap().values());
 
-        ChangeListener<Fad> listener = (ov, o, n) -> this.selectedFadchanged();
-        lvwFade.getSelectionModel().selectedItemProperty().addListener(listener);
-
-        ChangeListener<Destillat> listener2 = (ov, o, n) -> this.selectedFadchanged();
-        lvwDestillat.getSelectionModel().selectedItemProperty().addListener(listener2);
 
 
         Label lblFade = new Label("Fade");
@@ -81,36 +77,17 @@ public class FadPane extends GridPane {
         btnFadBox.getChildren().add(btnHistorik);
         btnHistorik.setOnAction(event -> this.historikAction());
 
-        btnTilføj = new Button("Tilføj");
+        btnTilføj = new Button("Tilføj til Fad");
         btnDestillatBox.getChildren().add(btnTilføj);
         btnTilføj.setOnAction(event -> this.tilføjDestillatAction());
-        /*
-        btnFjernDestillat = new Button("Fjern");
-        btnDestillatBox.getChildren().add(btnFjernDestillat);
-        btnFjernDestillat.setOnAction(event -> this.removeDestillatAction());
-         */
-
 
     }
 
-    /*
-    private void removeDestillatAction() {
-       Destillat destillat = lvwDestillat.getSelectionModel().getSelectedItem();
-        if (destillat != null) {
-            Controller.removeDestillat(destillat);
-            lvwDestillat.getItems().setAll(Controller.getDestillatPåFadMap().values());
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Vælg et Destillat");
-            alert.setHeaderText(null);
-            alert.setContentText("Vælg et destillat som du vil fjerne");
-            alert.showAndWait();
-        }
-    }
-
-     */
 
     private void tilføjDestillatAction() {
+        Fad fad = lvwFade.getSelectionModel().getSelectedItem();
+        Destillat destillat = lvwDestillat.getSelectionModel().getSelectedItem();
+        fad.addDestillat(destillat.getNewMakeNummer(), destillat);
 
     }
 
@@ -135,14 +112,55 @@ public class FadPane extends GridPane {
     }
 
     private void historikAction() {
+        Fad fad = lvwFade.getSelectionModel().getSelectedItem();
+        if (fad != null) {
+            visHistorikWindow(fad);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg et fad");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg et fad du vil se historik for");
+            alert.showAndWait();
+        }
+
+
 
     }
+
+    private void visHistorikWindow(Fad fad) {
+        Stage detailsStage = new Stage();
+        detailsStage.initModality(Modality.WINDOW_MODAL);
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(10));
+
+        int rowIndex = 0;
+
+        for (Destillat destillat : fad.getDestillatMap().values()) {
+
+            //Label addedDateLabel = new Label("Added to Fad:");
+            //Label removedDateLabel = new Label("Removed from Fad:");
+
+            Label newMakeNummerValueLabel = new Label(destillat.getNewMakeNummer() + "");
+            //Label addedDateValueLabel = new Label(destillat.getAddedDate());
+            //Label removedDateValueLabel = new Label(destillat.getRemovedDate());
+
+            gridPane.addRow(rowIndex++,  new Label(destillat.toString()));
+            //gridPane.addRow(rowIndex++, addedDateLabel, addedDateValueLabel);
+            //gridPane.addRow(rowIndex++, removedDateLabel, removedDateValueLabel);
+            gridPane.addRow(rowIndex++, new Separator(Orientation.HORIZONTAL));
+        }
+
+        detailsStage.setScene(new Scene(gridPane, 400, 300));
+        detailsStage.setTitle("Fad Historik");
+        detailsStage.show();
+    }
+
 
     public void updateList() {
         lvwFade.getItems().setAll(Controller.getFadMap().values());
     }
 
-
-    private void selectedFadchanged() {
-    }
 }

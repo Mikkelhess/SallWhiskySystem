@@ -89,12 +89,9 @@ public class OpretDestillatWindow extends Stage {
     }
 
     private void okAction() {
-        String liter = txfTotalLiter.getText();
-        String alkohol = txfAlkoholProcent.getText();
         double totalLiter;
-
         try {
-            totalLiter = Double.parseDouble(liter);
+            totalLiter = Double.parseDouble(txfTotalLiter.getText());
         } catch (NumberFormatException e) {
             showAlert("Ugyldigt input", "Indtast venligst et tal for destillat liter");
             return;
@@ -102,21 +99,24 @@ public class OpretDestillatWindow extends Stage {
 
         double alkoholProcent;
         try {
-            alkoholProcent = Double.parseDouble(alkohol);
+            alkoholProcent = Double.parseDouble(txfAlkoholProcent.getText());
         } catch (NumberFormatException e) {
             showAlert("Ugyldigt input", "Indtast venligst et tal for destillat alkohol procent");
             return;
         }
 
+        double remainingCapacity = destillering.udregnLiter();
+        if (totalLiter > remainingCapacity) {
+            showAlert("Opret Destillat", "Destillater overstiger kapacitet af destillering");
+            return;
+        }
 
         txfTotalLiter.clear();
         txfAlkoholProcent.clear();
         OpretDestillatWindow.this.hide();
-
         Destillat destillat = destillering.createDestillat(totalLiter, alkoholProcent);
-
-        //check om liter går under 0
     }
+
 
     private void showAlert(String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

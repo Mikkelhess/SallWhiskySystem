@@ -60,7 +60,6 @@ public class Destillering {
         for (Destillat destillat : destillatMap.values()) {
             liter += destillat.getLiter();
         }
-        setLiter(totalLiter-liter);
         return totalLiter - liter;
     }
 
@@ -118,6 +117,6 @@ public class Destillering {
 
     @Override
     public String toString() {
-        return "Destillering " + destilleringId + ": " + liter + " / " + totalLiter + " liter";
+        return "Destillering " + destilleringId + ": " + udregnLiter() + " / " + totalLiter + " liter";
     }
 }
