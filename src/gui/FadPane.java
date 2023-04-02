@@ -31,11 +31,12 @@ public class FadPane extends GridPane {
     private Button btnTilføj;
 
     private Button btnFjernDestillat;
+    private TextField txfTilføjLiter = new TextField();
 
     private HBox FadHBox, destillatHBox;
 
     private OpretFadWindow opretFadWindow;
-    private Label lblTilføjet = new Label();
+
 
     public FadPane() {
         this.setGridLinesVisible(false);
@@ -86,10 +87,8 @@ public class FadPane extends GridPane {
         destillatHBox.getChildren().add(btnTilføj);
         btnTilføj.setOnAction(event -> this.tilføjDestillatAction());
 
-        lblTilføjet.setTextFill(Color.GREEN);
-        lblTilføjet.setVisible(false);
-        lblTilføjet.setTranslateY(4);
-        destillatHBox.getChildren().add(lblTilføjet);
+        txfTilføjLiter.setPromptText("Tilføj Liter");
+        destillatHBox.getChildren().add(txfTilføjLiter);
 
 
 
@@ -106,12 +105,14 @@ public class FadPane extends GridPane {
         }
 
         fad.addDestillat(destillat.getNewMakeNummer(), destillat);
-        lblTilføjet.setText("Destillat " + destillat.getNewMakeNummer() + " tilføjet til fad " + fad.getFadId());
-        lblTilføjet.setVisible(true);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
-            lblTilføjet.setVisible(false);
-        }));
-        timeline.play();
+        String liter = txfTilføjLiter.getText();
+        double tilføjLiter = Double.parseDouble(liter);
+        if (destillat.getCurrentLiter() - tilføjLiter < 0) {
+            showAlert("Tilføj Destillat","Du prøver at tilføje mere væske end der er tilbage i destillatet");
+            return;
+        }
+        destillat.hældPåFad(tilføjLiter);
+        lvwDestillat.getItems().setAll(Controller.getDestillatMap().values());
     }
 
     private void showAlert(String title, String message) {
@@ -177,7 +178,7 @@ public class FadPane extends GridPane {
             //Label addedDateValueLabel = new Label(destillat.getAddedDate());
             //Label removedDateValueLabel = new Label(destillat.getRemovedDate());
 
-            gridPane.addRow(rowIndex++,  new Label(destillat.toString()));
+            gridPane.addRow(rowIndex++,  new Label(destillat.getCurrentLiter() + " liter tilføjet fra destillat " + destillat.getNewMakeNummer() ));
             //gridPane.addRow(rowIndex++, addedDateLabel, addedDateValueLabel);
             //gridPane.addRow(rowIndex++, removedDateLabel, removedDateValueLabel);
             gridPane.addRow(rowIndex++, new Separator(Orientation.HORIZONTAL));

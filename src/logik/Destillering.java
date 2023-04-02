@@ -58,7 +58,7 @@ public class Destillering {
         double liter = 0;
 
         for (Destillat destillat : destillatMap.values()) {
-            liter += destillat.getLiter();
+            liter += destillat.getMaxLiter();
         }
         return totalLiter - liter;
     }
