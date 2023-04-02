@@ -62,6 +62,9 @@ public class FadPane extends GridPane {
         this.add(lblFade, 0, 0);
         lblFade.setAlignment(Pos.TOP_LEFT);
 
+        Label lblDestillater = new Label("Destillater");
+        this.add(lblDestillater, 1, 0);
+
         FadHBox = new HBox();
         this.add(FadHBox, 0, 4);
         FadHBox.setSpacing(20);
