@@ -2,12 +2,15 @@ package gui;
 
 import controller.Controller;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logik.*;
 
@@ -23,7 +26,9 @@ public class DestilleringPane extends GridPane {
     private Button btnFjernDestillering;
     private Button btnOpretDestillat;
     private Button btnFjernDestillat;
+    private Button btnVisDetaljer;
     private OpretDestilleringWindow opretDestilleringWindow;
+    private OpretDestillatWindow opretDestillatWindow;
 
     public DestilleringPane() {
         this.setGridLinesVisible(false);
@@ -53,7 +58,9 @@ public class DestilleringPane extends GridPane {
         btnOpretDestillering.setOnAction(event -> this.opretDestilleringAction());
         btnFjernDestillering = new Button("Fjern");
         btnFjernDestillering.setOnAction(event -> this.removeDestilleringAction());
-        HBox destilleringButtons = new HBox(10, btnOpretDestillering, btnFjernDestillering);
+        btnVisDetaljer = new Button("Vis Detaljer");
+        btnVisDetaljer.setOnAction(event -> this.visDetaljerAction());
+        HBox destilleringButtons = new HBox(10, btnOpretDestillering, btnFjernDestillering, btnVisDetaljer);
         destilleringButtons.setAlignment(Pos.CENTER);
 
         btnOpretDestillat = new Button("Opret");
@@ -92,17 +99,64 @@ public class DestilleringPane extends GridPane {
             }
         }else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Vælg et Lager");
+            alert.setTitle("Vælg en Destillering");
             alert.setHeaderText(null);
-            alert.setContentText("Vælg et lager som du vil fjerne");
+            alert.setContentText("Vælg en destillering som du vil fjerne");
             alert.showAndWait();
         }
     }
 
-    private void fjernDestillatAction() {
+    private void visDetaljerAction() {
+        Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
+        if (destillering != null) {
+            visDetaljerWindow(destillering);
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg en Destillering");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg en destillering som du vil se detaljer for");
+            alert.showAndWait();
+        }
+
+
     }
 
+    private void fjernDestillatAction() {
+        Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
+        Destillat destillat = lvwDestillater.getSelectionModel().getSelectedItem();
+
+        if (destillering == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg en destillering");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg en destillering først");
+            alert.showAndWait();
+            return;
+        }
+
+        if (destillat != null) {
+            destillering.removeDestillat(destillat.getNewMakeNummer());
+            destillering.udregnLiter();
+            lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
+            lvwDestillater.getItems().setAll(destillering.getDestillatMap().values());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg et destillat");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg et destillat som du vil fjerne");
+            alert.showAndWait();
+        }
+    }
+
+
     private void opretDestillatAction() {
+        Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
+        if (destillering != null) {
+            OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat",new Stage(),destillering);
+            opretDestillatWindow.showAndWait();
+            lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
+            lvwDestillater.getItems().setAll(destillering.getDestillatMap().values());
+        }
     }
 
     private void selectedDestilleringChanged() {
@@ -115,8 +169,28 @@ public class DestilleringPane extends GridPane {
 
     }
 
-    public void updateList() {
-        //lvwDestilleringer.getItems().setAll(Controller.getLagerMap().values());
+    private void visDetaljerWindow(Destillering destillering) {
+        Stage detailsStage = new Stage();
+        detailsStage.initModality(Modality.WINDOW_MODAL);
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(10));
+
+        // Add labels and data for each attribute using destillering object
+        gridPane.addRow(0, new Label("Medarbejder: "), new Label(destillering.getMedarbejderNavn()));
+        gridPane.addRow(1, new Label("Start Dato: "), new Label(destillering.getStartDato().toString()));
+        gridPane.addRow(2, new Label("Slut Dato: "), new Label(destillering.getSlutDato().toString()));
+        gridPane.addRow(3, new Label("Malt batch: "), new Label(destillering.getMaltBatch()));
+        gridPane.addRow(4, new Label("Kornsort: "), new Label(destillering.getKornsort()));
+        gridPane.addRow(5, new Label("Kapacitet: "), new Label(destillering.udregnLiter() + " ud af " + destillering.getTotalLiter() + " liter"));
+        gridPane.addRow(6, new Label("Ryge materiale: "), new Label(destillering.getRygeMateriale()));
+        gridPane.addRow(7, new Label("Kommentar: "), new Label(destillering.getKommentar()));
+
+        detailsStage.setScene(new Scene(gridPane, 400, 300));
+        detailsStage.setTitle("Destillering Detaljer");
+        detailsStage.show();
     }
 
 }
