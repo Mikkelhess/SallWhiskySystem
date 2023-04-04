@@ -47,7 +47,6 @@ public class FadPane extends GridPane {
         lvwDestillat = new ListView<>();
         this.add(lvwDestillat, 1, 1, 1, 1);
         lvwDestillat.setPrefSize(350, 400);
-        lvwDestillat.getItems().setAll(Controller.getDestillatPåFadMap());
 
         ChangeListener<Fad> listener = (ov, o, n) -> this.selectedFadchanged();
         lvwFade.getSelectionModel().selectedItemProperty().addListener(listener);
