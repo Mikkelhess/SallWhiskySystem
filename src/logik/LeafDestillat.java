@@ -56,7 +56,4 @@ public class LeafDestillat implements DestillatComponent {
         return "Destillat " + leafNewMakeNummer + ": " + liter + " liter ";
     }
 
-    // Additional methods for destillations, like split, merge, etc.
-
-
 }
