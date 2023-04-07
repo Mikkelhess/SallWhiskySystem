@@ -229,7 +229,7 @@ public class Controller {
         addFadtilHylde(hylde6, fad10);
 
         Destillering destillering1 = opretDestillering("Snævar", LocalDate.of(2023, 3, 30), LocalDate.of(2023, 4, 1), "Batch 1", "Evergreen", 800.0, "Tørv", "Sådan venner");
-        Destillering destillering2 = opretDestillering("Martin", LocalDate.of(2019, 10, 10), LocalDate.of(2023, 10, 11), "Batch 2", "Stairway", 5000.0, "Halm", "Det sku' en ommer");
+        Destillering destillering2 = opretDestillering("Martin", LocalDate.of(2019, 10, 10), LocalDate.of(2023, 10, 11), "Batch 2", "Stairway", 5000.0, "Halm", "Den er god");
 
         CompositeDestillat compositeDestillat1 = destillering1.createDestillat(100.0, 60.0);
         compositeDestillat1.createLeaf(20);
