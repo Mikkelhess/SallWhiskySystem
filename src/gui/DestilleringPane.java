@@ -103,9 +103,6 @@ public class DestilleringPane extends GridPane {
         this.add(delVBox, 2, 0);
     }
 
-
-
-
     private void opretDestilleringAction() {
         opretDestilleringWindow.showAndWait();
         lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
@@ -147,6 +144,17 @@ public class DestilleringPane extends GridPane {
 
     }
 
+    private void opretDestillatAction() {
+        Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
+        if (destillering != null) {
+            OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat",new Stage(),destillering);
+            opretDestillatWindow.showAndWait();
+            lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
+            lvwCompositeDestillater.getItems().setAll(destillering.getDestillatMap().values());
+        }
+    }
+
+
     private void fjernCompositeDestillatAction() {
         Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
         CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
@@ -174,17 +182,6 @@ public class DestilleringPane extends GridPane {
         }
     }
 
-
-    private void opretDestillatAction() {
-        Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
-        if (destillering != null) {
-            OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat",new Stage(),destillering);
-            opretDestillatWindow.showAndWait();
-            lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
-            lvwCompositeDestillater.getItems().setAll(destillering.getDestillatMap().values());
-        }
-    }
-
     private void opretDestillaterAction() {
         CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
 
@@ -199,7 +196,6 @@ public class DestilleringPane extends GridPane {
             try {
                 int numLeaves = Integer.parseInt(result.get());
 
-                // Create a loop to prompt the user for the liters of each leaf
                 for (int i = 0; i < numLeaves; i++) {
                     TextInputDialog leafDialog = new TextInputDialog();
                     leafDialog.setTitle("Opret Destillat " + (i + 1));
@@ -207,12 +203,10 @@ public class DestilleringPane extends GridPane {
                     leafDialog.setContentText("Indtast liter for destillat " + (i + 1) + ":");
                     Optional<String> leafResult = leafDialog.showAndWait();
 
-                    // Check if the user entered a value
                     if (leafResult.isPresent()) {
                         try {
                             double liters = Double.parseDouble(leafResult.get());
-                            //double liter = Double.parseDouble(opretDeleAntalTekst.getText());
-                            //double currentCapacity = destillatComposite.getLiter();
+
                             if (compositeDestillat.getUsedCapacity() + liters > compositeDestillat.getTotalCapacity()) {
                                 // Display an error message to the user
                                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -222,10 +216,9 @@ public class DestilleringPane extends GridPane {
                                 return;
                             }
 
-                            // Create a new LeafDestillat object and add it to the selected CompositeDestillat
                             CompositeDestillat selectedDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
                             LeafDestillat leaf = selectedDestillat.createLeaf(liters);
-                            lvwCompositeDestillater.refresh(); // Update the list view
+                            lvwCompositeDestillater.refresh();
                         } catch (NumberFormatException e) {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Error");
@@ -246,7 +239,6 @@ public class DestilleringPane extends GridPane {
         }
     }
 
-
     private void opdaterLeafDestillat() {
         // TODO !
     }
@@ -263,7 +255,6 @@ public class DestilleringPane extends GridPane {
         lvwLeafDestillater.getItems().setAll(compositeDestillat.getLeaves());
         lvwCompositeDestillater.refresh();
     }
-
 
     private void selectedDestilleringChanged() {
         Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
