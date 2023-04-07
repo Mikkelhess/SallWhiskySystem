@@ -54,11 +54,6 @@ public class CompositeDestillat implements DestillatComponent {
     }
 
     public LeafDestillat createLeaf(double amount) {
-
-        if (usedCapacity + amount > totalCapacity) {
-            throw new IllegalStateException("Cannot add more leaves than the composite's total capacity.");
-        }
-
         String leafMakeNummer = newMakeNummer + "." + leafCounter++;
         LeafDestillat leafDestillat = new LeafDestillat(amount, leafMakeNummer, getAlkoholProcent());
         components.add(leafDestillat);
@@ -116,12 +111,4 @@ public class CompositeDestillat implements DestillatComponent {
     public String toString() {
         return "Destillat " + newMakeNummer + ": " + usedCapacity + " / " + totalCapacity + ", Alkohol Procent: " + alkoholProcent;
     }
-
-    /*
-    @Override
-    public String toString() {
-        return "Destillat " + newMakeNummer + ": " + usedCapacity + " / " + totalCapacity + ", Alkohol Procent: " + alkoholProcent;
-    }
-
-     */
 }
