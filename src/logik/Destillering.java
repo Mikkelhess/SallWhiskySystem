@@ -34,11 +34,31 @@ public class Destillering {
 
         this.totalLiter = totalLiter;
         this.liter = 0;
+        destilleringId = idCounter;
+        idCounter++;
+
+        udregnLiter();
+    }
+
+    /*
+    public Destillering(String medarbejderNavn, LocalDate startDato, LocalDate slutDato, String maltBatch, String kornsort, double totalLiter, String rygeMateriale, String kommentar) {
+        this.medarbejderNavn = medarbejderNavn;
+        this.startDato = startDato;
+        this.slutDato = slutDato;
+        this.maltBatch = maltBatch;
+        this.kornsort = kornsort;
+        this.rygeMateriale = rygeMateriale;
+        this.kommentar = kommentar;
+
+        this.totalLiter = totalLiter;
+        this.liter = 0;
 
 
         destilleringId = idCounter;
         idCounter++;
     }
+
+     */
 
 
     public CompositeDestillat createDestillat(double liter, double alkoholProcent) {
@@ -46,6 +66,8 @@ public class Destillering {
         compositeDestillat.setTotalCapacity(liter);
         addDestillat(compositeDestillat.getNewMakeNummer(), compositeDestillat);
 
+        liter = udregnLiter(); // update the value of liter
+        setLiter(liter); // set the new value of liter
         return compositeDestillat;
     }
 
@@ -60,7 +82,11 @@ public class Destillering {
     }
 
     public double udregnLiter() {
-        return totalLiter - liter;
+        double totalCapacity = 0;
+        for (CompositeDestillat composite : destillatMap.values()) {
+            totalCapacity += composite.getTotalCapacity();
+        }
+        return totalLiter - totalCapacity;
     }
 
     public List<LeafDestillat> getAllLeaves() {

@@ -19,11 +19,12 @@ public class CompositeDestillat implements DestillatComponent {
     public CompositeDestillat(double alkoholProcent) {
         this.alkoholProcent = alkoholProcent;
 
+        this.usedCapacity = 0;
+
         this.newMakeNummer = String.valueOf(newMakeCounter);
         newMakeCounter++;
 
-        this.totalCapacity = 0;
-        this.usedCapacity = 0;
+
     }
 
     public String getNewMakeNummer() {
@@ -38,9 +39,6 @@ public class CompositeDestillat implements DestillatComponent {
         return alkoholProcent;
     }
 
-    public void setTotalCapacity(double totalCapacity) {
-        this.totalCapacity = totalCapacity;
-    }
 
     @Override
     public double getLiter() {
@@ -79,6 +77,22 @@ public class CompositeDestillat implements DestillatComponent {
         return leaves;
     }
 
+    public void setTotalCapacity(double totalCapacity) {
+        this.totalCapacity = totalCapacity;
+    }
+
+    public double getTotalCapacity() {
+        return totalCapacity;
+    }
+
+    public void setUsedCapacity(double usedCapacity) {
+        this.usedCapacity = usedCapacity;
+    }
+
+    public double getUsedCapacity() {
+        return usedCapacity;
+    }
+
     @Override
     public void add(DestillatComponent component) {
         components.add(component);
@@ -98,4 +112,16 @@ public class CompositeDestillat implements DestillatComponent {
         return components.get(index);
     }
 
+    @Override
+    public String toString() {
+        return "Destillat " + newMakeNummer + ": " + usedCapacity + " / " + totalCapacity + ", Alkohol Procent: " + alkoholProcent;
+    }
+
+    /*
+    @Override
+    public String toString() {
+        return "Destillat " + newMakeNummer + ": " + usedCapacity + " / " + totalCapacity + ", Alkohol Procent: " + alkoholProcent;
+    }
+
+     */
 }

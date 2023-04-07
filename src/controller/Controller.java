@@ -232,12 +232,20 @@ public class Controller {
         Destillering destillering2 = opretDestillering("Martin", LocalDate.of(2019, 10, 10), LocalDate.of(2023, 10, 11), "Batch 2", "Stairway", 5000.0, "Halm", "Det sku' en ommer");
 
         CompositeDestillat compositeDestillat1 = destillering1.createDestillat(100.0, 60.0);
+        compositeDestillat1.createLeaf(20);
+        compositeDestillat1.createLeaf(30);
         CompositeDestillat compositeDestillat2 = destillering1.createDestillat(150.0, 65);
         CompositeDestillat compositeDestillat3 = destillering1.createDestillat(65.0,80);
+        compositeDestillat3.createLeaf(15);
 
-        destillering2.createDestillat(500.0, 60);
-        destillering2.createDestillat(300.0, 70);
-        destillering2.createDestillat(1000.0, 65);
+        CompositeDestillat compositeDestillat4 = destillering2.createDestillat(500.0, 60);
+        compositeDestillat4.createLeaf(50);
+        compositeDestillat4.createLeaf(100);
+        CompositeDestillat compositeDestillat5 = destillering2.createDestillat(300.0, 70);
+        compositeDestillat5.createLeaf(50);
+        CompositeDestillat compositeDestillat6 = destillering2.createDestillat(1000.0, 65);
+        compositeDestillat6.createLeaf(200);
+        compositeDestillat6.createLeaf(100);
 
 
 

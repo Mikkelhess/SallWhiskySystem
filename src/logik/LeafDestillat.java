@@ -22,6 +22,10 @@ public class LeafDestillat implements DestillatComponent {
         this.liter = liter;
     }
 
+    public String getLeafNewMakeNummer() {
+        return leafNewMakeNummer;
+    }
+
     @Override
     public void add(DestillatComponent component) {
         throw new UnsupportedOperationException("Cannot add a child to a leaf");
@@ -49,7 +53,7 @@ public class LeafDestillat implements DestillatComponent {
 
     @Override
     public String toString() {
-        return "Destillat: " + leafNewMakeNummer + ", " + liter + " liter " + "Alkohol Procent: " + getAlkoholProcent();
+        return "Destillat " + leafNewMakeNummer + ": " + liter + " liter ";
     }
 
     // Additional methods for destillations, like split, merge, etc.

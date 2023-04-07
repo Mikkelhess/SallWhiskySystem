@@ -24,10 +24,11 @@ public class DestilleringPane extends GridPane {
     private Button btnOpretDestillering;
     private Button btnFjernDestillering;
     private Button btnOpretDestillat;
-    private Button btnFjernDestillat;
+    private Button btnFjernCompositeDestillat;
     private Button btnVisDetaljer;
-    private Button btnOpretDel;
-    private Button btnOpdaterDel;
+    private Button btnOpretDestillater;
+    private Button btnOpdaterDestillat;
+    private Button btnFjernLeafDestillat;
     private OpretDestilleringWindow opretDestilleringWindow;
     private OpretDestillatWindow opretDestillatWindow;
 
@@ -52,14 +53,17 @@ public class DestilleringPane extends GridPane {
         this.add(lvwCompositeDestillater, 1, 1, 1, 1);
         lvwCompositeDestillater.setPrefSize(350, 400);
 
-        Label label3 = new Label("Del-Destillater");
+        Label label3 = new Label("Under-Destillater");
         this.add(label3, 2, 0);
         lvwLeafDestillater = new ListView<>();
         this.add(lvwLeafDestillater, 2, 1, 1, 1);
         lvwLeafDestillater.setPrefSize(350, 400);
 
-        ChangeListener<Destillering> listener = (ov, o, n) -> this.selectedDestilleringChanged();
-        lvwDestilleringer.getSelectionModel().selectedItemProperty().addListener(listener);
+        ChangeListener<Destillering> listener1 = (ov, o, n) -> this.selectedDestilleringChanged();
+        lvwDestilleringer.getSelectionModel().selectedItemProperty().addListener(listener1);
+
+        ChangeListener<CompositeDestillat> listener2 = (ov, o, n) -> this.selectedDestillatChanged();
+        lvwCompositeDestillater.getSelectionModel().selectedItemProperty().addListener(listener2);
 
         btnOpretDestillering = new Button("Opret");
         btnOpretDestillering.setOnAction(event -> this.opretDestilleringAction());
@@ -70,18 +74,20 @@ public class DestilleringPane extends GridPane {
         HBox destilleringButtons = new HBox(10, btnOpretDestillering, btnFjernDestillering, btnVisDetaljer);
         destilleringButtons.setAlignment(Pos.CENTER);
 
-        btnOpretDestillat = new Button("Opret");
+        btnOpretDestillat = new Button("Opret Over-Destillat");
         btnOpretDestillat.setOnAction(event -> this.opretDestillatAction());
-        btnFjernDestillat = new Button("Fjern");
-        btnFjernDestillat.setOnAction(event -> this.fjernCompositeDestillatAction());
-        HBox destillatButtons = new HBox(10, btnOpretDestillat, btnFjernDestillat);
+        btnFjernCompositeDestillat = new Button("Fjern");
+        btnFjernCompositeDestillat.setOnAction(event -> this.fjernCompositeDestillatAction());
+        HBox destillatButtons = new HBox(10, btnOpretDestillat, btnFjernCompositeDestillat);
         destillatButtons.setAlignment(Pos.CENTER);
 
-        btnOpretDel = new Button("Opret dele");
-        btnOpretDel.setOnAction(event -> this.opretDeleAction());
-        btnOpdaterDel = new Button("Opdater dele");
-        btnOpdaterDel.setOnAction(event -> this.opdaterDeleAction());
-        HBox delButtons = new HBox(10, btnOpretDel, btnOpdaterDel);
+        btnOpretDestillater = new Button("Opret Destillater");
+        btnOpretDestillater.setOnAction(event -> this.opretDestillaterAction());
+        btnOpdaterDestillat = new Button("Opdater Destillat");
+        btnOpdaterDestillat.setOnAction(event -> this.opdaterLeafDestillat());
+        btnFjernLeafDestillat = new Button("Fjern Destillat");
+        btnFjernLeafDestillat.setOnAction(event -> this.fjernLeafDestillatAction());
+        HBox delButtons = new HBox(10, btnOpretDestillater, btnOpdaterDestillat, btnFjernLeafDestillat);
         delButtons.setAlignment(Pos.CENTER);
 
         VBox destilleringVBox = new VBox(label, lvwDestilleringer, destilleringButtons);
@@ -179,13 +185,85 @@ public class DestilleringPane extends GridPane {
         }
     }
 
-    private void opretDeleAction() {
+    private void opretDestillaterAction() {
+        CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
 
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Opret Destillater");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Vælg hvor mange under-destillater du vil oprette:");
+        Optional<String> result = dialog.showAndWait();
+
+        // Check if the user entered a value
+        if (result.isPresent()) {
+            try {
+                int numLeaves = Integer.parseInt(result.get());
+
+                // Create a loop to prompt the user for the liters of each leaf
+                for (int i = 0; i < numLeaves; i++) {
+                    TextInputDialog leafDialog = new TextInputDialog();
+                    leafDialog.setTitle("Opret Destillat " + (i + 1));
+                    leafDialog.setHeaderText(null);
+                    leafDialog.setContentText("Indtast liter for destillat " + (i + 1) + ":");
+                    Optional<String> leafResult = leafDialog.showAndWait();
+
+                    // Check if the user entered a value
+                    if (leafResult.isPresent()) {
+                        try {
+                            double liters = Double.parseDouble(leafResult.get());
+                            //double liter = Double.parseDouble(opretDeleAntalTekst.getText());
+                            //double currentCapacity = destillatComposite.getLiter();
+                            if (compositeDestillat.getUsedCapacity() + liters > compositeDestillat.getTotalCapacity()) {
+                                // Display an error message to the user
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Capacity Exceeded");
+                                alert.setContentText("Cannot add more leaves than the composite's total capacity.");
+                                alert.showAndWait();
+                                return;
+                            }
+
+                            // Create a new LeafDestillat object and add it to the selected CompositeDestillat
+                            CompositeDestillat selectedDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
+                            LeafDestillat leaf = selectedDestillat.createLeaf(liters);
+                            lvwCompositeDestillater.refresh(); // Update the list view
+                        } catch (NumberFormatException e) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Please enter a valid number for the liters.");
+                            alert.showAndWait();
+                        }
+                        selectedDestillatChanged();
+                    }
+                }
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Please enter a valid number for the number of leaves.");
+                alert.showAndWait();
+            }
+        }
     }
 
-    private void opdaterDeleAction() {
 
+    private void opdaterLeafDestillat() {
+        // TODO !
     }
+
+    private void fjernLeafDestillatAction() {
+        CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
+        LeafDestillat leafDestillat = lvwLeafDestillater.getSelectionModel().getSelectedItem();
+        if (leafDestillat == null) {
+            //alert
+            return;
+        }
+        compositeDestillat.remove(leafDestillat);
+        compositeDestillat.setUsedCapacity(compositeDestillat.getUsedCapacity() - leafDestillat.getLiter());
+        lvwLeafDestillater.getItems().setAll(compositeDestillat.getLeaves());
+        lvwCompositeDestillater.refresh();
+    }
+
 
     private void selectedDestilleringChanged() {
         Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
@@ -194,7 +272,15 @@ public class DestilleringPane extends GridPane {
         } else {
             lvwCompositeDestillater.getItems().clear();
         }
+    }
 
+    private void selectedDestillatChanged() {
+        CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
+        if (compositeDestillat != null) {
+            lvwLeafDestillater.getItems().setAll(compositeDestillat.getLeaves());
+        } else {
+            lvwLeafDestillater.getItems().clear();
+        }
     }
 
     private void visDetaljerWindow(Destillering destillering) {
