@@ -2,7 +2,6 @@ package gui;
 
 import controller.Controller;
 import javafx.beans.value.ChangeListener;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,19 +13,21 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logik.*;
 
-import java.util.List;
 import java.util.Optional;
 
 public class DestilleringPane extends GridPane {
 
     // -------------------------------------------------------------------------
     private ListView<Destillering> lvwDestilleringer;
-    private ListView<Destillat> lvwDestillater;
+    private ListView<CompositeDestillat> lvwCompositeDestillater;
+    private ListView<LeafDestillat> lvwLeafDestillater;
     private Button btnOpretDestillering;
     private Button btnFjernDestillering;
     private Button btnOpretDestillat;
     private Button btnFjernDestillat;
     private Button btnVisDetaljer;
+    private Button btnOpretDel;
+    private Button btnOpdaterDel;
     private OpretDestilleringWindow opretDestilleringWindow;
     private OpretDestillatWindow opretDestillatWindow;
 
@@ -45,11 +46,17 @@ public class DestilleringPane extends GridPane {
         lvwDestilleringer.setPrefSize(350, 400);
         lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
 
-        Label label2 = new Label("Destillater");
+        Label label2 = new Label("Over-Destillater");
         this.add(label2, 1, 0);
-        lvwDestillater = new ListView<>();
-        this.add(lvwDestillater, 1, 1, 1, 1);
-        lvwDestillater.setPrefSize(350, 400);
+        lvwCompositeDestillater = new ListView<>();
+        this.add(lvwCompositeDestillater, 1, 1, 1, 1);
+        lvwCompositeDestillater.setPrefSize(350, 400);
+
+        Label label3 = new Label("Del-Destillater");
+        this.add(label3, 2, 0);
+        lvwLeafDestillater = new ListView<>();
+        this.add(lvwLeafDestillater, 2, 1, 1, 1);
+        lvwLeafDestillater.setPrefSize(350, 400);
 
         ChangeListener<Destillering> listener = (ov, o, n) -> this.selectedDestilleringChanged();
         lvwDestilleringer.getSelectionModel().selectedItemProperty().addListener(listener);
@@ -66,19 +73,32 @@ public class DestilleringPane extends GridPane {
         btnOpretDestillat = new Button("Opret");
         btnOpretDestillat.setOnAction(event -> this.opretDestillatAction());
         btnFjernDestillat = new Button("Fjern");
-        btnFjernDestillat.setOnAction(event -> this.fjernDestillatAction());
+        btnFjernDestillat.setOnAction(event -> this.fjernCompositeDestillatAction());
         HBox destillatButtons = new HBox(10, btnOpretDestillat, btnFjernDestillat);
         destillatButtons.setAlignment(Pos.CENTER);
 
+        btnOpretDel = new Button("Opret dele");
+        btnOpretDel.setOnAction(event -> this.opretDeleAction());
+        btnOpdaterDel = new Button("Opdater dele");
+        btnOpdaterDel.setOnAction(event -> this.opdaterDeleAction());
+        HBox delButtons = new HBox(10, btnOpretDel, btnOpdaterDel);
+        delButtons.setAlignment(Pos.CENTER);
+
         VBox destilleringVBox = new VBox(label, lvwDestilleringer, destilleringButtons);
-        VBox destillatVBox = new VBox(label2, lvwDestillater, destillatButtons);
+        VBox destillatVBox = new VBox(label2, lvwCompositeDestillater, destillatButtons);
+        VBox delVBox = new VBox(label3, lvwLeafDestillater, delButtons);
 
         destilleringVBox.setSpacing(10);
         destillatVBox.setSpacing(10);
+        delVBox.setSpacing(10);
 
         this.add(destilleringVBox, 0, 0);
         this.add(destillatVBox, 1, 0);
+        this.add(delVBox, 2, 0);
     }
+
+
+
 
     private void opretDestilleringAction() {
         opretDestilleringWindow.showAndWait();
@@ -121,9 +141,9 @@ public class DestilleringPane extends GridPane {
 
     }
 
-    private void fjernDestillatAction() {
+    private void fjernCompositeDestillatAction() {
         Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
-        Destillat destillat = lvwDestillater.getSelectionModel().getSelectedItem();
+        CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
 
         if (destillering == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -134,11 +154,11 @@ public class DestilleringPane extends GridPane {
             return;
         }
 
-        if (destillat != null) {
-            destillering.removeDestillat(destillat.getNewMakeNummer());
+        if (compositeDestillat != null) {
+            destillering.removeDestillat(compositeDestillat.getNewMakeNummer());
             destillering.udregnLiter();
             lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
-            lvwDestillater.getItems().setAll(destillering.getDestillatMap().values());
+            lvwCompositeDestillater.getItems().setAll(destillering.getDestillatMap().values());
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Vælg et destillat");
@@ -155,16 +175,24 @@ public class DestilleringPane extends GridPane {
             OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat",new Stage(),destillering);
             opretDestillatWindow.showAndWait();
             lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
-            lvwDestillater.getItems().setAll(destillering.getDestillatMap().values());
+            lvwCompositeDestillater.getItems().setAll(destillering.getDestillatMap().values());
         }
+    }
+
+    private void opretDeleAction() {
+
+    }
+
+    private void opdaterDeleAction() {
+
     }
 
     private void selectedDestilleringChanged() {
         Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
         if (destillering != null) {
-            lvwDestillater.getItems().setAll(destillering.getDestillatMap().values());
+            lvwCompositeDestillater.getItems().setAll(destillering.getDestillatMap().values());
         } else {
-            lvwDestillater.getItems().clear();
+            lvwCompositeDestillater.getItems().clear();
         }
 
     }

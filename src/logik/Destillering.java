@@ -1,14 +1,15 @@
 package logik;
 
 import controller.Controller;
-import storage.Storage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Destillering {
 
-    private HashMap<Integer, Destillat> destillatMap = new HashMap<>();
+    private HashMap<String, CompositeDestillat> destillatMap = new HashMap<>();
     private int destilleringId;
     private static int idCounter = 1;
     private String medarbejderNavn;
@@ -28,39 +29,46 @@ public class Destillering {
         this.slutDato = slutDato;
         this.maltBatch = maltBatch;
         this.kornsort = kornsort;
-        this.totalLiter = totalLiter;
         this.rygeMateriale = rygeMateriale;
         this.kommentar = kommentar;
+
+        this.totalLiter = totalLiter;
+        this.liter = 0;
+
 
         destilleringId = idCounter;
         idCounter++;
     }
 
 
-    public Destillat createDestillat(double liter, double alkoholProcent) {
-        Destillat destillat = new Destillat(liter, alkoholProcent);
-        addDestillat(destillat.getNewMakeNummer(), destillat);
-        udregnLiter();
-        return destillat;
+    public CompositeDestillat createDestillat(double liter, double alkoholProcent) {
+        CompositeDestillat compositeDestillat = new CompositeDestillat(alkoholProcent);
+        compositeDestillat.setTotalCapacity(liter);
+        addDestillat(compositeDestillat.getNewMakeNummer(), compositeDestillat);
+
+        return compositeDestillat;
     }
 
-    public void addDestillat(int newMakeNummer, Destillat destillat) {
-        destillatMap.put(newMakeNummer, destillat);
-        Controller.addDestillat(destillat);
+    public void addDestillat(String newMakeNummer, CompositeDestillat compositeDestillat) {
+        destillatMap.put(newMakeNummer, compositeDestillat);
+        Controller.addDestillat(compositeDestillat);
     }
 
-    public void removeDestillat(int newMakeNummer){
-        Destillat destillat = destillatMap.remove(newMakeNummer);
-        Controller.removeDestillat(destillat);
+    public void removeDestillat(String newMakeNummer){
+        CompositeDestillat compositeDestillat = destillatMap.remove(newMakeNummer);
+        Controller.removeDestillat(compositeDestillat);
     }
 
     public double udregnLiter() {
-        double liter = 0;
-
-        for (Destillat destillat : destillatMap.values()) {
-            liter += destillat.getMaxLiter();
-        }
         return totalLiter - liter;
+    }
+
+    public List<LeafDestillat> getAllLeaves() {
+        List<LeafDestillat> allLeaves = new ArrayList<>();
+        for (CompositeDestillat composite : getDestillatMap().values()) {
+            allLeaves.addAll(composite.getLeaves());
+        }
+        return allLeaves;
     }
 
     public int getDestilleringId() {
@@ -111,7 +119,7 @@ public class Destillering {
         return liter;
     }
 
-    public HashMap<Integer, Destillat> getDestillatMap() {
+    public HashMap<String, CompositeDestillat> getDestillatMap() {
         return new HashMap<>(destillatMap);
     }
 

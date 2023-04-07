@@ -152,15 +152,15 @@ public class Controller {
         return fadUdenHyldeListe;
     }
 
-    public static void addDestillat(Destillat destillat){
-        Storage.addDestillat(destillat);
+    public static void addDestillat(CompositeDestillat compositeDestillat){
+        Storage.addDestillat(compositeDestillat);
     }
 
-    public static void removeDestillat(Destillat destillat){
-        Storage.removeDestillat(destillat);
+    public static void removeDestillat(CompositeDestillat compositeDestillat){
+        Storage.removeDestillat(compositeDestillat);
     }
 
-    public static HashMap<Integer,Destillat> getDestillatMap(){
+    public static HashMap<String, CompositeDestillat> getDestillatMap(){
         return Storage.getDestillatMap();
     }
 
@@ -177,11 +177,6 @@ public class Controller {
     public static HashMap<Integer,Fad> getFadPåHyldeMap(int lagerId, int reolId, int hyldeId) {
         Hylde hylde = getHylde(lagerId, reolId, hyldeId);
         return hylde.getFadPåHyldeMap();
-    }
-
-    public static HashMap<Integer,Destillat> getDestillatPåFadMap(int fadId) {
-        Fad fad = getFad(fadId);
-        return fad.getDestillatMap();
     }
 
     public static HashMap<Integer,Destillering> getDestilleringMap() {
@@ -236,9 +231,9 @@ public class Controller {
         Destillering destillering1 = opretDestillering("Snævar", LocalDate.of(2023, 3, 30), LocalDate.of(2023, 4, 1), "Batch 1", "Evergreen", 800.0, "Tørv", "Sådan venner");
         Destillering destillering2 = opretDestillering("Martin", LocalDate.of(2019, 10, 10), LocalDate.of(2023, 10, 11), "Batch 2", "Stairway", 5000.0, "Halm", "Det sku' en ommer");
 
-        Destillat destillat1 = destillering1.createDestillat(100.0, 60.0);
-        Destillat destillat2 = destillering1.createDestillat(150.0, 65);
-        Destillat destillat3 = destillering1.createDestillat(65.0,80);
+        CompositeDestillat compositeDestillat1 = destillering1.createDestillat(100.0, 60.0);
+        CompositeDestillat compositeDestillat2 = destillering1.createDestillat(150.0, 65);
+        CompositeDestillat compositeDestillat3 = destillering1.createDestillat(65.0,80);
 
         destillering2.createDestillat(500.0, 60);
         destillering2.createDestillat(300.0, 70);

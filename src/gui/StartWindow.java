@@ -62,16 +62,6 @@
             DestilleringPane destilleringPane = new DestilleringPane();
             tabDestillering.setContent(destilleringPane);
             //tabDestillering.setOnSelectionChanged(event -> destilleringPane.updateList());
-
-
-
-
-
-
-
-
-
-
         }
 
 
