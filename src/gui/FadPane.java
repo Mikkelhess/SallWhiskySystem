@@ -1,29 +1,22 @@
 package gui;
 
 import controller.Controller;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import logik.Destillat;
-import logik.Destillering;
+import logik.CompositeDestillat;
 import logik.Fad;
 
 public class FadPane extends GridPane {
 
     private ListView<Fad> lvwFade;
 
-    private ListView<Destillat> lvwDestillat;
+    private ListView<CompositeDestillat> lvwDestillat;
     private Button btnOpretFad;
     private Button btnFjernFad;
     private Button btnHistorik;
@@ -31,11 +24,12 @@ public class FadPane extends GridPane {
     private Button btnTilføj;
 
     private Button btnFjernDestillat;
-    private TextField txfTilføjLiter = new TextField();
+    //private TextField txfTilføjLiter = new TextField();
 
     private HBox FadHBox, destillatHBox;
 
     private OpretFadWindow opretFadWindow;
+
 
 
     public FadPane() {
@@ -64,7 +58,7 @@ public class FadPane extends GridPane {
 
         Label lblDestillater = new Label("Destillater");
         this.add(lblDestillater, 1, 0);
-
+        
         FadHBox = new HBox();
         this.add(FadHBox, 0, 4);
         FadHBox.setSpacing(20);
@@ -89,9 +83,10 @@ public class FadPane extends GridPane {
         btnTilføj = new Button("Tilføj Destillat til Fad");
         destillatHBox.getChildren().add(btnTilføj);
         btnTilføj.setOnAction(event -> this.tilføjDestillatAction());
-
+        /*
         txfTilføjLiter.setPromptText("Tilføj Liter");
         destillatHBox.getChildren().add(txfTilføjLiter);
+         */
 
 
 
@@ -100,14 +95,15 @@ public class FadPane extends GridPane {
 
     private void tilføjDestillatAction() {
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
-        Destillat destillat = lvwDestillat.getSelectionModel().getSelectedItem();
+        CompositeDestillat compositeDestillat = lvwDestillat.getSelectionModel().getSelectedItem();
 
-        if (fad == null || destillat == null) {
+        if (fad == null || compositeDestillat == null) {
             showAlert("Fejl", "Vælg venligst et fad og et destillat");
             return;
         }
 
-        fad.addDestillat(destillat.getNewMakeNummer(), destillat);
+        //fad.addDestillat(compositeDestillat.getNewMakeNummer(), compositeDestillat);
+        /*
         String liter = txfTilføjLiter.getText();
         double tilføjLiter = Double.parseDouble(liter);
         if (destillat.getCurrentLiter() - tilføjLiter < 0) {
@@ -115,6 +111,7 @@ public class FadPane extends GridPane {
             return;
         }
         destillat.hældPåFad(tilføjLiter);
+         */
         lvwDestillat.getItems().setAll(Controller.getDestillatMap().values());
     }
 
@@ -171,8 +168,16 @@ public class FadPane extends GridPane {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10));
 
-        int rowIndex = 0;
+        int rowIndex = 1;
+        gridPane.addRow(0, new Label("laves færdig i version 1.3..."));
+        for (CompositeDestillat compositeDestillat : fad.getDestillatMap().values()) {
 
+            gridPane.addRow(rowIndex++, new Label(compositeDestillat.toString()));
+
+        }
+        /*
+        int rowIndex = 0;
+        gridPane.addRow(rowIndex, new Label());
         for (Destillat destillat : fad.getDestillatMap().values()) {
 
             //Label addedDateLabel = new Label("Added to Fad:");
@@ -186,6 +191,8 @@ public class FadPane extends GridPane {
             //gridPane.addRow(rowIndex++, removedDateLabel, removedDateValueLabel);
             gridPane.addRow(rowIndex++, new Separator(Orientation.HORIZONTAL));
         }
+
+         */
 
         detailsStage.setScene(new Scene(gridPane, 400, 300));
         detailsStage.setTitle("Fad Historik");

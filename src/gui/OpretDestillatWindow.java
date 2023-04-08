@@ -1,6 +1,5 @@
 package gui;
 
-import controller.Controller;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,10 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import logik.Destillat;
+import logik.CompositeDestillat;
 import logik.Destillering;
-
-import java.time.LocalDate;
 
 public class OpretDestillatWindow extends Stage {
 
@@ -114,7 +111,7 @@ public class OpretDestillatWindow extends Stage {
         txfTotalLiter.clear();
         txfAlkoholProcent.clear();
         OpretDestillatWindow.this.hide();
-        Destillat destillat = destillering.createDestillat(totalLiter, alkoholProcent);
+        CompositeDestillat compositeDestillat = destillering.createDestillat(totalLiter, alkoholProcent);
     }
 
 
