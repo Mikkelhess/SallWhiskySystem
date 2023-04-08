@@ -12,56 +12,65 @@ import java.util.List;
 public class Controller {
 
 
-
     /**
      * Opretter et nyt lager
+     *
      * @return lager
      */
     public static Lager opretLager() {
         Lager lager = new Lager();
-        Storage.addLager(lager);
+        Storage.getInstance().addLager(lager);
         return lager;
     }
 
     /**
      * Opretter et fad
+     *
      * @param størrelse på fad i liter
-     * @param fadType hvad der har lagret i fadet inden, eks. sherry
+     * @param fadType   Hvad der har lagret i fadet inden, eks. sherry
      * @return fad
      */
     public static Fad opretFad(double størrelse, FadType fadType, String leverandør) {
-        if (størrelse <= 0 || fadType == null) {throw new NullPointerException("Angiv korrekte oplysninger.");}
+        if (størrelse <= 0 || fadType == null) {
+            throw new NullPointerException("Angiv korrekte oplysninger.");
+        }
 
         Fad fad = new Fad(størrelse, fadType, leverandør);
-        Storage.addFad(fad);
+        Storage.getInstance().addFad(fad);
         return fad;
     }
 
     /**
      * Opretter en ny reol
+     *
      * @param lager der hvor reolen skal oprettes
      * @return reol
      */
     public static Reol opretReol(Lager lager) {
-        if (lager == null) {throw new NullPointerException("Angiv et lager.");}
+        if (lager == null) {
+            throw new NullPointerException("Angiv et lager.");
+        }
         Reol reol = lager.createReol();
         return reol;
     }
 
     /**
      * Opretter en ny hylde
+     *
      * @param reol der hvor hylden skal oprettes
      * @return hylde
      */
     public static Hylde opretHylde(Reol reol) {
-        if (reol == null) {throw new NullPointerException("Angiv en reol.");}
+        if (reol == null) {
+            throw new NullPointerException("Angiv en reol.");
+        }
         Hylde hylde = reol.createHylde();
         return hylde;
     }
 
     public static Destillering opretDestillering(String medarbejderNavn, LocalDate startDato, LocalDate slutdato, String maltBatch, String kornsort, double totalLiter, String rygemateriale, String kommentar) {
         Destillering destillering = new Destillering(medarbejderNavn, startDato, slutdato, maltBatch, kornsort, totalLiter, rygemateriale, kommentar);
-        Storage.addDestillering(destillering);
+        Storage.getInstance().addDestillering(destillering);
         return destillering;
     }
 
@@ -71,20 +80,24 @@ public class Controller {
 
     /**
      * Tilføjer et fad til en hylde
+     *
      * @param hylde hvor fadet skal tilføjes
-     * @param fad der tilføjes
+     * @param fad   der tilføjes
      */
     public static void addFadtilHylde(Hylde hylde, Fad fad) {
-        if (hylde == null || fad == null) {throw new NullPointerException("Angiv korrekt information.");}
+        if (hylde == null || fad == null) {
+            throw new NullPointerException("Angiv korrekt information.");
+        }
 
         hylde.addFadTilHylde(fad);
     }
 
     public static Lager getLager(int lagerId) {
-        return Storage.getLagerMap().get(lagerId);
+        return Storage.getInstance().getLagerMap().get(lagerId);
     }
+
     public static void removeLager(Lager lager) {
-        Storage.removeLager(lager);
+        Storage.getInstance().removeLager(lager);
     }
 
     // Mangler begrænsninger
@@ -130,17 +143,18 @@ public class Controller {
     }
 
 
-    public static HashMap<Integer,Lager> getLagerMap() {
-        return Storage.getLagerMap();
+    public static HashMap<Integer, Lager> getLagerMap() {
+        return Storage.getInstance().getLagerMap();
     }
 
-    public static HashMap<Integer,Fad> getFadMap() {
-        return Storage.getFadMap();
+    public static HashMap<Integer, Fad> getFadMap() {
+        return Storage.getInstance().getFadMap();
+
     }
 
     public static List<Fad> getFadUdenHylde() {
         ArrayList<Fad> fadUdenHyldeListe = new ArrayList<>(getFadMap().values());
-        for (Lager lager : Storage.getLagerMap().values()) {
+        for (Lager lager : Storage.getInstance().getLagerMap().values()) {
             for (Reol reol : lager.getReolMap().values()) {
                 for (Hylde hylde : reol.getHyldeMap().values()) {
                     for (Fad fad : hylde.getFadPåHyldeMap().values()) {
@@ -152,40 +166,43 @@ public class Controller {
         return fadUdenHyldeListe;
     }
 
-    public static void addDestillat(Destillat destillat){
-        Storage.addDestillat(destillat);
+    public static void addDestillat(Destillat destillat) {
+        Storage.getInstance().addDestillat(destillat);
     }
 
-    public static void removeDestillat(Destillat destillat){
-        Storage.removeDestillat(destillat);
+
+    public static void removeDestillat(Destillat destillat) {
+        Storage.getInstance().removeDestillat(destillat);
+
     }
 
-    public static HashMap<Integer,Destillat> getDestillatMap(){
-        return Storage.getDestillatMap();
+    public static HashMap<Integer, Destillat> getDestillatMap() {
+        return Storage.getInstance().getDestillatMap();
+
     }
 
-    public static HashMap<Integer,Reol> getReolMap(int lagerId) {
+    public static HashMap<Integer, Reol> getReolMap(int lagerId) {
         Lager lager = getLager(lagerId);
         return lager.getReolMap();
     }
 
-    public static HashMap<Integer,Hylde> getHyldeMap(int lagerId, int reolId) {
+    public static HashMap<Integer, Hylde> getHyldeMap(int lagerId, int reolId) {
         Reol reol = getReol(lagerId, reolId);
         return reol.getHyldeMap();
     }
 
-    public static HashMap<Integer,Fad> getFadPåHyldeMap(int lagerId, int reolId, int hyldeId) {
+    public static HashMap<Integer, Fad> getFadPåHyldeMap(int lagerId, int reolId, int hyldeId) {
         Hylde hylde = getHylde(lagerId, reolId, hyldeId);
         return hylde.getFadPåHyldeMap();
     }
 
-    public static HashMap<Integer,Destillat> getDestillatPåFadMap(int fadId) {
+    public static HashMap<Integer, Destillat> getDestillatPåFadMap(int fadId) {
         Fad fad = getFad(fadId);
         return fad.getDestillatMap();
     }
 
-    public static HashMap<Integer,Destillering> getDestilleringMap() {
-        return Storage.getDestilleringMap();
+    public static HashMap<Integer, Destillering> getDestilleringMap() {
+        return Storage.getInstance().getDestilleringMap();
     }
 
 
@@ -211,7 +228,7 @@ public class Controller {
         Fad fad4 = opretFad(20, FadType.COGNAC, "Leverandør 4");
         Fad fad5 = opretFad(40, FadType.RØDVIN, "Leverandør 5");
         Fad fad6 = opretFad(57, FadType.COGNAC, "Leverandør 6");
-        Fad fad7 = opretFad(80, FadType.RØDVIN,"Leverandør..." );
+        Fad fad7 = opretFad(80, FadType.RØDVIN, "Leverandør...");
         Fad fad8 = opretFad(104, FadType.BOURBON, "...");
         Fad fad9 = opretFad(44, FadType.COGNAC, "...");
         Fad fad10 = opretFad(47, FadType.RØDVIN, "...");
@@ -238,12 +255,11 @@ public class Controller {
 
         Destillat destillat1 = destillering1.createDestillat(100.0, 60.0);
         Destillat destillat2 = destillering1.createDestillat(150.0, 65);
-        Destillat destillat3 = destillering1.createDestillat(65.0,80);
+        Destillat destillat3 = destillering1.createDestillat(65.0, 80);
 
         destillering2.createDestillat(500.0, 60);
         destillering2.createDestillat(300.0, 70);
         destillering2.createDestillat(1000.0, 65);
-
 
 
     }
