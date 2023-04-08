@@ -170,7 +170,7 @@ public class DestilleringPane extends GridPane {
 
         if (compositeDestillat != null) {
             destillering.removeDestillat(compositeDestillat.getNewMakeNummer());
-            destillering.udregnLiter();
+            destillering.udregnBrugteLiter();
             lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
             lvwCompositeDestillater.getItems().setAll(destillering.getDestillatMap().values());
         } else {
@@ -207,7 +207,7 @@ public class DestilleringPane extends GridPane {
                         try {
                             double liters = Double.parseDouble(leafResult.get());
 
-                            if (compositeDestillat.getUsedCapacity() + liters > compositeDestillat.getTotalCapacity()) {
+                            if (compositeDestillat.getBrugteLiter() + liters > compositeDestillat.getTotalLiter()) {
                                 // Display an error message to the user
                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                 alert.setTitle("Capacity Exceeded");
@@ -251,7 +251,7 @@ public class DestilleringPane extends GridPane {
             return;
         }
         compositeDestillat.remove(leafDestillat);
-        compositeDestillat.setUsedCapacity(compositeDestillat.getUsedCapacity() - leafDestillat.getLiter());
+        compositeDestillat.setBrugteLiter(compositeDestillat.getBrugteLiter() - leafDestillat.getLiter());
         lvwLeafDestillater.getItems().setAll(compositeDestillat.getLeaves());
         lvwCompositeDestillater.refresh();
     }
@@ -289,7 +289,7 @@ public class DestilleringPane extends GridPane {
         gridPane.addRow(2, new Label("Slut Dato: "), new Label(destillering.getSlutDato().toString()));
         gridPane.addRow(3, new Label("Malt batch: "), new Label(destillering.getMaltBatch()));
         gridPane.addRow(4, new Label("Kornsort: "), new Label(destillering.getKornsort()));
-        gridPane.addRow(5, new Label("Kapacitet: "), new Label(destillering.udregnLiter() + " ud af " + destillering.getTotalLiter() + " liter"));
+        gridPane.addRow(5, new Label("Kapacitet: "), new Label(destillering.udregnBrugteLiter() + " ud af " + destillering.getTotalLiter() + " liter"));
         gridPane.addRow(6, new Label("Ryge materiale: "), new Label(destillering.getRygeMateriale()));
         gridPane.addRow(7, new Label("Kommentar: "), new Label(destillering.getKommentar()));
 

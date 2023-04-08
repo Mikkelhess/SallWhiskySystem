@@ -37,36 +37,15 @@ public class Destillering {
         destilleringId = idCounter;
         idCounter++;
 
-        udregnLiter();
+        udregnBrugteLiter();
     }
-
-    /*
-    public Destillering(String medarbejderNavn, LocalDate startDato, LocalDate slutDato, String maltBatch, String kornsort, double totalLiter, String rygeMateriale, String kommentar) {
-        this.medarbejderNavn = medarbejderNavn;
-        this.startDato = startDato;
-        this.slutDato = slutDato;
-        this.maltBatch = maltBatch;
-        this.kornsort = kornsort;
-        this.rygeMateriale = rygeMateriale;
-        this.kommentar = kommentar;
-
-        this.totalLiter = totalLiter;
-        this.liter = 0;
-
-
-        destilleringId = idCounter;
-        idCounter++;
-    }
-
-     */
-
 
     public CompositeDestillat createDestillat(double liter, double alkoholProcent) {
         CompositeDestillat compositeDestillat = new CompositeDestillat(alkoholProcent);
-        compositeDestillat.setTotalCapacity(liter);
+        compositeDestillat.setTotalLiter(liter);
         addDestillat(compositeDestillat.getNewMakeNummer(), compositeDestillat);
 
-        liter = udregnLiter(); // update the value of liter
+        liter = udregnBrugteLiter(); // update the value of liter
         setLiter(liter); // set the new value of liter
         return compositeDestillat;
     }
@@ -81,14 +60,15 @@ public class Destillering {
         Controller.removeDestillat(compositeDestillat);
     }
 
-    public double udregnLiter() {
-        double totalCapacity = 0;
+    public double udregnBrugteLiter() {
+        double liter = 0;
         for (CompositeDestillat composite : destillatMap.values()) {
-            totalCapacity += composite.getTotalCapacity();
+            liter += composite.getTotalLiter();
         }
-        return totalLiter - totalCapacity;
+        return totalLiter - liter;
     }
 
+    //bliver den brugt
     public List<LeafDestillat> getAllLeaves() {
         List<LeafDestillat> allLeaves = new ArrayList<>();
         for (CompositeDestillat composite : getDestillatMap().values()) {
@@ -151,6 +131,6 @@ public class Destillering {
 
     @Override
     public String toString() {
-        return "Destillering " + destilleringId + ": " + udregnLiter() + " / " + totalLiter + " liter";
+        return "Destillering " + destilleringId + ": " + udregnBrugteLiter() + " / " + totalLiter + " liter";
     }
 }

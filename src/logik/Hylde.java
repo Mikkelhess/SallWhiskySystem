@@ -27,6 +27,10 @@ public class Hylde {
         fadPåHyldeMap.remove(fadId);
     }
 
+    public Fad getFad(int fadId) {
+        return fadPåHyldeMap.get(fadId);
+    }
+
     public int getHyldeId() {
         return hyldeId;
     }

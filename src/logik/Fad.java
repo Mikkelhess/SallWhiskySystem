@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class Fad {
 
-    private double fadLiter;
     private HashMap<Integer, CompositeDestillat> destillatMap = new HashMap<>();
+    private double fadLiter;
     private static int idCounter = 1;
     private final int fadId;
     private FadType fadType;

@@ -7,19 +7,18 @@ public class CompositeDestillat implements DestillatComponent {
 
 
     private List<DestillatComponent> components = new ArrayList<>();
-    private double liter = getLiter();
     private int leafCounter = 1;
     private static int newMakeCounter = 1;
     private String newMakeNummer;
     private double alkoholProcent;
-    private double totalCapacity;
-    private double usedCapacity;
+    private double totalLiter;
+    private double brugteLiter;
 
 
     public CompositeDestillat(double alkoholProcent) {
         this.alkoholProcent = alkoholProcent;
 
-        this.usedCapacity = 0;
+        this.brugteLiter = 0;
 
         this.newMakeNummer = String.valueOf(newMakeCounter);
         newMakeCounter++;
@@ -53,11 +52,11 @@ public class CompositeDestillat implements DestillatComponent {
         throw new UnsupportedOperationException("Cannot see amount directly on a composite");
     }
 
-    public LeafDestillat createLeaf(double amount) {
+    public LeafDestillat createLeaf(double liter) {
         String leafMakeNummer = newMakeNummer + "." + leafCounter++;
-        LeafDestillat leafDestillat = new LeafDestillat(amount, leafMakeNummer, getAlkoholProcent());
+        LeafDestillat leafDestillat = new LeafDestillat(liter, leafMakeNummer, getAlkoholProcent());
         components.add(leafDestillat);
-        usedCapacity += amount;
+        brugteLiter += liter;
 
         return leafDestillat;
     }
@@ -72,20 +71,20 @@ public class CompositeDestillat implements DestillatComponent {
         return leaves;
     }
 
-    public void setTotalCapacity(double totalCapacity) {
-        this.totalCapacity = totalCapacity;
+    public void setTotalLiter(double totalLiter) {
+        this.totalLiter = totalLiter;
     }
 
-    public double getTotalCapacity() {
-        return totalCapacity;
+    public double getTotalLiter() {
+        return totalLiter;
     }
 
-    public void setUsedCapacity(double usedCapacity) {
-        this.usedCapacity = usedCapacity;
+    public void setBrugteLiter(double brugteLiter) {
+        this.brugteLiter = brugteLiter;
     }
 
-    public double getUsedCapacity() {
-        return usedCapacity;
+    public double getBrugteLiter() {
+        return brugteLiter;
     }
 
     @Override
@@ -109,6 +108,6 @@ public class CompositeDestillat implements DestillatComponent {
 
     @Override
     public String toString() {
-        return "Destillat " + newMakeNummer + ": " + usedCapacity + " / " + totalCapacity + ", Alkohol Procent: " + alkoholProcent;
+        return "Destillat " + newMakeNummer + ": " + brugteLiter + " / " + totalLiter + ", Alkohol Procent: " + alkoholProcent;
     }
 }
