@@ -6,61 +6,70 @@ import java.util.HashMap;
 
 
 public class Storage {
+    private static Storage instance = null;
 
-    private static HashMap<Integer, Lager> lagerMap = new HashMap<>();
-    private static HashMap<Integer, Fad> fadMap = new HashMap<>();
-    private static HashMap<Integer, Destillering> destilleringMap = new HashMap<>();
-    private static HashMap<String, CompositeDestillat> destillatMap = new HashMap<>();
+    private HashMap<Integer, Lager> lagerMap;
+    private HashMap<Integer, Fad> fadMap;
+    private HashMap<Integer, Destillering> destilleringMap;
+    private HashMap<String, CompositeDestillat> destillatMap;
 
-    public static Lager addLager(Lager lager) {
+    private Storage() {
+        lagerMap = new HashMap<>();
+        fadMap = new HashMap<>();
+        destilleringMap = new HashMap<>();
+        destillatMap = new HashMap<>();
+    }
+
+    public static Storage getInstance() {
+        if (instance == null) {
+            instance = new Storage();
+        }
+        return instance;
+    }
+
+    public Lager addLager(Lager lager) {
         lagerMap.put(lager.getLagerId(), lager);
         return lager;
     }
 
-    public static void addFad(Fad fad) {
+    public void addFad(Fad fad) {
         fadMap.put(fad.getFadId(), fad);
     }
 
 
-    public static void addDestillering(Destillering destillering) {
+    public void addDestillering(Destillering destillering) {
         destilleringMap.put(destillering.getDestilleringId(), destillering);
 
     }
 
-    public static void addDestillat(CompositeDestillat compositeDestillat) {
+    public void addDestillat(CompositeDestillat compositeDestillat) {
         destillatMap.put(compositeDestillat.getNewMakeNummer(), compositeDestillat);
     }
 
-    public static void removeDestillat(CompositeDestillat compositeDestillat){
+    public void removeDestillat(CompositeDestillat compositeDestillat){
         destillatMap.remove(compositeDestillat.getNewMakeNummer());
     }
 
-    public static void removeLager(Lager lager) {
+    public void removeLager(Lager lager) {
         lagerMap.remove(lager.getLagerId());
     }
 
-    public static void removeFad(Fad fad) {
+    public void removeFad(Fad fad) {
         fadMap.remove(fad);
     }
 
-
-    public static HashMap<Integer, Lager> getLagerMap() {
+    public HashMap<Integer, Lager> getLagerMap() {
         return lagerMap;
     }
 
-    public static HashMap<Integer, Fad> getFadMap() {
+    public HashMap<Integer, Fad> getFadMap() {
         return fadMap;
     }
 
-    public static HashMap<Integer, Destillering> getDestilleringMap() {
+    public HashMap<Integer, Destillering> getDestilleringMap() {
         return destilleringMap;
     }
 
-    public static HashMap<String, CompositeDestillat> getDestillatMap() {
+    public HashMap<String, CompositeDestillat> getDestillatMap() {
         return destillatMap;
     }
-
-
-}
-
-

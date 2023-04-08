@@ -10,30 +10,27 @@ import java.util.List;
 
 
 public class Controller {
-
-
-
     /**
      * Opretter et nyt lager
      * @return lager
      */
     public static Lager opretLager() {
         Lager lager = new Lager();
-        Storage.addLager(lager);
+        Storage.getInstance().addLager(lager);
         return lager;
     }
 
     /**
      * Opretter et fad
      * @param størrelse på fad i liter
-     * @param fadType hvad der har lagret i fadet inden, eks. sherry
+     * @param fadType Hvad der har lagret i fadet inden, eks. sherry
      * @return fad
      */
     public static Fad opretFad(double størrelse, FadType fadType, String leverandør) {
         if (størrelse <= 0 || fadType == null) {throw new NullPointerException("Angiv korrekte oplysninger.");}
 
         Fad fad = new Fad(størrelse, fadType, leverandør);
-        Storage.addFad(fad);
+        Storage.getInstance().addFad(fad);
         return fad;
     }
 
@@ -61,7 +58,7 @@ public class Controller {
 
     public static Destillering opretDestillering(String medarbejderNavn, LocalDate startDato, LocalDate slutdato, String maltBatch, String kornsort, double totalLiter, String rygemateriale, String kommentar) {
         Destillering destillering = new Destillering(medarbejderNavn, startDato, slutdato, maltBatch, kornsort, totalLiter, rygemateriale, kommentar);
-        Storage.addDestillering(destillering);
+        Storage.getInstance().addDestillering(destillering);
         return destillering;
     }
 
@@ -81,10 +78,10 @@ public class Controller {
     }
 
     public static Lager getLager(int lagerId) {
-        return Storage.getLagerMap().get(lagerId);
+        return Storage.getInstance().getLagerMap().get(lagerId);
     }
     public static void removeLager(Lager lager) {
-        Storage.removeLager(lager);
+        Storage.getInstance().removeLager(lager);
     }
 
     // Mangler begrænsninger
@@ -131,16 +128,16 @@ public class Controller {
 
 
     public static HashMap<Integer,Lager> getLagerMap() {
-        return Storage.getLagerMap();
+        return Storage.getInstance().getLagerMap();
     }
 
     public static HashMap<Integer,Fad> getFadMap() {
-        return Storage.getFadMap();
+        return Storage.getInstance().getFadMap();
     }
 
     public static List<Fad> getFadUdenHylde() {
         ArrayList<Fad> fadUdenHyldeListe = new ArrayList<>(getFadMap().values());
-        for (Lager lager : Storage.getLagerMap().values()) {
+        for (Lager lager : Storage.getInstance().getLagerMap().values()) {
             for (Reol reol : lager.getReolMap().values()) {
                 for (Hylde hylde : reol.getHyldeMap().values()) {
                     for (Fad fad : hylde.getFadPåHyldeMap().values()) {
@@ -153,15 +150,15 @@ public class Controller {
     }
 
     public static void addDestillat(CompositeDestillat compositeDestillat){
-        Storage.addDestillat(compositeDestillat);
+        Storage.getInstance().addDestillat(compositeDestillat);
     }
 
     public static void removeDestillat(CompositeDestillat compositeDestillat){
-        Storage.removeDestillat(compositeDestillat);
+        Storage.getInstance().removeDestillat(compositeDestillat);
     }
 
     public static HashMap<String, CompositeDestillat> getDestillatMap(){
-        return Storage.getDestillatMap();
+        return Storage.getInstance().getDestillatMap();
     }
 
     public static HashMap<Integer,Reol> getReolMap(int lagerId) {
@@ -180,7 +177,7 @@ public class Controller {
     }
 
     public static HashMap<Integer,Destillering> getDestilleringMap() {
-        return Storage.getDestilleringMap();
+        return Storage.getInstance().getDestilleringMap();
     }
 
 
@@ -246,8 +243,5 @@ public class Controller {
         CompositeDestillat compositeDestillat6 = destillering2.createDestillat(1000.0, 65);
         compositeDestillat6.createLeaf(200);
         compositeDestillat6.createLeaf(100);
-
-
-
     }
 }
