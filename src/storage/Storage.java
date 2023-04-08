@@ -46,7 +46,7 @@ public class Storage {
         destillatMap.put(compositeDestillat.getNewMakeNummer(), compositeDestillat);
     }
 
-    public void removeDestillat(CompositeDestillat compositeDestillat){
+    public void removeDestillat(CompositeDestillat compositeDestillat) {
         destillatMap.remove(compositeDestillat.getNewMakeNummer());
     }
 
@@ -73,3 +73,4 @@ public class Storage {
     public HashMap<String, CompositeDestillat> getDestillatMap() {
         return destillatMap;
     }
+}
