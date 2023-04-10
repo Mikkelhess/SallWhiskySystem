@@ -11,6 +11,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logik.CompositeDestillat;
 import logik.Fad;
+import logik.Hylde;
+import logik.LeafDestillat;
+
+import javax.xml.transform.Source;
 
 public class FadPane extends GridPane {
 
@@ -29,6 +33,7 @@ public class FadPane extends GridPane {
     private HBox FadHBox, destillatHBox;
 
     private OpretFadWindow opretFadWindow;
+    private TilføjDestillatWindow tilføjDestillatWindow;
 
 
 
@@ -93,26 +98,24 @@ public class FadPane extends GridPane {
     }
 
 
+    //der skal  være en liste over composites og fad, man trykker tilføj, man kan tage leaves over på fadet. men nok ikke den anden vej. Måske en remove?
+    //enten begge veje eller en vej
+    // ez clap
+    //lav 1.2 færdig i dag whisky færdig imorgen
     private void tilføjDestillatAction() {
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
         CompositeDestillat compositeDestillat = lvwDestillat.getSelectionModel().getSelectedItem();
-
-        if (fad == null || compositeDestillat == null) {
-            showAlert("Fejl", "Vælg venligst et fad og et destillat");
-            return;
+        if (fad != null && compositeDestillat != null) {
+            tilføjDestillatWindow = new TilføjDestillatWindow("Tilføj Destillater", new Stage(), compositeDestillat, fad);
+            tilføjDestillatWindow.showAndWait();
+            //lvwDestillat.getItems().setAll(selectedHylde.getFadPåHyldeMap().values());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg et destillat");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg et destillat som du vil tilføje til fadet");
+            alert.showAndWait();
         }
-
-        //fad.addDestillat(compositeDestillat.getNewMakeNummer(), compositeDestillat);
-        /*
-        String liter = txfTilføjLiter.getText();
-        double tilføjLiter = Double.parseDouble(liter);
-        if (destillat.getCurrentLiter() - tilføjLiter < 0) {
-            showAlert("Tilføj Destillat","Du prøver at tilføje mere væske end der er tilbage i destillatet");
-            return;
-        }
-        destillat.hældPåFad(tilføjLiter);
-         */
-        lvwDestillat.getItems().setAll(Controller.getDestillatMap().values());
     }
 
     private void showAlert(String title, String message) {
@@ -160,6 +163,11 @@ public class FadPane extends GridPane {
     }
 
     private void visHistorikWindow(Fad fad) {
+
+        for (LeafDestillat leafDestillat : fad.getLeafDestillatMap().values()) {
+            System.out.println(leafDestillat);
+        }
+
         Stage detailsStage = new Stage();
         detailsStage.initModality(Modality.WINDOW_MODAL);
 
