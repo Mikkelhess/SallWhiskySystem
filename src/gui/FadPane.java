@@ -98,17 +98,13 @@ public class FadPane extends GridPane {
     }
 
 
-    //der skal  være en liste over composites og fad, man trykker tilføj, man kan tage leaves over på fadet. men nok ikke den anden vej. Måske en remove?
-    //enten begge veje eller en vej
-    // ez clap
-    //lav 1.2 færdig i dag whisky færdig imorgen
+    //TODO Check om der er plads på fadet til destillaterne
     private void tilføjDestillatAction() {
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
         CompositeDestillat compositeDestillat = lvwDestillat.getSelectionModel().getSelectedItem();
         if (fad != null && compositeDestillat != null) {
             tilføjDestillatWindow = new TilføjDestillatWindow("Tilføj Destillater", new Stage(), compositeDestillat, fad);
             tilføjDestillatWindow.showAndWait();
-            //lvwDestillat.getItems().setAll(selectedHylde.getFadPåHyldeMap().values());
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Vælg et destillat");
@@ -210,6 +206,7 @@ public class FadPane extends GridPane {
 
     public void updateList() {
         lvwFade.getItems().setAll(Controller.getFadMap().values());
+        lvwDestillat.getItems().setAll(Controller.getDestillatMap().values());
     }
 
 }

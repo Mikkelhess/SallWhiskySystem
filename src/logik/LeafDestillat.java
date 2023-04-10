@@ -5,6 +5,7 @@ public class LeafDestillat implements DestillatComponent {
     private double liter;
     private String leafNewMakeNummer;
     private double alkoholProcent;
+    private boolean påFad;
 
     public LeafDestillat(double liter, String leafNewMakeNummer, double alkoholProcent) {
         this.liter = liter;
@@ -49,6 +50,14 @@ public class LeafDestillat implements DestillatComponent {
     @Override
     public double getAlkoholProcent() {
         return alkoholProcent;
+    }
+
+    public boolean påFad() {
+        return påFad;
+    }
+
+    public void setPåFad(boolean påFad) {
+        this.påFad = påFad;
     }
 
     @Override

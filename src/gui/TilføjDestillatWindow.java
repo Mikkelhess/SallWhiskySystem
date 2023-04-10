@@ -12,10 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import logik.CompositeDestillat;
-import logik.Fad;
-import logik.Hylde;
-import logik.LeafDestillat;
+import logik.*;
 
 import java.util.ArrayList;
 
@@ -41,7 +38,12 @@ public class TilføjDestillatWindow extends Stage{
 
         this.fad = fad;
         this.compositeDestillat = compositeDestillat;
-        this.destillatListe = new ArrayList<>(compositeDestillat.getLeaves());
+        this.destillatListe = new ArrayList<>();
+        for (LeafDestillat leafDestillat : compositeDestillat.getLeaves()) {
+            if (!leafDestillat.påFad()) {
+                destillatListe.add(leafDestillat);
+            }
+        }
 
         this.initContent(pane);
         Scene scene = new Scene(pane);
@@ -61,7 +63,7 @@ public class TilføjDestillatWindow extends Stage{
         Label labelTilfojFad = new Label("Tilføj Destillat til Fad");
 
         listViewLedigeDestillater = new ListView<>();
-        listViewLedigeDestillater.getItems().setAll(compositeDestillat.getLeaves());
+        listViewLedigeDestillater.getItems().setAll(destillatListe);
         listViewTilføjDestillat = new ListView<>();
 
         Button btnRightArrow = new Button("--->");
@@ -106,6 +108,7 @@ public class TilføjDestillatWindow extends Stage{
         tilføjDestillatListe.clear();
         tilføjDestillatListe.addAll(listViewTilføjDestillat.getItems());
         tilføjDestillatListe.forEach(leafDestillat -> fad.addLeafDestillat(leafDestillat.getNewMakeNummer(), leafDestillat));
+        listViewTilføjDestillat.getItems().forEach(leafDestillat -> leafDestillat.setPåFad(true));
         this.hide();
     }
 
