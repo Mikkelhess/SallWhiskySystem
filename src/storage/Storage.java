@@ -19,6 +19,7 @@ public class Storage {
         fadMap = new HashMap<>();
         destilleringMap = new HashMap<>();
         destillatMap = new HashMap<>();
+        whiskyMap = new HashMap<>();
     }
 
     public static Storage getInstance() {

@@ -49,5 +49,8 @@ public class Whisky {
         this.beskrivelse = beskrivelse;
     }
 
-
+    @Override
+    public String toString() {
+        return "Whisky " + whiskyId + ", Liter: " + liter;
+    }
 }
