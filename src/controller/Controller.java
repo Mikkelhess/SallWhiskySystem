@@ -266,7 +266,6 @@ public class Controller {
         whiskyFad.add(fad2);
 
         Whisky whisky = Controller.opretWhisky(750, "Epic", whiskyFad);
-        Controller.opretWhisky(750.0, "Epic.", whiskyFad);
 
 
 
