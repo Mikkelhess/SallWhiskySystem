@@ -85,6 +85,18 @@ public class OpdaterLeafDestillatWindow extends Stage {
         try {
             double liter2 = Double.parseDouble(liter1);
             if (liter2 > 0) {
+                // Validering: Tjek om den nye liter vil gøre, at CompositeDestillat overskrider totalLiter
+                double totalLiter = compositeDestillat.getTotalLiter();
+                double brugteLiter = compositeDestillat.getBrugteLiter();
+                double nyBrugteLiter = brugteLiter - leafdestillat.getLiter() + liter2;
+                if (nyBrugteLiter > totalLiter) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Opdater destillat");
+                    alert.setHeaderText("Invalid input");
+                    alert.setContentText("You cannot add that amount as it will exceed the total allowed amount.");
+                    alert.show();
+                    return;
+                }
                 liter = liter2;
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -103,19 +115,15 @@ public class OpdaterLeafDestillatWindow extends Stage {
             return;
         }
 
-        leafdestillat.setLiter(liter); // Update the LeafDestillat object with the new liter value
-
         txfLiter.clear();
+
+        // Opdater LeafDestillat
+        leafdestillat.setLiter(liter);
+
+        // Opdater CompositeDestillat
+        compositeDestillat.setBrugteLiter(compositeDestillat.getBrugteLiter() - leafdestillat.getLiter() + liter);
         OpdaterLeafDestillatWindow.this.hide();
-
-        // Update the ListView with the new values from the CompositeDestillat object
-        int selectIndex = lvwLeafDestillater.getSelectionModel().getSelectedIndex();
-        lvwLeafDestillater.getItems().setAll(compositeDestillat.getLeaves());
-        lvwLeafDestillater.getSelectionModel().select(selectIndex);
-
     }
-
-
 
     // ----------------------------------------------------------------------
 }

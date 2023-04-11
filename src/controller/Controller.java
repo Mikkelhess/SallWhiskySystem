@@ -197,9 +197,6 @@ public class Controller {
         return Storage.getInstance().getDestilleringMap();
     }
 
-    public static void updateLeafDestillat (LeafDestillat leafDestillat, double liter){
-        leafDestillat.setLiter(liter);
-    }
 
 
 

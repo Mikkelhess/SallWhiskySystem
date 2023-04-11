@@ -58,6 +58,7 @@ public class CompositeDestillat implements DestillatComponent {
         components.add(leafDestillat);
         brugteLiter += liter;
 
+
         return leafDestillat;
     }
 
@@ -95,6 +96,7 @@ public class CompositeDestillat implements DestillatComponent {
     @Override
     public void remove(DestillatComponent component) {
         components.remove(component);
+
     }
 
     public List<DestillatComponent> getComponents() {
