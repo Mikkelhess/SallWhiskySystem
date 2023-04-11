@@ -2,12 +2,15 @@ package storage;
 
 import logik.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class Storage {
     private static Storage instance = null;
 
+    private static List<LeafDestillat> brugteDestillater = new ArrayList<>();
     private HashMap<Integer, Lager> lagerMap;
     private HashMap<Integer, Fad> fadMap;
     private HashMap<Integer, Destillering> destilleringMap;
@@ -27,6 +30,11 @@ public class Storage {
             instance = new Storage();
         }
         return instance;
+    }
+
+    public LeafDestillat addBrugtDestillat(LeafDestillat leafDestillat) {
+        brugteDestillater.add(leafDestillat);
+        return leafDestillat;
     }
 
     public Lager addLager(Lager lager) {
@@ -88,5 +96,9 @@ public class Storage {
 
     public HashMap<Integer, WhiskyProdukt> getWhiskyMap() {
         return whiskyMap;
+    }
+
+    public List<LeafDestillat> getBrugteDestillater() {
+        return new ArrayList<>(brugteDestillater);
     }
 }

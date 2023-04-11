@@ -26,8 +26,8 @@ public class Fad {
         leafDestillat.sætFad(this);
     }
 
-    public void removeDestillat(int newMakeNummer) {
-        destillatMap.remove(newMakeNummer);
+    public void removeLeafDestillat(String leafnewMakeNummer) {
+        destillatMap.remove(leafnewMakeNummer);
     }
 
     public int getFadId() {

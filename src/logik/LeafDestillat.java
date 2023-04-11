@@ -70,7 +70,6 @@ public class LeafDestillat implements DestillatComponent {
     public void setPåFad(boolean påFad) {
         this.påFad = påFad;
     }
-
     @Override
     public String toString() {
         return "Destillat " + leafNewMakeNummer + ": " + liter + " liter ";

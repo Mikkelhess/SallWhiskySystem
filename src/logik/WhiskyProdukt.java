@@ -16,9 +16,9 @@ public class WhiskyProdukt {
     private int antalFlasker;
     private double flaskeStørrelse;
 
-    public WhiskyProdukt(double liter, int antalFlasker, double flaskeStørrelse, String vandLokation, double vandML, String beskrivelse, ArrayList<LeafDestillat> destillatListe) {
+    public WhiskyProdukt(String whiskyType, double liter, int antalFlasker, double flaskeStørrelse, String vandLokation, double vandML, String beskrivelse, ArrayList<LeafDestillat> destillatListe) {
 
-        this.whiskyFad = whiskyFad;
+        this.whiskyType = whiskyType;
         this.liter = liter;
         this.vandML = vandML;
         this.beskrivelse = beskrivelse;

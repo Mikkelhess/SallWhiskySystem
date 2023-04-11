@@ -44,20 +44,20 @@ public class DestilleringPane extends GridPane {
         this.add(label, 0, 0);
         lvwDestilleringer = new ListView<>();
         this.add(lvwDestilleringer, 0, 1, 1, 1);
-        lvwDestilleringer.setPrefSize(350, 400);
+        lvwDestilleringer.setPrefSize(275, 400);
         lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
 
         Label label2 = new Label("Destillater");
         this.add(label2, 1, 0);
         lvwCompositeDestillater = new ListView<>();
         this.add(lvwCompositeDestillater, 1, 1, 1, 1);
-        lvwCompositeDestillater.setPrefSize(350, 400);
+        lvwCompositeDestillater.setPrefSize(275, 400);
 
         Label label3 = new Label("Destillat-dele");
         this.add(label3, 2, 0);
         lvwLeafDestillater = new ListView<>();
         this.add(lvwLeafDestillater, 2, 1, 1, 1);
-        lvwLeafDestillater.setPrefSize(350, 400);
+        lvwLeafDestillater.setPrefSize(250, 400);
 
         ChangeListener<Destillering> listener1 = (ov, o, n) -> this.selectedDestilleringChanged();
         lvwDestilleringer.getSelectionModel().selectedItemProperty().addListener(listener1);

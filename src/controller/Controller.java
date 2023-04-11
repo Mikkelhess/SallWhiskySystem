@@ -12,9 +12,9 @@ import java.util.List;
 public class Controller {
 
 
-    public static WhiskyProdukt opretWhiskyProdukt(double liter, int
+    public static WhiskyProdukt opretWhiskyProdukt(String whiskyType, double liter, int
             antalFlasker, double flaskeStørrelse, String vandLokation, double vandLiter, String beskrivelse, ArrayList<LeafDestillat> destillatListe) {
-        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(liter, antalFlasker, flaskeStørrelse, vandLokation, vandLiter, beskrivelse, destillatListe);
+        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(whiskyType, liter, antalFlasker, flaskeStørrelse, vandLokation, vandLiter, beskrivelse, destillatListe);
         addWhisky(whiskyProdukt);
         return whiskyProdukt;
     }
@@ -179,6 +179,14 @@ public class Controller {
         return Storage.getInstance().getDestillatMap();
     }
 
+    public static void addBrugtDestillat(LeafDestillat leafDestillat) {
+        Storage.getInstance().addBrugtDestillat(leafDestillat);
+    }
+
+    public static boolean isLeafDestillatUsed(LeafDestillat leafDestillat) {
+        return Storage.getInstance().getBrugteDestillater().contains(leafDestillat);
+    }
+
     public static HashMap<Integer,Reol> getReolMap(int lagerId) {
         Lager lager = getLager(lagerId);
         return lager.getReolMap();
@@ -274,7 +282,7 @@ public class Controller {
         destillatListe.add(leafDestillat2);
         destillatListe.add(leafDestillat3);
 
-        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt(750, 1000, 0.75, "Begravede dale i Sall", 50, "Epic", destillatListe);
+        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt("Single Malt", 750, 1000, 0.75, "Begravede dale i Sall", 50, "Epic", destillatListe);
 
     }
 }

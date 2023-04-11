@@ -4,6 +4,7 @@ import controller.Controller;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -18,12 +19,10 @@ import logik.WhiskyProdukt;
 public class OpretWhiskyWindow1 extends Stage {
 
     private final TextField txfLiter = new TextField();
-    private final TextField txfAlkoholProcent = new TextField();
     private final TextField txfBeskrivelse = new TextField();
     private final TextField txfWhiskyType = new TextField();
     private final TextField txfVandLokation = new TextField();
-    private double flaskeStørrelse;
-    Destillering destillering;
+
 
     public OpretWhiskyWindow1(String title, Stage owner) {
         this.initOwner(owner);
@@ -54,17 +53,23 @@ public class OpretWhiskyWindow1 extends Stage {
         pane.add(lblLiter, 0, 1);
         pane.add(txfLiter, 1,1,2,1);
 
-        Label lblBeskrivelse = new Label("Beskrivelse: ");
-        pane.add(lblBeskrivelse, 0, 2);
-        pane.add(txfBeskrivelse, 1, 2,2,1);
+        Label lblWhiskyType = new Label("Whisky Type: ");
+        pane.add(lblWhiskyType, 0, 2);
+        pane.add(txfWhiskyType, 1, 2,2,1);
 
         Label lblVandLokation = new Label("Vand Lokation: ");
         pane.add(lblVandLokation, 0, 3);
         pane.add(txfVandLokation, 1, 3,2,1);
 
+        Label lblBeskrivelse = new Label("Beskrivelse: ");
+        pane.add(lblBeskrivelse, 0, 4);
+        pane.add(txfBeskrivelse, 1, 4,2,1);
+
+
+
 
         HBox buttonBox = new HBox(20);
-        pane.add(buttonBox, 0, 4);
+        pane.add(buttonBox, 0, 5);
         buttonBox.setPadding(new Insets(10, 10, 0, 10));
         buttonBox.setAlignment(Pos.TOP_RIGHT);
 
@@ -84,22 +89,33 @@ public class OpretWhiskyWindow1 extends Stage {
     private void cancelAction() {
 
         txfLiter.clear();
+        txfBeskrivelse.clear();
+        txfWhiskyType.clear();
+        txfVandLokation.clear();
 
         OpretWhiskyWindow1.this.hide();
     }
 
-    //handle case hvor bottle size er 0
     private void okAction() {
 
+        //mangler try catch hvor man tjekker for bogstaver, men det fucker koden op somehow...
         double flaskeStørrelse = Double.parseDouble(txfLiter.getText().trim());
+
+        String whiskyType = txfWhiskyType.getText();
         String vandLokation = txfVandLokation.getText();
         String beskrivelse = txfBeskrivelse.getText();
+
 
         OpretWhiskyWindow2 opretWhiskyWindow2 = new OpretWhiskyWindow2("Opret Whisky", OpretWhiskyWindow1.this, flaskeStørrelse);
         opretWhiskyWindow2.showAndWait();
         OpretWhiskyWindow1.this.hide();
 
-        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt(opretWhiskyWindow2.getMængdeLiter(), opretWhiskyWindow2.getAntalFlasker(), flaskeStørrelse, vandLokation, opretWhiskyWindow2.getVandLiter(), beskrivelse, opretWhiskyWindow2.getDestillatListe());
+        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt(whiskyType, opretWhiskyWindow2.getMængdeLiter(), opretWhiskyWindow2.getAntalFlasker(), flaskeStørrelse, vandLokation, opretWhiskyWindow2.getVandLiter(), beskrivelse, opretWhiskyWindow2.getDestillatListe());
+
+        txfBeskrivelse.clear();
+        txfLiter.clear();
+        txfVandLokation.clear();
+        txfWhiskyType.clear();
 
     }
 }

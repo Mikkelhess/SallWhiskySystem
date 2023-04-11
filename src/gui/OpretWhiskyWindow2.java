@@ -178,7 +178,15 @@ public class OpretWhiskyWindow2 extends Stage {
             alert.showAndWait();
             return;
         }
-        tilføjDestillaterListView.getItems().addAll(destillatListe);
+
+        Fad selectedFad = fadListView.getSelectionModel().getSelectedItem();
+        if (selectedFad != null) {
+            for (LeafDestillat destillat : tilføjDestillaterListView.getItems()) {
+                Controller.addBrugtDestillat(destillat);
+
+            }
+        }
+        //tilføjDestillaterListView.getItems().addAll(destillatListe);
         OpretWhiskyWindow2.this.hide();
     }
 
@@ -206,7 +214,13 @@ public class OpretWhiskyWindow2 extends Stage {
     private void selectedFadChanged() {
         Fad fad = fadListView.getSelectionModel().getSelectedItem();
         if (fad != null) {
-            destillatListView.getItems().setAll(fad.getLeafDestillatMap().values());
+            destillatListe.clear();
+            for (LeafDestillat leafDestillat : fad.getLeafDestillatMap().values()) {
+                if (!Controller.isLeafDestillatUsed(leafDestillat)) {
+                    destillatListe.add(leafDestillat);
+                }
+            }
+            destillatListView.getItems().setAll(destillatListe);
         } else {
             destillatListView.getItems().clear();
         }
