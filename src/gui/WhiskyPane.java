@@ -49,7 +49,7 @@ public class WhiskyPane extends GridPane {
         btnFjernWhisky = new Button("Fjern Whisky");
         btnFjernWhisky.setOnAction(event -> fjernWhiskyAction());
         btnDetaljer = new Button("Detaljer");
-        btnDetaljer.setOnAction(event -> detaljerAction());
+        btnDetaljer.setOnAction(event -> visDetaljerAction());
 
 
         HBox whiskyHBOX = new HBox(10, btnOpretWhisky, btnFjernWhisky, btnDetaljer);
@@ -79,11 +79,21 @@ public class WhiskyPane extends GridPane {
 
     }
 
-    private void detaljerAction() {
+        private void visDetaljerAction() {
+            WhiskyProdukt whiskyProdukt = lvwWhisky.getSelectionModel().getSelectedItem();
+            if (whiskyProdukt != null) {
+                visDetaljerWindow(whiskyProdukt);
+            }else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Vælg et whisky produkt");
+                alert.setHeaderText(null);
+                alert.setContentText("Vælg et whisky produkt som du vil se detaljer for");
+                alert.showAndWait();
+            }
+        }
 
-    }
 
-    private void visDetaljerWindow(Destillering destillering) {
+    private void visDetaljerWindow(WhiskyProdukt whiskyProdukt) {
         Stage detailsStage = new Stage();
         detailsStage.initModality(Modality.WINDOW_MODAL);
 
@@ -92,8 +102,19 @@ public class WhiskyPane extends GridPane {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10));
 
-        // Add labels and data for each attribute using destillering object
-        gridPane.addRow(0, new Label("Medarbejder: "), new Label(destillering.getMedarbejderNavn()));
+        gridPane.addRow(0, new Label("Whisky " + whiskyProdukt.getWhiskyId()));
+        gridPane.addRow(1, new Label("Whisky'en er en " + whiskyProdukt.getWhiskyType()));
+        gridPane.addRow(2, new Label("Liter Whisky: " + whiskyProdukt.getLiter()));
+        gridPane.addRow(3, new Label("Heraf " + whiskyProdukt.getVandLiter() + " liter er vand"));
+        gridPane.addRow(4, new Label("Antal Flasker: " + whiskyProdukt.getAntalFlasker()));
+        gridPane.addRow(5, new Label("Flaskestørrelse: " + whiskyProdukt.getFlaskeStørrelse() + " liter"));
+        gridPane.addRow(6, new Label("Vand er fra: " + whiskyProdukt.getVandLokation()));
+        gridPane.addRow(7, new Label("Beskrivelse: " + whiskyProdukt.getBeskrivelse()));
+        gridPane.addRow(8, new Label("INDSÆT TEKST OM HVILKE FAD WHISKYEN ER DESTILLERET PÅ"));
+        gridPane.addRow(9, new Label("OG ANDET INFORMATION SOM F.EKS: HISTORIK OG FADTYPE"));
+
+        /*
+        gridPane.addRow(0, new Label("Whisky "), new Label(destillering.getMedarbejderNavn()));
         gridPane.addRow(1, new Label("Start Dato: "), new Label(destillering.getStartDato().toString()));
         gridPane.addRow(2, new Label("Slut Dato: "), new Label(destillering.getSlutDato().toString()));
         gridPane.addRow(3, new Label("Malt batch: "), new Label(destillering.getMaltBatch()));
@@ -101,6 +122,8 @@ public class WhiskyPane extends GridPane {
         gridPane.addRow(5, new Label("Kapacitet: "), new Label(destillering.udregnBrugteLiter() + " ud af " + destillering.getTotalLiter() + " liter"));
         gridPane.addRow(6, new Label("Ryge materiale: "), new Label(destillering.getRygeMateriale()));
         gridPane.addRow(7, new Label("Kommentar: "), new Label(destillering.getKommentar()));
+
+         */
 
         detailsStage.setScene(new Scene(gridPane, 400, 300));
         detailsStage.setTitle("Destillering Detaljer");

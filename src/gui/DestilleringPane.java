@@ -140,8 +140,6 @@ public class DestilleringPane extends GridPane {
             alert.setContentText("Vælg en destillering som du vil se detaljer for");
             alert.showAndWait();
         }
-
-
     }
 
     private void opretDestillatAction() {

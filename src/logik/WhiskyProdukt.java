@@ -9,18 +9,18 @@ public class WhiskyProdukt {
     private ArrayList<Fad> whiskyFad;
     private double alkoholProcent;
     private double liter;
-    private double vandML;
+    private double vandLiter;
     private String whiskyType;
     private String beskrivelse;
     private String vandLokation;
     private int antalFlasker;
     private double flaskeStørrelse;
 
-    public WhiskyProdukt(String whiskyType, double liter, int antalFlasker, double flaskeStørrelse, String vandLokation, double vandML, String beskrivelse, ArrayList<LeafDestillat> destillatListe) {
+    public WhiskyProdukt(String whiskyType, double liter, int antalFlasker, double flaskeStørrelse, String vandLokation, double vandLiter, String beskrivelse, ArrayList<LeafDestillat> destillatListe) {
 
         this.whiskyType = whiskyType;
         this.liter = liter;
-        this.vandML = vandML;
+        this.vandLiter = vandLiter;
         this.beskrivelse = beskrivelse;
         this.vandLokation = vandLokation;
         this.antalFlasker = antalFlasker;
@@ -32,6 +32,26 @@ public class WhiskyProdukt {
 
     public int getWhiskyId() {
         return whiskyId;
+    }
+
+    public String getWhiskyType() {
+        return whiskyType;
+    }
+
+    public int getAntalFlasker() {
+        return antalFlasker;
+    }
+
+    public double getFlaskeStørrelse() {
+        return flaskeStørrelse;
+    }
+
+    public String getVandLokation() {
+        return vandLokation;
+    }
+
+    public double getVandLiter() {
+        return vandLiter;
     }
 
     public double getLiter() {
