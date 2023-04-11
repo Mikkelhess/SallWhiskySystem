@@ -240,7 +240,12 @@ public class DestilleringPane extends GridPane {
     }
 
     private void opdaterLeafDestillat() {
-        // TODO !
+        CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
+        LeafDestillat leafDestillat = lvwLeafDestillater.getSelectionModel().getSelectedItem();
+
+        if (compositeDestillat != null && leafDestillat != null) {
+
+        }
     }
 
     private void fjernLeafDestillatAction() {

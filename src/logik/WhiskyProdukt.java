@@ -1,10 +1,8 @@
 package logik;
 
-import version12.WhiskyHistorie;
-
 import java.util.ArrayList;
 
-public class Whisky {
+public class WhiskyProdukt {
 
     private static int idCounter = 1;
     private final int whiskyId;
@@ -14,19 +12,22 @@ public class Whisky {
     private double vandML;
     private String whiskyType;
     private String beskrivelse;
+    private String vandLokation;
+    private int antalFlasker;
+    private double flaskeStørrelse;
 
-    public Whisky(double liter, String beskrivelse,  ArrayList<Fad> whiskyFad) {
+    public WhiskyProdukt(double liter, int antalFlasker, double flaskeStørrelse, String vandLokation, double vandML, String beskrivelse, ArrayList<LeafDestillat> destillatListe) {
 
         this.whiskyFad = whiskyFad;
         this.liter = liter;
+        this.vandML = vandML;
         this.beskrivelse = beskrivelse;
-        this.whiskyType = whiskyType;
+        this.vandLokation = vandLokation;
+        this.antalFlasker = antalFlasker;
+        this.flaskeStørrelse = flaskeStørrelse;
 
         this.whiskyId = idCounter;
         idCounter++;
-
-        //if ()
-
     }
 
     public int getWhiskyId() {
@@ -51,6 +52,6 @@ public class Whisky {
 
     @Override
     public String toString() {
-        return "Whisky " + whiskyId + ", Liter: " + liter;
+        return "Whisky Produkt " + whiskyId + ", Liter: " + liter + ", Antal Flasker: " + antalFlasker;
     }
 }

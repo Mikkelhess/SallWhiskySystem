@@ -11,21 +11,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import logik.CompositeDestillat;
-import logik.Fad;
-import logik.Whisky;
+import logik.WhiskyProdukt;
 
 public class WhiskyPane extends GridPane {
 
-    private ListView<Whisky> lvwWhisky;
+    private ListView<WhiskyProdukt> lvwWhisky;
     private ListView<CompositeDestillat> lvwDestillat;
     private Button btnOpretWhisky;
     private Button btnFjernWhisky;
     private Button btnHistorik;
+    private Button btnDetaljer;
     private HBox FadHBox;
-
-    private OpretFadWindow opretFadWindow;
-    private TilføjDestillatWindow tilføjDestillatWindow;
-
+    private OpretWhiskyWindow1 opretWhiskyWindow1;
 
     public WhiskyPane() {
         this.setGridLinesVisible(false);
@@ -33,19 +30,42 @@ public class WhiskyPane extends GridPane {
         this.setHgap(20);
         this.setVgap(10);
 
+        opretWhiskyWindow1 = new OpretWhiskyWindow1("Opret Whisky", new Stage());
+
+        Label lblWhisky = new Label("Whisky");
+        this.add(lblWhisky, 0, 0);
+        lblWhisky.setAlignment(Pos.TOP_LEFT);
 
         lvwWhisky = new ListView<>();
         this.add(lvwWhisky, 0, 1, 1, 1);
         lvwWhisky.setPrefSize(350, 400);
         lvwWhisky.getItems().setAll(Controller.getWhiskyMap().values());
 
-        Label lblWhisky = new Label("Whisky");
-        this.add(lblWhisky, 0, 0);
-        lblWhisky.setAlignment(Pos.TOP_LEFT);
+        btnOpretWhisky = new Button("Opret Whisky");
+        btnOpretWhisky.setOnAction(event -> opretWhiskyAction());
+        btnFjernWhisky = new Button("Fjern Whisky");
+        btnFjernWhisky.setOnAction(event -> fjernWhiskyAction());
+        btnDetaljer = new Button("Detaljer");
+        btnDetaljer.setOnAction(event -> detaljerAction());
+
+
+        HBox whiskyHBOX = new HBox(10, btnOpretWhisky, btnFjernWhisky, btnDetaljer);
+        whiskyHBOX.setAlignment(Pos.CENTER);
+
+        this.add(whiskyHBOX, 0, 2);
     }
 
-    private void tilføjDestillatAction() {
+    //der skal tjekkes om destillaterne har lagret i 3 år
+    private void opretWhiskyAction() {
+        opretWhiskyWindow1.showAndWait();
+        lvwWhisky.getItems().setAll(Controller.getWhiskyMap().values());
+    }
 
+    private void fjernWhiskyAction() {
+
+    }
+
+    private void detaljerAction() {
 
     }
 

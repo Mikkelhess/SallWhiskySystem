@@ -21,12 +21,9 @@ public class Fad {
         this.leverandør = leverandør;
     }
 
-    public void addDestillat(int newMakeNummer, CompositeDestillat compositeDestillat) {
-        destillatMap.put(newMakeNummer, compositeDestillat);
-    }
-
     public void addLeafDestillat(String leafNewMakeNummer, LeafDestillat leafDestillat) {
         leafDestillatMap.put(leafNewMakeNummer, leafDestillat);
+        leafDestillat.sætFad(this);
     }
 
     public void removeDestillat(int newMakeNummer) {
