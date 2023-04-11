@@ -60,6 +60,13 @@
             DestilleringPane destilleringPane = new DestilleringPane();
             tabDestillering.setContent(destilleringPane);
             //tabDestillering.setOnSelectionChanged(event -> destilleringPane.updateList());
+
+            Tab tabWhisky = new Tab("Whisky");
+            tabPane.getTabs().add(tabWhisky);
+            WhiskyPane whiskyPane = new WhiskyPane();
+
+            tabWhisky.setContent(whiskyPane);
+
         }
 
 

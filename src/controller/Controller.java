@@ -10,6 +10,16 @@ import java.util.List;
 
 
 public class Controller {
+
+
+    public static Whisky opretWhisky(double liter, String beskrivelse, String whiskyType) {
+        Whisky whisky = new Whisky(liter, beskrivelse, whiskyType);
+        Storage.getInstance().addWhisky(whisky);
+        return whisky;
+    }
+
+
+
     /**
      * Opretter et nyt lager
      * @return lager
@@ -135,6 +145,10 @@ public class Controller {
         return Storage.getInstance().getFadMap();
     }
 
+    public static HashMap<Integer,Whisky> getWhiskyMap() {
+        return Storage.getInstance().getWhiskyMap();
+    }
+
     public static List<Fad> getFadUdenHylde() {
         ArrayList<Fad> fadUdenHyldeListe = new ArrayList<>(getFadMap().values());
         for (Lager lager : Storage.getInstance().getLagerMap().values()) {
@@ -243,5 +257,8 @@ public class Controller {
         CompositeDestillat compositeDestillat6 = destillering2.createDestillat(1000.0, 65);
         compositeDestillat6.createLeaf(200);
         compositeDestillat6.createLeaf(100);
+
+        Whisky whisky = Controller.opretWhisky(750.0, "Epic.", )
+
     }
 }

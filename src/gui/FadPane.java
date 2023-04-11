@@ -19,7 +19,6 @@ import javax.xml.transform.Source;
 public class FadPane extends GridPane {
 
     private ListView<Fad> lvwFade;
-
     private ListView<CompositeDestillat> lvwDestillat;
     private Button btnOpretFad;
     private Button btnFjernFad;

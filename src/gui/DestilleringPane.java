@@ -47,13 +47,13 @@ public class DestilleringPane extends GridPane {
         lvwDestilleringer.setPrefSize(350, 400);
         lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
 
-        Label label2 = new Label("Over-Destillater");
+        Label label2 = new Label("Destillater");
         this.add(label2, 1, 0);
         lvwCompositeDestillater = new ListView<>();
         this.add(lvwCompositeDestillater, 1, 1, 1, 1);
         lvwCompositeDestillater.setPrefSize(350, 400);
 
-        Label label3 = new Label("Under-Destillater");
+        Label label3 = new Label("Destillat-dele");
         this.add(label3, 2, 0);
         lvwLeafDestillater = new ListView<>();
         this.add(lvwLeafDestillater, 2, 1, 1, 1);
@@ -74,14 +74,14 @@ public class DestilleringPane extends GridPane {
         HBox destilleringButtons = new HBox(10, btnOpretDestillering, btnFjernDestillering, btnVisDetaljer);
         destilleringButtons.setAlignment(Pos.CENTER);
 
-        btnOpretDestillat = new Button("Opret Over-Destillat");
+        btnOpretDestillat = new Button("Opret Destillat");
         btnOpretDestillat.setOnAction(event -> this.opretDestillatAction());
         btnFjernCompositeDestillat = new Button("Fjern");
         btnFjernCompositeDestillat.setOnAction(event -> this.fjernCompositeDestillatAction());
         HBox destillatButtons = new HBox(10, btnOpretDestillat, btnFjernCompositeDestillat);
         destillatButtons.setAlignment(Pos.CENTER);
 
-        btnOpretDestillater = new Button("Opret Destillater");
+        btnOpretDestillater = new Button("Opret Destillat-dele");
         btnOpretDestillater.setOnAction(event -> this.opretDestillaterAction());
         btnOpdaterDestillat = new Button("Opdater Destillat");
         btnOpdaterDestillat.setOnAction(event -> this.opdaterLeafDestillat());

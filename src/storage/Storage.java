@@ -12,6 +12,7 @@ public class Storage {
     private HashMap<Integer, Fad> fadMap;
     private HashMap<Integer, Destillering> destilleringMap;
     private HashMap<String, CompositeDestillat> destillatMap;
+    private HashMap<Integer, Whisky> whiskyMap;
 
     private Storage() {
         lagerMap = new HashMap<>();
@@ -31,6 +32,16 @@ public class Storage {
         lagerMap.put(lager.getLagerId(), lager);
         return lager;
     }
+
+    public Whisky addWhisky(Whisky whisky) {
+        whiskyMap.put(whisky.getWhiskyId(), whisky);
+        return whisky;
+    }
+
+    public void removeWhisky(Whisky whisky) {
+        whiskyMap.remove(whisky.getWhiskyId());
+    }
+
 
     public void addFad(Fad fad) {
         fadMap.put(fad.getFadId(), fad);
@@ -72,5 +83,9 @@ public class Storage {
 
     public HashMap<String, CompositeDestillat> getDestillatMap() {
         return destillatMap;
+    }
+
+    public HashMap<Integer, Whisky> getWhiskyMap() {
+        return whiskyMap;
     }
 }
