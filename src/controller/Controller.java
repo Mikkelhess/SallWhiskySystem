@@ -14,10 +14,13 @@ public class Controller {
 
     public static Whisky opretWhisky(double liter, String beskrivelse, ArrayList<Fad> whiskyFad) {
         Whisky whisky = new Whisky(liter, beskrivelse, whiskyFad);
-        Storage.getInstance().addWhisky(whisky);
+        addWhisky(whisky);
         return whisky;
     }
 
+    public static void addWhisky(Whisky whisky){
+        Storage.getInstance().addWhisky(whisky);
+    }
 
 
     /**
@@ -262,7 +265,13 @@ public class Controller {
         whiskyFad.add(fad1);
         whiskyFad.add(fad2);
 
-        Whisky whisky = Controller.opretWhisky(750.0, "Epic.", whiskyFad);
+        Whisky whisky = Controller.opretWhisky(750, "Epic", whiskyFad);
+        Controller.opretWhisky(750.0, "Epic.", whiskyFad);
+
+
+
+
+
 
     }
 }
