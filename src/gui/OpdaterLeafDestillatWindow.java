@@ -93,7 +93,7 @@ public class OpdaterLeafDestillatWindow extends Stage {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Opdater destillat");
                     alert.setHeaderText("Invalid input");
-                    alert.setContentText("You cannot add that amount as it will exceed the total allowed amount.");
+                    alert.setContentText("Du kan ikke tilføje dette, da det vil overstige total liter.");
                     alert.show();
                     return;
                 }
@@ -102,7 +102,7 @@ public class OpdaterLeafDestillatWindow extends Stage {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Opdater destillat");
                 alert.setHeaderText("Invalid input");
-                alert.setContentText("Liter must be a positive number");
+                alert.setContentText("Liter skal være et positivt tal");
                 alert.show();
                 return;
             }
@@ -110,7 +110,7 @@ public class OpdaterLeafDestillatWindow extends Stage {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Opdater destillat");
             alert.setHeaderText("Invalid input");
-            alert.setContentText("Liter must be a number");
+            alert.setContentText("Liter skal være et tal");
             alert.show();
             return;
         }

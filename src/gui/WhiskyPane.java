@@ -7,6 +7,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -42,6 +44,10 @@ public class WhiskyPane extends GridPane {
         Label lblWhisky = new Label("Whisky");
         this.add(lblWhisky, 0, 0);
         lblWhisky.setAlignment(Pos.TOP_LEFT);
+
+        Image image = new Image("C:\\Users\\JohnL\\OneDrive\\Skrivebord\\SALL.png");
+        ImageView imageView = new ImageView(image);
+        this.add(imageView, 1, 1);
     }
 
     private void tilføjDestillatAction() {
