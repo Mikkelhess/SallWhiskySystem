@@ -32,6 +32,8 @@ public class DestilleringPane extends GridPane {
     private OpretDestilleringWindow opretDestilleringWindow;
     private OpretDestillatWindow opretDestillatWindow;
 
+    private OpdaterLeafDestillatWindow opdaterLeafDestillatWindow;
+
     public DestilleringPane() {
         this.setGridLinesVisible(false);
         this.setPadding(new Insets(20));
@@ -240,7 +242,19 @@ public class DestilleringPane extends GridPane {
     }
 
     private void opdaterLeafDestillat() {
-        // TODO !
+        CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
+        LeafDestillat leafDestillat = lvwLeafDestillater.getSelectionModel().getSelectedItem();
+
+        if (leafDestillat != null) {
+            opdaterLeafDestillatWindow = new OpdaterLeafDestillatWindow("Updater destillat", new Stage(),leafDestillat,compositeDestillat);
+            opdaterLeafDestillatWindow.showAndWait();
+
+            // Wait for the modal dialog to close
+
+            int selectIndex = lvwLeafDestillater.getSelectionModel().getSelectedIndex();
+            lvwLeafDestillater.getItems().setAll(compositeDestillat.getLeaves());
+            lvwLeafDestillater.getSelectionModel().select(selectIndex);
+        }
     }
 
     private void fjernLeafDestillatAction() {
