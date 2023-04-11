@@ -12,8 +12,8 @@ import java.util.List;
 public class Controller {
 
 
-    public static Whisky opretWhisky(double liter, String beskrivelse, String whiskyType) {
-        Whisky whisky = new Whisky(liter, beskrivelse, whiskyType);
+    public static Whisky opretWhisky(double liter, String beskrivelse, ArrayList<Fad> whiskyFad) {
+        Whisky whisky = new Whisky(liter, beskrivelse, whiskyFad);
         Storage.getInstance().addWhisky(whisky);
         return whisky;
     }
@@ -258,7 +258,11 @@ public class Controller {
         compositeDestillat6.createLeaf(200);
         compositeDestillat6.createLeaf(100);
 
-        Whisky whisky = Controller.opretWhisky(750.0, "Epic.", )
+        ArrayList<Fad> whiskyFad = new ArrayList<>();
+        whiskyFad.add(fad1);
+        whiskyFad.add(fad2);
+
+        Whisky whisky = Controller.opretWhisky(750.0, "Epic.", whiskyFad);
 
     }
 }
