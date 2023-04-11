@@ -2,7 +2,6 @@ package gui;
 
 import controller.Controller;
 import javafx.beans.value.ChangeListener;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,19 +13,22 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logik.*;
 
-import java.util.List;
 import java.util.Optional;
 
 public class DestilleringPane extends GridPane {
 
     // -------------------------------------------------------------------------
     private ListView<Destillering> lvwDestilleringer;
-    private ListView<Destillat> lvwDestillater;
+    private ListView<CompositeDestillat> lvwCompositeDestillater;
+    private ListView<LeafDestillat> lvwLeafDestillater;
     private Button btnOpretDestillering;
     private Button btnFjernDestillering;
     private Button btnOpretDestillat;
-    private Button btnFjernDestillat;
+    private Button btnFjernCompositeDestillat;
     private Button btnVisDetaljer;
+    private Button btnOpretDestillater;
+    private Button btnOpdaterDestillat;
+    private Button btnFjernLeafDestillat;
     private OpretDestilleringWindow opretDestilleringWindow;
     private OpretDestillatWindow opretDestillatWindow;
 
@@ -45,14 +47,23 @@ public class DestilleringPane extends GridPane {
         lvwDestilleringer.setPrefSize(350, 400);
         lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
 
-        Label label2 = new Label("Destillater");
+        Label label2 = new Label("Over-Destillater");
         this.add(label2, 1, 0);
-        lvwDestillater = new ListView<>();
-        this.add(lvwDestillater, 1, 1, 1, 1);
-        lvwDestillater.setPrefSize(350, 400);
+        lvwCompositeDestillater = new ListView<>();
+        this.add(lvwCompositeDestillater, 1, 1, 1, 1);
+        lvwCompositeDestillater.setPrefSize(350, 400);
 
-        ChangeListener<Destillering> listener = (ov, o, n) -> this.selectedDestilleringChanged();
-        lvwDestilleringer.getSelectionModel().selectedItemProperty().addListener(listener);
+        Label label3 = new Label("Under-Destillater");
+        this.add(label3, 2, 0);
+        lvwLeafDestillater = new ListView<>();
+        this.add(lvwLeafDestillater, 2, 1, 1, 1);
+        lvwLeafDestillater.setPrefSize(350, 400);
+
+        ChangeListener<Destillering> listener1 = (ov, o, n) -> this.selectedDestilleringChanged();
+        lvwDestilleringer.getSelectionModel().selectedItemProperty().addListener(listener1);
+
+        ChangeListener<CompositeDestillat> listener2 = (ov, o, n) -> this.selectedDestillatChanged();
+        lvwCompositeDestillater.getSelectionModel().selectedItemProperty().addListener(listener2);
 
         btnOpretDestillering = new Button("Opret");
         btnOpretDestillering.setOnAction(event -> this.opretDestilleringAction());
@@ -63,21 +74,33 @@ public class DestilleringPane extends GridPane {
         HBox destilleringButtons = new HBox(10, btnOpretDestillering, btnFjernDestillering, btnVisDetaljer);
         destilleringButtons.setAlignment(Pos.CENTER);
 
-        btnOpretDestillat = new Button("Opret");
+        btnOpretDestillat = new Button("Opret Over-Destillat");
         btnOpretDestillat.setOnAction(event -> this.opretDestillatAction());
-        btnFjernDestillat = new Button("Fjern");
-        btnFjernDestillat.setOnAction(event -> this.fjernDestillatAction());
-        HBox destillatButtons = new HBox(10, btnOpretDestillat, btnFjernDestillat);
+        btnFjernCompositeDestillat = new Button("Fjern");
+        btnFjernCompositeDestillat.setOnAction(event -> this.fjernCompositeDestillatAction());
+        HBox destillatButtons = new HBox(10, btnOpretDestillat, btnFjernCompositeDestillat);
         destillatButtons.setAlignment(Pos.CENTER);
 
+        btnOpretDestillater = new Button("Opret Destillater");
+        btnOpretDestillater.setOnAction(event -> this.opretDestillaterAction());
+        btnOpdaterDestillat = new Button("Opdater Destillat");
+        btnOpdaterDestillat.setOnAction(event -> this.opdaterLeafDestillat());
+        btnFjernLeafDestillat = new Button("Fjern Destillat");
+        btnFjernLeafDestillat.setOnAction(event -> this.fjernLeafDestillatAction());
+        HBox delButtons = new HBox(10, btnOpretDestillater, btnOpdaterDestillat, btnFjernLeafDestillat);
+        delButtons.setAlignment(Pos.CENTER);
+
         VBox destilleringVBox = new VBox(label, lvwDestilleringer, destilleringButtons);
-        VBox destillatVBox = new VBox(label2, lvwDestillater, destillatButtons);
+        VBox destillatVBox = new VBox(label2, lvwCompositeDestillater, destillatButtons);
+        VBox delVBox = new VBox(label3, lvwLeafDestillater, delButtons);
 
         destilleringVBox.setSpacing(10);
         destillatVBox.setSpacing(10);
+        delVBox.setSpacing(10);
 
         this.add(destilleringVBox, 0, 0);
         this.add(destillatVBox, 1, 0);
+        this.add(delVBox, 2, 0);
     }
 
     private void opretDestilleringAction() {
@@ -121,9 +144,20 @@ public class DestilleringPane extends GridPane {
 
     }
 
-    private void fjernDestillatAction() {
+    private void opretDestillatAction() {
         Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
-        Destillat destillat = lvwDestillater.getSelectionModel().getSelectedItem();
+        if (destillering != null) {
+            OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat",new Stage(),destillering);
+            opretDestillatWindow.showAndWait();
+            lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
+            lvwCompositeDestillater.getItems().setAll(destillering.getDestillatMap().values());
+        }
+    }
+
+
+    private void fjernCompositeDestillatAction() {
+        Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
+        CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
 
         if (destillering == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -134,11 +168,11 @@ public class DestilleringPane extends GridPane {
             return;
         }
 
-        if (destillat != null) {
-            destillering.removeDestillat(destillat.getNewMakeNummer());
+        if (compositeDestillat != null) {
+            destillering.removeDestillat(compositeDestillat.getNewMakeNummer());
             destillering.udregnLiter();
             lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
-            lvwDestillater.getItems().setAll(destillering.getDestillatMap().values());
+            lvwCompositeDestillater.getItems().setAll(destillering.getDestillatMap().values());
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Vælg et destillat");
@@ -148,25 +182,96 @@ public class DestilleringPane extends GridPane {
         }
     }
 
+    private void opretDestillaterAction() {
+        CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
 
-    private void opretDestillatAction() {
-        Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
-        if (destillering != null) {
-            OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat",new Stage(),destillering);
-            opretDestillatWindow.showAndWait();
-            lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
-            lvwDestillater.getItems().setAll(destillering.getDestillatMap().values());
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Opret Destillater");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Vælg hvor mange under-destillater du vil oprette:");
+        Optional<String> result = dialog.showAndWait();
+
+        // Check if the user entered a value
+        if (result.isPresent()) {
+            try {
+                int numLeaves = Integer.parseInt(result.get());
+
+                for (int i = 0; i < numLeaves; i++) {
+                    TextInputDialog leafDialog = new TextInputDialog();
+                    leafDialog.setTitle("Opret Destillat " + (i + 1));
+                    leafDialog.setHeaderText(null);
+                    leafDialog.setContentText("Indtast liter for destillat " + (i + 1) + ":");
+                    Optional<String> leafResult = leafDialog.showAndWait();
+
+                    if (leafResult.isPresent()) {
+                        try {
+                            double liters = Double.parseDouble(leafResult.get());
+
+                            if (compositeDestillat.getUsedCapacity() + liters > compositeDestillat.getTotalCapacity()) {
+                                // Display an error message to the user
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Capacity Exceeded");
+                                alert.setContentText("Cannot add more leaves than the composite's total capacity.");
+                                alert.showAndWait();
+                                return;
+                            }
+
+                            CompositeDestillat selectedDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
+                            LeafDestillat leaf = selectedDestillat.createLeaf(liters);
+                            lvwCompositeDestillater.refresh();
+                        } catch (NumberFormatException e) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Please enter a valid number for the liters.");
+                            alert.showAndWait();
+                        }
+                        selectedDestillatChanged();
+                    }
+                }
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Please enter a valid number for the number of leaves.");
+                alert.showAndWait();
+            }
         }
+    }
+
+    private void opdaterLeafDestillat() {
+        // TODO !
+    }
+
+    private void fjernLeafDestillatAction() {
+        CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
+        LeafDestillat leafDestillat = lvwLeafDestillater.getSelectionModel().getSelectedItem();
+        if (leafDestillat == null) {
+            //alert
+            return;
+        }
+        compositeDestillat.remove(leafDestillat);
+        compositeDestillat.setUsedCapacity(compositeDestillat.getUsedCapacity() - leafDestillat.getLiter());
+        lvwLeafDestillater.getItems().setAll(compositeDestillat.getLeaves());
+        lvwCompositeDestillater.refresh();
     }
 
     private void selectedDestilleringChanged() {
         Destillering destillering = lvwDestilleringer.getSelectionModel().getSelectedItem();
         if (destillering != null) {
-            lvwDestillater.getItems().setAll(destillering.getDestillatMap().values());
+            lvwCompositeDestillater.getItems().setAll(destillering.getDestillatMap().values());
         } else {
-            lvwDestillater.getItems().clear();
+            lvwCompositeDestillater.getItems().clear();
         }
+    }
 
+    private void selectedDestillatChanged() {
+        CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
+        if (compositeDestillat != null) {
+            lvwLeafDestillater.getItems().setAll(compositeDestillat.getLeaves());
+        } else {
+            lvwLeafDestillater.getItems().clear();
+        }
     }
 
     private void visDetaljerWindow(Destillering destillering) {
