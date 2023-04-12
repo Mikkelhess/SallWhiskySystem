@@ -22,10 +22,11 @@ public class Fad {
         this.leverandør = leverandør;
     }
 
-    public void addLeafDestillat(String leafNewMakeNummer, LeafDestillat leafDestillat, LocalDate lagringsDato) {
+    public void addLeafDestillat(String leafNewMakeNummer, LeafDestillat leafDestillat, LocalDate lagringsDato, LocalDate omhældningsDato) {
         leafDestillatMap.put(leafNewMakeNummer, leafDestillat);
         leafDestillat.sætFad(this);
         leafDestillat.setLagringsDato(lagringsDato);
+        leafDestillat.setOmhældningsDato(omhældningsDato);
     }
 
     public void removeLeafDestillat(String leafnewMakeNummer) {

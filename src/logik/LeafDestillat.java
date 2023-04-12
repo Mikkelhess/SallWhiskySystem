@@ -10,7 +10,8 @@ public class LeafDestillat implements DestillatComponent {
     private String leafNewMakeNummer;
     private double alkoholProcent;
     private LocalDate lagringsDato;
-    private LocalDate påfyldningsDato;
+    private LocalDate påfyldningsDato; //dato for påfyldning til whisky
+    private LocalDate omhældningsDato;
     private boolean påFad;
 
     public LeafDestillat(double liter, String leafNewMakeNummer, double alkoholProcent) {
@@ -31,6 +32,18 @@ public class LeafDestillat implements DestillatComponent {
 
     public void setLagringsDato(LocalDate lagringsDato) {
         this.lagringsDato = lagringsDato;
+    }
+
+    public void setOmhældningsDato(LocalDate omhældningsDato) {
+        this.omhældningsDato = omhældningsDato;
+    }
+
+    public LocalDate getLagringsDato() {
+        return lagringsDato;
+    }
+
+    public LocalDate getOmhældningsDato() {
+        return omhældningsDato;
     }
 
     public String getLeafNewMakeNummer() {
@@ -70,9 +83,7 @@ public class LeafDestillat implements DestillatComponent {
         return fad;
     }
 
-    public LocalDate getLagringsDato() {
-        return lagringsDato;
-    }
+
 
     public boolean påFad() {
         return påFad;

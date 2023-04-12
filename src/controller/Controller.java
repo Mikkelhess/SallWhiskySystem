@@ -274,10 +274,10 @@ public class Controller {
         LocalDate lagringsDato2 = LocalDate.of(2018, 3, 15);
         LocalDate lagringsDato3 = LocalDate.of(2016, 8, 21);
 
-        fad1.addLeafDestillat(leafDestillat1.getLeafNewMakeNummer(), leafDestillat1, lagringsDato1);
-        fad1.addLeafDestillat(leafDestillat2.getLeafNewMakeNummer(), leafDestillat2, lagringsDato2);
+        fad1.addLeafDestillat(leafDestillat1.getLeafNewMakeNummer(), leafDestillat1, lagringsDato1, null);
+        fad1.addLeafDestillat(leafDestillat2.getLeafNewMakeNummer(), leafDestillat2, lagringsDato2, null);
 
-        fad3.addLeafDestillat(leafDestillat3.getLeafNewMakeNummer(), leafDestillat3, lagringsDato3);
+        fad3.addLeafDestillat(leafDestillat3.getLeafNewMakeNummer(), leafDestillat3, lagringsDato3, null);
 
 
         //ved ikke om det er nødvendigt

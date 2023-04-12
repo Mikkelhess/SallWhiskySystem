@@ -148,6 +148,7 @@ public class FadPane extends GridPane {
 
     }
 
+    //måske detaljer og historik???
     private void detaljerAction() {
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
         if (fad != null) {
@@ -188,14 +189,15 @@ public class FadPane extends GridPane {
 
         gridPane.addRow(5, new Label("Destillater på fadet"));
 
+        //omhældning og lagring skal fixes
         int rowIndex = 6;
         for (LeafDestillat leafDestillat : fad.getLeafDestillatMap().values()) {
             gridPane.addRow(rowIndex, new Label("Destillat-del " + leafDestillat.getLeafNewMakeNummer() + ", liter: " +
-                    leafDestillat.getLiter() + ", alkohol procent: " + leafDestillat.getAlkoholProcent() + ", Lagrings Dato: " + leafDestillat.getLagringsDato()));
+                    leafDestillat.getLiter() + ", alkohol procent: " + leafDestillat.getAlkoholProcent() + ", Lagrings Dato: " + leafDestillat.getLagringsDato() + ", Omhældningsdato: " + leafDestillat.getOmhældningsDato()));
             rowIndex++;
         }
 
-        detailsStage.setScene(new Scene(gridPane, 450, 300));
+        detailsStage.setScene(new Scene(gridPane, 650, 400));
         detailsStage.setTitle("Fad Detaljer");
         detailsStage.show();
     }

@@ -15,12 +15,16 @@ import javafx.stage.StageStyle;
 import logik.Fad;
 import logik.LeafDestillat;
 
+import java.util.ArrayList;
+
 public class OmhældDestillatTilFadWindow2 extends Stage {
 
     private Fad fad1;
     private Fad fad2;
     private ListView<LeafDestillat> lvwDestillatFra;
     private ListView<LeafDestillat> lvwDestillatTil;
+    private ArrayList<LeafDestillat> destillatListe = new ArrayList<>();
+    private OmhældningsDatoWindow omhældningsDatoWindow;
 
     public OmhældDestillatTilFadWindow2(String title, Stage owner, Fad fad1, Fad fad2) {
         this.initOwner(owner);
@@ -81,11 +85,19 @@ public class OmhældDestillatTilFadWindow2 extends Stage {
     }
 
     private void leftArrowAction() {
-
+        LeafDestillat leafDestillat = lvwDestillatTil.getSelectionModel().getSelectedItem();
+        if (leafDestillat != null) {
+            lvwDestillatTil.getItems().remove(leafDestillat);
+            lvwDestillatFra.getItems().add(leafDestillat);
+        }
     }
 
     private void rightArrowAction() {
-
+        LeafDestillat leafDestillat = lvwDestillatFra.getSelectionModel().getSelectedItem();
+        if (leafDestillat != null) {
+            lvwDestillatFra.getItems().remove(leafDestillat);
+            lvwDestillatTil.getItems().add(leafDestillat);
+        }
     }
 
     private void cancelAction() {
@@ -93,6 +105,14 @@ public class OmhældDestillatTilFadWindow2 extends Stage {
     }
 
     private void accepterAction() {
+        destillatListe.addAll(lvwDestillatTil.getItems());
+
+        //måske kald metode her eller noget for at destillatet er blevet fjernet...
+        destillatListe.forEach(leafDestillat -> fad1.removeLeafDestillat(leafDestillat.getLeafNewMakeNummer()));
+        omhældningsDatoWindow = new OmhældningsDatoWindow("Omhældningsdato", new Stage(), destillatListe);
+        omhældningsDatoWindow.showAndWait();
+        destillatListe.forEach(leafDestillat -> fad2.addLeafDestillat(leafDestillat.getLeafNewMakeNummer(), leafDestillat, leafDestillat.getLagringsDato(), leafDestillat.getOmhældningsDato()));
+        OmhældDestillatTilFadWindow2.this.hide();
 
 
     }

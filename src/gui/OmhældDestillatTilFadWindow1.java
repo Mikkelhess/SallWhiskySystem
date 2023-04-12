@@ -91,6 +91,7 @@ public class OmhældDestillatTilFadWindow1 extends Stage {
         Fad selectedFad = lvwFade.getSelectionModel().getSelectedItem();
         omhældDestillatTilFadWindow2 = new OmhældDestillatTilFadWindow2("Omhæld Destillat", new Stage(), fad, selectedFad);
         omhældDestillatTilFadWindow2.showAndWait();
+        OmhældDestillatTilFadWindow1.this.hide();
 
 
 
