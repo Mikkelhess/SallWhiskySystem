@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 public class WhiskyProdukt {
 
+    private ArrayList<LeafDestillat> destillatListe;
     private static int idCounter = 1;
     private final int whiskyId;
-    private ArrayList<Fad> whiskyFad;
-    private double alkoholProcent;
     private double liter;
     private double vandLiter;
     private String whiskyType;
@@ -25,6 +24,7 @@ public class WhiskyProdukt {
         this.vandLokation = vandLokation;
         this.antalFlasker = antalFlasker;
         this.flaskeStørrelse = flaskeStørrelse;
+        this.destillatListe = destillatListe;
 
         this.whiskyId = idCounter;
         idCounter++;

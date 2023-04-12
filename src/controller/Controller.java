@@ -270,10 +270,14 @@ public class Controller {
         LeafDestillat leafDestillat7 = compositeDestillat6.createLeaf(200);
         LeafDestillat leafDestillat8 = compositeDestillat6.createLeaf(100);
 
-        fad1.addLeafDestillat(leafDestillat1.getLeafNewMakeNummer(), leafDestillat1);
-        fad1.addLeafDestillat(leafDestillat2.getLeafNewMakeNummer(), leafDestillat2);
+        LocalDate lagringsDato1 = LocalDate.of(2018, 5, 15);
+        LocalDate lagringsDato2 = LocalDate.of(2018, 3, 15);
+        LocalDate lagringsDato3 = LocalDate.of(2016, 8, 21);
 
-        fad3.addLeafDestillat(leafDestillat3.getLeafNewMakeNummer(), leafDestillat3);
+        fad1.addLeafDestillat(leafDestillat1.getLeafNewMakeNummer(), leafDestillat1, lagringsDato1);
+        fad1.addLeafDestillat(leafDestillat2.getLeafNewMakeNummer(), leafDestillat2, lagringsDato2);
+
+        fad3.addLeafDestillat(leafDestillat3.getLeafNewMakeNummer(), leafDestillat3, lagringsDato3);
 
 
         //ved ikke om det er nødvendigt

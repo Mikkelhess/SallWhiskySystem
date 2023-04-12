@@ -1,5 +1,6 @@
 package logik;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class LeafDestillat implements DestillatComponent {
@@ -8,6 +9,8 @@ public class LeafDestillat implements DestillatComponent {
     private double liter;
     private String leafNewMakeNummer;
     private double alkoholProcent;
+    private LocalDate lagringsDato;
+    private LocalDate påfyldningsDato;
     private boolean påFad;
 
     public LeafDestillat(double liter, String leafNewMakeNummer, double alkoholProcent) {
@@ -24,6 +27,10 @@ public class LeafDestillat implements DestillatComponent {
     @Override
     public void setLiter(double liter) {
         this.liter = liter;
+    }
+
+    public void setLagringsDato(LocalDate lagringsDato) {
+        this.lagringsDato = lagringsDato;
     }
 
     public String getLeafNewMakeNummer() {
@@ -63,6 +70,10 @@ public class LeafDestillat implements DestillatComponent {
         return fad;
     }
 
+    public LocalDate getLagringsDato() {
+        return lagringsDato;
+    }
+
     public boolean påFad() {
         return påFad;
     }
@@ -72,7 +83,7 @@ public class LeafDestillat implements DestillatComponent {
     }
     @Override
     public String toString() {
-        return "Destillat " + leafNewMakeNummer + ": " + liter + " liter ";
+        return "Destillat-del " + leafNewMakeNummer + ": " + liter + " liter ";
     }
 
 

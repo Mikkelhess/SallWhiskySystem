@@ -11,10 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logik.CompositeDestillat;
 import logik.Fad;
-import logik.Hylde;
 import logik.LeafDestillat;
-
-import javax.xml.transform.Source;
 
 public class FadPane extends GridPane {
 
@@ -22,17 +19,18 @@ public class FadPane extends GridPane {
     private ListView<CompositeDestillat> lvwDestillat;
     private Button btnOpretFad;
     private Button btnFjernFad;
+    private Button btnDetaljer;
     private Button btnHistorik;
+    private Button btnOmhæld;
 
     private Button btnTilføj;
 
     private Button btnFjernDestillat;
-    //private TextField txfTilføjLiter = new TextField();
-
     private HBox FadHBox, destillatHBox;
 
     private OpretFadWindow opretFadWindow;
     private TilføjDestillatWindow tilføjDestillatWindow;
+    private OmhældDestillatTilFadWindow1 omhældDestillatTilFadWindow1;
 
 
 
@@ -70,6 +68,7 @@ public class FadPane extends GridPane {
         destillatHBox = new HBox();
         this.add(destillatHBox, 1, 4);
         destillatHBox.setSpacing(20);
+        destillatHBox.setAlignment(Pos.CENTER);
 
 
         btnOpretFad = new Button("Opret");
@@ -80,22 +79,23 @@ public class FadPane extends GridPane {
         FadHBox.getChildren().add(btnFjernFad);
         btnFjernFad.setOnAction(event -> this.removeFadAction());
 
+        btnDetaljer = new Button("Detaljer");
+        FadHBox.getChildren().add(btnDetaljer);
+        btnDetaljer.setOnAction(event -> this.detaljerAction());
+
         btnHistorik = new Button("Historik");
         FadHBox.getChildren().add(btnHistorik);
         btnHistorik.setOnAction(event -> this.historikAction());
 
+        btnOmhæld = new Button("Omhæld");
+        FadHBox.getChildren().add(btnOmhæld);
+        btnOmhæld.setOnAction(event -> this.omhældAction());
+
         btnTilføj = new Button("Tilføj Destillat til Fad");
         destillatHBox.getChildren().add(btnTilføj);
         btnTilføj.setOnAction(event -> this.tilføjDestillatAction());
-        /*
-        txfTilføjLiter.setPromptText("Tilføj Liter");
-        destillatHBox.getChildren().add(txfTilføjLiter);
-         */
-
-
 
     }
-
 
     //TODO Check om der er plads på fadet til destillaterne
     private void tilføjDestillatAction() {
@@ -111,14 +111,6 @@ public class FadPane extends GridPane {
             alert.setContentText("Vælg et destillat som du vil tilføje til fadet");
             alert.showAndWait();
         }
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     private void opretFadAction() {
@@ -141,7 +133,22 @@ public class FadPane extends GridPane {
         }
     }
 
-    private void historikAction() {
+    private void omhældAction() {
+        Fad fad = lvwFade.getSelectionModel().getSelectedItem();
+        if (fad != null) {
+            omhældDestillatTilFadWindow1 = new OmhældDestillatTilFadWindow1("Omhæld Destillat", new Stage(), fad);
+            omhældDestillatTilFadWindow1.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg et fad");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg et fad som du vil omhælde");
+            alert.showAndWait();
+        }
+
+    }
+
+    private void detaljerAction() {
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
         if (fad != null) {
             visHistorikWindow(fad);
@@ -152,8 +159,10 @@ public class FadPane extends GridPane {
             alert.setContentText("Vælg et fad du vil se historik for");
             alert.showAndWait();
         }
+    }
 
-
+    //vis nuværende destillater med info, derudover vis al historik for fadet.
+    private void historikAction() {
 
     }
 
@@ -171,34 +180,23 @@ public class FadPane extends GridPane {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10));
 
-        int rowIndex = 1;
-        gridPane.addRow(0, new Label("laves færdig i version 1.3..."));
-        for (CompositeDestillat compositeDestillat : fad.getDestillatMap().values()) {
+        gridPane.addRow(0, new Label("Fad " + fad.getFadId()));
+        gridPane.addRow(1, new Label(fad.getFadLiter() + " liter i fadet."));
+        gridPane.addRow(2, new Label("Fad type: " + fad.getFadType()));
+        gridPane.addRow(3, new Label("Leverandør: " + fad.getLeverandør()));
+        gridPane.addRow(4, new Separator());
 
-            gridPane.addRow(rowIndex++, new Label(compositeDestillat.toString()));
+        gridPane.addRow(5, new Label("Destillater på fadet"));
 
-        }
-        /*
-        int rowIndex = 0;
-        gridPane.addRow(rowIndex, new Label());
-        for (Destillat destillat : fad.getDestillatMap().values()) {
-
-            //Label addedDateLabel = new Label("Added to Fad:");
-            //Label removedDateLabel = new Label("Removed from Fad:");
-
-            //Label addedDateValueLabel = new Label(destillat.getAddedDate());
-            //Label removedDateValueLabel = new Label(destillat.getRemovedDate());
-
-            gridPane.addRow(rowIndex++,  new Label(destillat.getCurrentLiter() + " liter tilføjet fra destillat " + destillat.getNewMakeNummer() ));
-            //gridPane.addRow(rowIndex++, addedDateLabel, addedDateValueLabel);
-            //gridPane.addRow(rowIndex++, removedDateLabel, removedDateValueLabel);
-            gridPane.addRow(rowIndex++, new Separator(Orientation.HORIZONTAL));
+        int rowIndex = 6;
+        for (LeafDestillat leafDestillat : fad.getLeafDestillatMap().values()) {
+            gridPane.addRow(rowIndex, new Label("Destillat-del " + leafDestillat.getLeafNewMakeNummer() + ", liter: " +
+                    leafDestillat.getLiter() + ", alkohol procent: " + leafDestillat.getAlkoholProcent() + ", Lagrings Dato: " + leafDestillat.getLagringsDato()));
+            rowIndex++;
         }
 
-         */
-
-        detailsStage.setScene(new Scene(gridPane, 400, 300));
-        detailsStage.setTitle("Fad Historik");
+        detailsStage.setScene(new Scene(gridPane, 450, 300));
+        detailsStage.setTitle("Fad Detaljer");
         detailsStage.show();
     }
 

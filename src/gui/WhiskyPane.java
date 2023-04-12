@@ -113,20 +113,9 @@ public class WhiskyPane extends GridPane {
         gridPane.addRow(8, new Label("INDSÆT TEKST OM HVILKE FAD WHISKYEN ER DESTILLERET PÅ"));
         gridPane.addRow(9, new Label("OG ANDET INFORMATION SOM F.EKS: HISTORIK OG FADTYPE"));
 
-        /*
-        gridPane.addRow(0, new Label("Whisky "), new Label(destillering.getMedarbejderNavn()));
-        gridPane.addRow(1, new Label("Start Dato: "), new Label(destillering.getStartDato().toString()));
-        gridPane.addRow(2, new Label("Slut Dato: "), new Label(destillering.getSlutDato().toString()));
-        gridPane.addRow(3, new Label("Malt batch: "), new Label(destillering.getMaltBatch()));
-        gridPane.addRow(4, new Label("Kornsort: "), new Label(destillering.getKornsort()));
-        gridPane.addRow(5, new Label("Kapacitet: "), new Label(destillering.udregnBrugteLiter() + " ud af " + destillering.getTotalLiter() + " liter"));
-        gridPane.addRow(6, new Label("Ryge materiale: "), new Label(destillering.getRygeMateriale()));
-        gridPane.addRow(7, new Label("Kommentar: "), new Label(destillering.getKommentar()));
-
-         */
 
         detailsStage.setScene(new Scene(gridPane, 400, 300));
-        detailsStage.setTitle("Destillering Detaljer");
+        detailsStage.setTitle("Whisky Detaljer");
         detailsStage.show();
     }
 

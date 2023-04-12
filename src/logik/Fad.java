@@ -1,5 +1,6 @@
 package logik;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Fad {
@@ -21,9 +22,10 @@ public class Fad {
         this.leverandør = leverandør;
     }
 
-    public void addLeafDestillat(String leafNewMakeNummer, LeafDestillat leafDestillat) {
+    public void addLeafDestillat(String leafNewMakeNummer, LeafDestillat leafDestillat, LocalDate lagringsDato) {
         leafDestillatMap.put(leafNewMakeNummer, leafDestillat);
         leafDestillat.sætFad(this);
+        leafDestillat.setLagringsDato(lagringsDato);
     }
 
     public void removeLeafDestillat(String leafnewMakeNummer) {
@@ -40,6 +42,10 @@ public class Fad {
 
     public double getFadLiter() {
         return fadLiter;
+    }
+
+    public String getLeverandør() {
+        return leverandør;
     }
 
     public HashMap<Integer, CompositeDestillat> getDestillatMap() {

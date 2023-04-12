@@ -1,19 +1,24 @@
 package gui;
 
 import controller.Controller;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import logik.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TilføjDestillatWindow extends Stage{
@@ -24,6 +29,8 @@ public class TilføjDestillatWindow extends Stage{
     ListView<LeafDestillat> listViewTilføjDestillat;
     private ArrayList<LeafDestillat> destillatListe;
     private ArrayList<LeafDestillat> tilføjDestillatListe = new ArrayList<>();
+    private LocalDate lagringsDato;
+    private LagringsDatoWindow lagringsDatoWindow;
 
     public TilføjDestillatWindow(String title, Stage owner, CompositeDestillat compositeDestillat, Fad fad) {
         this.initOwner(owner);
@@ -107,7 +114,9 @@ public class TilføjDestillatWindow extends Stage{
     private void accepterAction() {
         tilføjDestillatListe.clear();
         tilføjDestillatListe.addAll(listViewTilføjDestillat.getItems());
-        tilføjDestillatListe.forEach(leafDestillat -> fad.addLeafDestillat(leafDestillat.getNewMakeNummer(), leafDestillat));
+        LagringsDatoWindow lagringsDatoWindow = new LagringsDatoWindow("Sæt Lagringsdato", new Stage(), destillatListe);
+        lagringsDatoWindow.showAndWait();
+        tilføjDestillatListe.forEach(leafDestillat -> fad.addLeafDestillat(leafDestillat.getNewMakeNummer(), leafDestillat, leafDestillat.getLagringsDato()));
         listViewTilføjDestillat.getItems().forEach(leafDestillat -> leafDestillat.setPåFad(true));
         this.hide();
     }
