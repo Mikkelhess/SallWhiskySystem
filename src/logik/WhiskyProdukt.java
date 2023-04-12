@@ -66,6 +66,10 @@ public class WhiskyProdukt {
         return beskrivelse;
     }
 
+    public ArrayList<LeafDestillat> getDestillatListe() {
+        return new ArrayList<>(destillatListe);
+    }
+
     public void setBeskrivelse(String beskrivelse) {
         this.beskrivelse = beskrivelse;
     }

@@ -114,9 +114,12 @@ public class TilføjDestillatWindow extends Stage{
     private void accepterAction() {
         tilføjDestillatListe.clear();
         tilføjDestillatListe.addAll(listViewTilføjDestillat.getItems());
-        LagringsDatoWindow lagringsDatoWindow = new LagringsDatoWindow("Sæt Lagringsdato", new Stage(), destillatListe);
+        LagringsDatoWindow lagringsDatoWindow = new LagringsDatoWindow("Sæt Lagringsdato", new Stage(), destillatListe, this.fad);
         lagringsDatoWindow.showAndWait();
-        tilføjDestillatListe.forEach(leafDestillat -> fad.addLeafDestillat(leafDestillat.getNewMakeNummer(), leafDestillat, leafDestillat.getLagringsDato(), leafDestillat.getOmhældningsDato()));
+
+        for (LeafDestillat leafDestillat : tilføjDestillatListe) {
+            fad.addLeafDestillat(leafDestillat.getLeafNewMakeNummer(), leafDestillat, lagringsDatoWindow.getLagringsDato());
+        }
         listViewTilføjDestillat.getItems().forEach(leafDestillat -> leafDestillat.setPåFad(true));
         this.hide();
     }

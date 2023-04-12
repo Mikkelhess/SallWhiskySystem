@@ -1,5 +1,7 @@
 package logik;
 
+import gui.FadHistorik;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -9,9 +11,6 @@ public class LeafDestillat implements DestillatComponent {
     private double liter;
     private String leafNewMakeNummer;
     private double alkoholProcent;
-    private LocalDate lagringsDato;
-    private LocalDate påfyldningsDato; //dato for påfyldning til whisky
-    private LocalDate omhældningsDato;
     private boolean påFad;
 
     public LeafDestillat(double liter, String leafNewMakeNummer, double alkoholProcent) {
@@ -28,22 +27,6 @@ public class LeafDestillat implements DestillatComponent {
     @Override
     public void setLiter(double liter) {
         this.liter = liter;
-    }
-
-    public void setLagringsDato(LocalDate lagringsDato) {
-        this.lagringsDato = lagringsDato;
-    }
-
-    public void setOmhældningsDato(LocalDate omhældningsDato) {
-        this.omhældningsDato = omhældningsDato;
-    }
-
-    public LocalDate getLagringsDato() {
-        return lagringsDato;
-    }
-
-    public LocalDate getOmhældningsDato() {
-        return omhældningsDato;
     }
 
     public String getLeafNewMakeNummer() {
@@ -74,16 +57,12 @@ public class LeafDestillat implements DestillatComponent {
     public double getAlkoholProcent() {
         return alkoholProcent;
     }
-
     public void sætFad(Fad fad) {
         this.fad = fad;
     }
-
     public Fad getFad() {
         return fad;
     }
-
-
 
     public boolean påFad() {
         return påFad;

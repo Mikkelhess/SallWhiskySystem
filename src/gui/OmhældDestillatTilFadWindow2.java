@@ -100,18 +100,15 @@ public class OmhældDestillatTilFadWindow2 extends Stage {
         }
     }
 
-    private void cancelAction() {
-
-    }
-
     private void accepterAction() {
         destillatListe.addAll(lvwDestillatTil.getItems());
 
         //måske kald metode her eller noget for at destillatet er blevet fjernet...
-        destillatListe.forEach(leafDestillat -> fad1.removeLeafDestillat(leafDestillat.getLeafNewMakeNummer()));
         omhældningsDatoWindow = new OmhældningsDatoWindow("Omhældningsdato", new Stage(), destillatListe);
         omhældningsDatoWindow.showAndWait();
-        destillatListe.forEach(leafDestillat -> fad2.addLeafDestillat(leafDestillat.getLeafNewMakeNummer(), leafDestillat, leafDestillat.getLagringsDato(), leafDestillat.getOmhældningsDato()));
+        destillatListe.forEach(leafDestillat -> fad1.removeLeafDestillat(leafDestillat.getLeafNewMakeNummer(), omhældningsDatoWindow.getOmhældningsDato()));
+        destillatListe.forEach(leafDestillat -> fad1.setOmhældtFad(fad2));
+        destillatListe.forEach(leafDestillat -> fad2.addLeafDestillat(leafDestillat.getLeafNewMakeNummer(), leafDestillat, omhældningsDatoWindow.getOmhældningsDato()));
         OmhældDestillatTilFadWindow2.this.hide();
 
 

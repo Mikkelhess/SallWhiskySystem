@@ -186,7 +186,7 @@ public class OpretWhiskyWindow2 extends Stage {
 
             }
         }
-        //tilføjDestillaterListView.getItems().addAll(destillatListe);
+        tilføjDestillaterListView.getItems().addAll(destillatListe);
         OpretWhiskyWindow2.this.hide();
     }
 

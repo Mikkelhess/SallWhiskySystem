@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import logik.CompositeDestillat;
 import logik.Destillering;
+import logik.Fad;
 import logik.LeafDestillat;
 
 import java.time.LocalDate;
@@ -18,10 +19,12 @@ import java.util.ArrayList;
 
 public class LagringsDatoWindow extends Stage {
     DatePicker dpLagringsDato = new DatePicker();
+    LocalDate lagringsDato;
+    Fad fad;
     private ArrayList<LeafDestillat> destillatListe;
 
 
-    public LagringsDatoWindow(String title, Stage owner, ArrayList<LeafDestillat> destillatListe) {
+    public LagringsDatoWindow(String title, Stage owner, ArrayList<LeafDestillat> destillatListe, Fad fad) {
         this.initOwner(owner);
         this.initStyle(StageStyle.UTILITY);
         this.initModality(Modality.APPLICATION_MODAL);
@@ -37,6 +40,7 @@ public class LagringsDatoWindow extends Stage {
         this.setScene(scene);
 
         this.destillatListe = destillatListe;
+        this.fad = fad;
     }
 
     // -------------------------------------------------------------------------
@@ -80,11 +84,12 @@ public class LagringsDatoWindow extends Stage {
     }
 
     private void okAction() {
-        for (LeafDestillat leafDestillat : destillatListe) {
-            leafDestillat.setLagringsDato(dpLagringsDato.getValue());
-        }
+        this.lagringsDato = dpLagringsDato.getValue();
         this.hide();
     }
 
+    public LocalDate getLagringsDato() {
+        return lagringsDato;
+    }
 }
 

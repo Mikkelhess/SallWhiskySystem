@@ -4,10 +4,8 @@ import controller.Controller;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -110,9 +108,7 @@ public class WhiskyPane extends GridPane {
         gridPane.addRow(5, new Label("Flaskestørrelse: " + whiskyProdukt.getFlaskeStørrelse() + " liter"));
         gridPane.addRow(6, new Label("Vand er fra: " + whiskyProdukt.getVandLokation()));
         gridPane.addRow(7, new Label("Beskrivelse: " + whiskyProdukt.getBeskrivelse()));
-        gridPane.addRow(8, new Label("INDSÆT TEKST OM HVILKE FAD WHISKYEN ER DESTILLERET PÅ"));
-        gridPane.addRow(9, new Label("OG ANDET INFORMATION SOM F.EKS: HISTORIK OG FADTYPE"));
-
+        gridPane.addRow(8, new Separator());
 
         detailsStage.setScene(new Scene(gridPane, 400, 300));
         detailsStage.setTitle("Whisky Detaljer");

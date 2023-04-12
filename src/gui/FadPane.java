@@ -13,6 +13,8 @@ import logik.CompositeDestillat;
 import logik.Fad;
 import logik.LeafDestillat;
 
+import java.time.LocalDate;
+
 public class FadPane extends GridPane {
 
     private ListView<Fad> lvwFade;
@@ -152,26 +154,17 @@ public class FadPane extends GridPane {
     private void detaljerAction() {
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
         if (fad != null) {
-            visHistorikWindow(fad);
+            visDetaljerWindow(fad);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Vælg et fad");
             alert.setHeaderText(null);
-            alert.setContentText("Vælg et fad du vil se historik for");
+            alert.setContentText("Vælg et fad du vil se detaljer for");
             alert.showAndWait();
         }
     }
 
-    //vis nuværende destillater med info, derudover vis al historik for fadet.
-    private void historikAction() {
-
-    }
-
-    private void visHistorikWindow(Fad fad) {
-
-        for (LeafDestillat leafDestillat : fad.getLeafDestillatMap().values()) {
-            System.out.println(leafDestillat);
-        }
+    private static void visDetaljerWindow(Fad fad) {
 
         Stage detailsStage = new Stage();
         detailsStage.initModality(Modality.WINDOW_MODAL);
@@ -193,7 +186,7 @@ public class FadPane extends GridPane {
         int rowIndex = 6;
         for (LeafDestillat leafDestillat : fad.getLeafDestillatMap().values()) {
             gridPane.addRow(rowIndex, new Label("Destillat-del " + leafDestillat.getLeafNewMakeNummer() + ", liter: " +
-                    leafDestillat.getLiter() + ", alkohol procent: " + leafDestillat.getAlkoholProcent() + ", Lagrings Dato: " + leafDestillat.getLagringsDato() + ", Omhældningsdato: " + leafDestillat.getOmhældningsDato()));
+                    leafDestillat.getLiter() + ", alkohol procent: " + leafDestillat.getAlkoholProcent()));
             rowIndex++;
         }
 
@@ -201,6 +194,60 @@ public class FadPane extends GridPane {
         detailsStage.setTitle("Fad Detaljer");
         detailsStage.show();
     }
+
+    //vis nuværende destillater med info, derudover vis al historik for fadet.
+    private void historikAction() {
+        Fad fad = lvwFade.getSelectionModel().getSelectedItem();
+        if (fad != null) {
+            visHistorikWindow(fad);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vælg et fad");
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg et fad du vil se historik for");
+            alert.showAndWait();
+        }
+    }
+
+    private void visHistorikWindow(Fad fad) {
+
+        Stage historikStage = new Stage();
+        historikStage.initModality(Modality.WINDOW_MODAL);
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(10));
+
+        gridPane.addRow(0, new Label("Fad Historik for Fad " + fad.getFadId()));
+        gridPane.addRow(1, new Label());
+
+        int rowIndex = 2;
+
+        for (int i = 0; i < fad.getFadHistorikList().size(); i++) {
+            FadHistorik fadHistorik = fad.getFadHistorikList().get(i);
+            LeafDestillat leafDestillat = fadHistorik.getDestillat();
+            String leafNewMakeNummer = leafDestillat.getLeafNewMakeNummer();
+            LocalDate tilføjetDato = fadHistorik.getTilføjetDato();
+            LocalDate fjernetDato = fadHistorik.getFjernetDato();
+
+            if (tilføjetDato != null) {
+                gridPane.addRow(rowIndex, new Label("Destillat " + leafNewMakeNummer +
+                        " lagt på fad: " + tilføjetDato));
+            } else {
+                gridPane.addRow(rowIndex, new Label("Destillat " + leafNewMakeNummer +
+                        " omhældt fra fad " + fad.getFadId() + " til fad " + fad.getOmhældtFad().getFadId() + ": " +  fjernetDato));
+            }
+            rowIndex++;
+        }
+        historikStage.setScene(new Scene(gridPane, 650, 400));
+        historikStage.setTitle("Fad Historik");
+        historikStage.show();
+    }
+
+
+
+
 
 
     public void updateList() {

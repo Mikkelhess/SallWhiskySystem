@@ -3,6 +3,7 @@ package gui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -13,11 +14,14 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import logik.LeafDestillat;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class OmhældningsDatoWindow extends Stage {
     DatePicker dpOmhældningsDato = new DatePicker();
     private ArrayList<LeafDestillat> destillatListe;
+    private LocalDate omhældningsDato;
+    private LocalDate originalLagringsDato;
 
 
     public OmhældningsDatoWindow(String title, Stage owner, ArrayList<LeafDestillat> destillatListe) {
@@ -30,6 +34,8 @@ public class OmhældningsDatoWindow extends Stage {
         this.setTitle(title);
 
         this.destillatListe = destillatListe;
+        this.originalLagringsDato = originalLagringsDato;
+
 
         GridPane pane = new GridPane();
         this.initContent(pane);
@@ -80,10 +86,11 @@ public class OmhældningsDatoWindow extends Stage {
     }
 
     private void okAction() {
-        for (LeafDestillat leafDestillat : destillatListe) {
-            leafDestillat.setOmhældningsDato(dpOmhældningsDato.getValue());
-        }
+        this.omhældningsDato = dpOmhældningsDato.getValue();
         this.hide();
     }
 
+    public LocalDate getOmhældningsDato() {
+        return omhældningsDato;
+    }
 }
