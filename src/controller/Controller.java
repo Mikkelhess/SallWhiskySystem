@@ -12,14 +12,15 @@ import java.util.List;
 public class Controller {
 
 
-    public static Whisky opretWhisky(double liter, String beskrivelse, ArrayList<Fad> whiskyFad) {
-        Whisky whisky = new Whisky(liter, beskrivelse, whiskyFad);
-        addWhisky(whisky);
-        return whisky;
+    public static WhiskyProdukt opretWhiskyProdukt(String whiskyType, double liter, int
+            antalFlasker, double flaskeStørrelse, String vandLokation, double vandLiter, String beskrivelse, ArrayList<LeafDestillat> destillatListe) {
+        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(whiskyType, liter, antalFlasker, flaskeStørrelse, vandLokation, vandLiter, beskrivelse, destillatListe);
+        addWhisky(whiskyProdukt);
+        return whiskyProdukt;
     }
 
-    public static void addWhisky(Whisky whisky){
-        Storage.getInstance().addWhisky(whisky);
+    public static void addWhisky(WhiskyProdukt whiskyProdukt){
+        Storage.getInstance().addWhisky(whiskyProdukt);
     }
 
 
@@ -148,7 +149,7 @@ public class Controller {
         return Storage.getInstance().getFadMap();
     }
 
-    public static HashMap<Integer,Whisky> getWhiskyMap() {
+    public static HashMap<Integer, WhiskyProdukt> getWhiskyMap() {
         return Storage.getInstance().getWhiskyMap();
     }
 
@@ -178,6 +179,14 @@ public class Controller {
         return Storage.getInstance().getDestillatMap();
     }
 
+    public static void addBrugtDestillat(LeafDestillat leafDestillat) {
+        Storage.getInstance().addBrugtDestillat(leafDestillat);
+    }
+
+    public static boolean isLeafDestillatUsed(LeafDestillat leafDestillat) {
+        return Storage.getInstance().getBrugteDestillater().contains(leafDestillat);
+    }
+
     public static HashMap<Integer,Reol> getReolMap(int lagerId) {
         Lager lager = getLager(lagerId);
         return lager.getReolMap();
@@ -196,11 +205,6 @@ public class Controller {
     public static HashMap<Integer,Destillering> getDestilleringMap() {
         return Storage.getInstance().getDestilleringMap();
     }
-
-
-
-
-
 
 
 //--------------------------------------------------------------------------------------
@@ -250,28 +254,35 @@ public class Controller {
         Destillering destillering1 = opretDestillering("Snævar", LocalDate.of(2023, 3, 30), LocalDate.of(2023, 4, 1), "Batch 1", "Evergreen", 800.0, "Tørv", "Sådan venner");
         Destillering destillering2 = opretDestillering("Martin", LocalDate.of(2019, 10, 10), LocalDate.of(2023, 10, 11), "Batch 2", "Stairway", 5000.0, "Halm", "Den er god");
 
-        CompositeDestillat compositeDestillat1 = destillering1.createDestillat(100.0, 60.0);
-        compositeDestillat1.createLeaf(20);
-        compositeDestillat1.createLeaf(30);
+        CompositeDestillat compositeDestillat1 = destillering1.createDestillat(100.0, 60);
+        LeafDestillat leafDestillat1 = compositeDestillat1.createLeaf(20);
+        LeafDestillat leafDestillat2 = compositeDestillat1.createLeaf(30);
         CompositeDestillat compositeDestillat2 = destillering1.createDestillat(150.0, 65);
-        CompositeDestillat compositeDestillat3 = destillering1.createDestillat(65.0,80);
-        compositeDestillat3.createLeaf(15);
+        CompositeDestillat compositeDestillat3 = destillering1.createDestillat(65.0,60);
+        LeafDestillat leafDestillat3 = compositeDestillat3.createLeaf(15);
 
         CompositeDestillat compositeDestillat4 = destillering2.createDestillat(500.0, 60);
-        compositeDestillat4.createLeaf(50);
-        compositeDestillat4.createLeaf(100);
+        LeafDestillat leafDestillat4 = compositeDestillat4.createLeaf(50);
+        LeafDestillat leafDestillat5 = compositeDestillat4.createLeaf(100);
         CompositeDestillat compositeDestillat5 = destillering2.createDestillat(300.0, 70);
-        compositeDestillat5.createLeaf(50);
+        LeafDestillat leafDestillat6 = compositeDestillat5.createLeaf(50);
         CompositeDestillat compositeDestillat6 = destillering2.createDestillat(1000.0, 65);
-        compositeDestillat6.createLeaf(200);
-        compositeDestillat6.createLeaf(100);
+        LeafDestillat leafDestillat7 = compositeDestillat6.createLeaf(200);
+        LeafDestillat leafDestillat8 = compositeDestillat6.createLeaf(100);
 
-        ArrayList<Fad> whiskyFad = new ArrayList<>();
-        whiskyFad.add(fad1);
-        whiskyFad.add(fad2);
+        fad1.addLeafDestillat(leafDestillat1.getLeafNewMakeNummer(), leafDestillat1);
+        fad1.addLeafDestillat(leafDestillat2.getLeafNewMakeNummer(), leafDestillat2);
 
-        Whisky whisky = Controller.opretWhisky(750, "Epic", whiskyFad);
+        fad3.addLeafDestillat(leafDestillat3.getLeafNewMakeNummer(), leafDestillat3);
+
+
+        //ved ikke om det er nødvendigt
+        ArrayList<LeafDestillat> destillatListe = new ArrayList<>();
+        destillatListe.add(leafDestillat1);
+        destillatListe.add(leafDestillat2);
+        destillatListe.add(leafDestillat3);
+
+        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt("Single Malt", 750, 1000, 0.75, "Begravede dale i Sall", 50, "Epic", destillatListe);
 
     }
-
 }

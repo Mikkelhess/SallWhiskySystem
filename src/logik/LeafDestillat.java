@@ -1,7 +1,10 @@
 package logik;
 
+import java.util.ArrayList;
+
 public class LeafDestillat implements DestillatComponent {
 
+    private Fad fad;
     private double liter;
     private String leafNewMakeNummer;
     private double alkoholProcent;
@@ -52,6 +55,14 @@ public class LeafDestillat implements DestillatComponent {
         return alkoholProcent;
     }
 
+    public void sætFad(Fad fad) {
+        this.fad = fad;
+    }
+
+    public Fad getFad() {
+        return fad;
+    }
+
     public boolean påFad() {
         return påFad;
     }
@@ -59,10 +70,10 @@ public class LeafDestillat implements DestillatComponent {
     public void setPåFad(boolean påFad) {
         this.påFad = påFad;
     }
-
     @Override
     public String toString() {
         return "Destillat " + leafNewMakeNummer + ": " + liter + " liter ";
     }
+
 
 }

@@ -2,17 +2,20 @@ package storage;
 
 import logik.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class Storage {
     private static Storage instance = null;
 
+    private static List<LeafDestillat> brugteDestillater = new ArrayList<>();
     private HashMap<Integer, Lager> lagerMap;
     private HashMap<Integer, Fad> fadMap;
     private HashMap<Integer, Destillering> destilleringMap;
     private HashMap<String, CompositeDestillat> destillatMap;
-    private HashMap<Integer, Whisky> whiskyMap;
+    private HashMap<Integer, WhiskyProdukt> whiskyMap;
 
     private Storage() {
         lagerMap = new HashMap<>();
@@ -29,18 +32,23 @@ public class Storage {
         return instance;
     }
 
+    public LeafDestillat addBrugtDestillat(LeafDestillat leafDestillat) {
+        brugteDestillater.add(leafDestillat);
+        return leafDestillat;
+    }
+
     public Lager addLager(Lager lager) {
         lagerMap.put(lager.getLagerId(), lager);
         return lager;
     }
 
-    public Whisky addWhisky(Whisky whisky) {
-        whiskyMap.put(whisky.getWhiskyId(), whisky);
-        return whisky;
+    public WhiskyProdukt addWhisky(WhiskyProdukt whiskyProdukt) {
+        whiskyMap.put(whiskyProdukt.getWhiskyId(), whiskyProdukt);
+        return whiskyProdukt;
     }
 
-    public void removeWhisky(Whisky whisky) {
-        whiskyMap.remove(whisky.getWhiskyId());
+    public void removeWhisky(WhiskyProdukt whiskyProdukt) {
+        whiskyMap.remove(whiskyProdukt.getWhiskyId());
     }
 
 
@@ -86,7 +94,11 @@ public class Storage {
         return destillatMap;
     }
 
-    public HashMap<Integer, Whisky> getWhiskyMap() {
+    public HashMap<Integer, WhiskyProdukt> getWhiskyMap() {
         return whiskyMap;
+    }
+
+    public List<LeafDestillat> getBrugteDestillater() {
+        return new ArrayList<>(brugteDestillater);
     }
 }
