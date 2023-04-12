@@ -254,6 +254,7 @@ public class DestilleringPane extends GridPane {
             int selectIndex = lvwLeafDestillater.getSelectionModel().getSelectedIndex();
             lvwLeafDestillater.getItems().setAll(compositeDestillat.getLeaves());
             lvwLeafDestillater.getSelectionModel().select(selectIndex);
+
         }
     }
 
