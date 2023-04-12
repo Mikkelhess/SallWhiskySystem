@@ -14,7 +14,7 @@ class HyldeTest {
     void addFadTilHylde() {
         //Arrange
         hylde = new Hylde();
-        fad = new Fad(20.00,FadType.BOURBON);
+        fad = new Fad(20.00,FadType.BOURBON, "Sall");
 
         //Act
         hylde.addFadTilHylde(fad);
@@ -26,8 +26,8 @@ class HyldeTest {
     @Test
     void removeFadFraHylde() {
         Hylde hylde = new Hylde();
-        Fad fad1 = new Fad(20.00,FadType.BOURBON);
-        Fad fad2 = new Fad(10.00,FadType.RØDVIN);
+        Fad fad1 = new Fad(20.00,FadType.BOURBON, "Sall");
+        Fad fad2 = new Fad(10.00,FadType.RØDVIN, "Sall");
         hylde.addFadTilHylde(fad1);
         hylde.addFadTilHylde(fad2);
 
