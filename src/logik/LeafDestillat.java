@@ -1,10 +1,5 @@
 package logik;
 
-import gui.FadHistorik;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class LeafDestillat implements DestillatComponent {
 
     private Fad fad;

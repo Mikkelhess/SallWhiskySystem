@@ -29,8 +29,6 @@ public class TilføjDestillatWindow extends Stage{
     ListView<LeafDestillat> listViewTilføjDestillat;
     private ArrayList<LeafDestillat> destillatListe;
     private ArrayList<LeafDestillat> tilføjDestillatListe = new ArrayList<>();
-    private LocalDate lagringsDato;
-    private LagringsDatoWindow lagringsDatoWindow;
 
     public TilføjDestillatWindow(String title, Stage owner, CompositeDestillat compositeDestillat, Fad fad) {
         this.initOwner(owner);
@@ -74,19 +72,16 @@ public class TilføjDestillatWindow extends Stage{
         listViewTilføjDestillat = new ListView<>();
 
         Button btnRightArrow = new Button("--->");
-        btnRightArrow.setOnAction(event -> leftArrowAction()); // Corrected event handler
+        btnRightArrow.setOnAction(event -> leftArrowAction());
         Button btnLeftArrow = new Button("<---");
-        btnLeftArrow.setOnAction(event -> rightArrowAction()); // Corrected event handler
+        btnLeftArrow.setOnAction(event -> rightArrowAction());
         Button btnAccepter = new Button("Accepter");
         btnAccepter.setOnAction(event -> accepterAction());
 
-
-        // Create VBox for buttons
         VBox buttons = new VBox(10);
         buttons.getChildren().addAll(btnRightArrow, btnLeftArrow, btnAccepter);
         buttons.setAlignment(Pos.CENTER);
 
-        // Add components to the grid pane
         pane.add(labelAlleFad, 0, 0);
         pane.add(listViewLedigeDestillater, 0, 1);
         pane.add(buttons, 1, 1);

@@ -1,7 +1,5 @@
 package logik;
 
-import gui.FadHistorik;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;

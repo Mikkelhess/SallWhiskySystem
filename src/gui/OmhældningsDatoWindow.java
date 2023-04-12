@@ -34,8 +34,6 @@ public class OmhældningsDatoWindow extends Stage {
         this.setTitle(title);
 
         this.destillatListe = destillatListe;
-        this.originalLagringsDato = originalLagringsDato;
-
 
         GridPane pane = new GridPane();
         this.initContent(pane);
@@ -73,11 +71,7 @@ public class OmhældningsDatoWindow extends Stage {
         buttonBox.getChildren().add(btnOK);
         btnOK.setOnAction(event -> this.okAction());
 
-
     }
-
-    // -------------------------------------------------------------------------
-    // Button actions
 
     private void cancelAction() {
 

@@ -47,9 +47,6 @@ public class OpretDestilleringWindow extends Stage {
     private final TextField txfRygeMateriale = new TextField();
     private final TextField txfKommentar = new TextField();
 
-
-
-
     private void initContent(GridPane pane) {
         // pane.setGridLinesVisible(true);
         pane.setPadding(new Insets(20));

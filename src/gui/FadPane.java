@@ -11,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logik.CompositeDestillat;
 import logik.Fad;
+import logik.FadHistorik;
 import logik.LeafDestillat;
 
 import java.time.LocalDate;
@@ -26,8 +27,6 @@ public class FadPane extends GridPane {
     private Button btnOmhæld;
 
     private Button btnTilføj;
-
-    private Button btnFjernDestillat;
     private HBox FadHBox, destillatHBox;
 
     private OpretFadWindow opretFadWindow;
@@ -150,7 +149,6 @@ public class FadPane extends GridPane {
 
     }
 
-    //måske detaljer og historik???
     private void detaljerAction() {
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
         if (fad != null) {
@@ -182,7 +180,6 @@ public class FadPane extends GridPane {
 
         gridPane.addRow(5, new Label("Destillater på fadet"));
 
-        //omhældning og lagring skal fixes
         int rowIndex = 6;
         for (LeafDestillat leafDestillat : fad.getLeafDestillatMap().values()) {
             gridPane.addRow(rowIndex, new Label("Destillat-del " + leafDestillat.getLeafNewMakeNummer() + ", liter: " +
@@ -195,7 +192,6 @@ public class FadPane extends GridPane {
         detailsStage.show();
     }
 
-    //vis nuværende destillater med info, derudover vis al historik for fadet.
     private void historikAction() {
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
         if (fad != null) {
@@ -244,11 +240,6 @@ public class FadPane extends GridPane {
         historikStage.setTitle("Fad Historik");
         historikStage.show();
     }
-
-
-
-
-
 
     public void updateList() {
         lvwFade.getItems().setAll(Controller.getFadMap().values());

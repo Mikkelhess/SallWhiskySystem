@@ -32,8 +32,8 @@ public class Lager {
             Iterator<Hylde> iterator = reol.getHyldeMap().values().iterator();
             while (iterator.hasNext()) {
                 Hylde hylde = iterator.next();
-                iterator.remove(); // Removes the hylde from the reol's hyldeMap
-                reol.removeHylde(hylde.getHyldeId()); // Perform any other necessary cleanup
+                iterator.remove();
+                reol.removeHylde(hylde.getHyldeId());
             }
         }
     }

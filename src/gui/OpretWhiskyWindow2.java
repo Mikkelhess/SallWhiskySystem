@@ -56,7 +56,6 @@ public class OpretWhiskyWindow2 extends Stage {
 
     }
 
-
     private void initContent(GridPane pane) {
 
             // pane.setGridLinesVisible(true);
@@ -64,7 +63,6 @@ public class OpretWhiskyWindow2 extends Stage {
             pane.setHgap(10);
             pane.setVgap(10);
 
-            // Fade
             Label lblFade = new Label("Fade");
             fadListView = new ListView<>();
             pane.add(lblFade, 0, 0);
@@ -74,13 +72,11 @@ public class OpretWhiskyWindow2 extends Stage {
             ChangeListener<Fad> listener1 = (ov, o, n) -> this.selectedFadChanged();
             fadListView.getSelectionModel().selectedItemProperty().addListener(listener1);
 
-            // Destillater
             Label lblDestillater = new Label("Destillater");
             destillatListView = new ListView<>();
             pane.add(lblDestillater, 1, 0);
             pane.add(destillatListView, 1, 1);
 
-            // Tilføj Destillater
             Label lblTilføjDestillater = new Label("Tilføj Destillater");
             tilføjDestillaterListView = new ListView<>();
             pane.add(lblTilføjDestillater, 2, 0);
@@ -158,12 +154,6 @@ public class OpretWhiskyWindow2 extends Stage {
             buttonBox.getChildren().add(btnOK);
             btnOK.setOnAction(event -> this.okAction());
     }
-
-
-
-
-    // -------------------------------------------------------------------------
-    // Button actions
 
     private void cancelAction() {
         OpretWhiskyWindow2.this.hide();
@@ -243,12 +233,12 @@ public class OpretWhiskyWindow2 extends Stage {
     }
 
     private void opdaterDestillat() {
-        double ml = 0.0;
+        double liter = 0.0;
         for (LeafDestillat destillat : tilføjDestillaterListView.getItems()) {
-            ml += destillat.getLiter();
+            liter += destillat.getLiter();
         }
-        txfDestillater.setText(String.valueOf(ml));
-        this.destillatLiter = ml;
+        txfDestillater.setText(String.valueOf(liter));
+        this.destillatLiter = liter;
     }
 
     private void opdaterAntalFlasker() {
@@ -274,7 +264,7 @@ public class OpretWhiskyWindow2 extends Stage {
         totalMængde += waterVolume;
 
         if (totalMængde == 0) {
-            // error
+
         } else {
             this.alkoholProcent = (totalAlkohol / totalMængde) * 100;
             txfAlkoholProcent.setText("" + alkoholProcent);

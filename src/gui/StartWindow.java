@@ -10,9 +10,6 @@
 
     public class StartWindow extends Application {
 
-
-        //TODO Inkorporer en comparator/compareTo der sorterer listviews på id'et
-
         @Override
         public void init() {
             Controller.initStorage();
@@ -59,7 +56,6 @@
 
             DestilleringPane destilleringPane = new DestilleringPane();
             tabDestillering.setContent(destilleringPane);
-            //tabDestillering.setOnSelectionChanged(event -> destilleringPane.updateList());
 
             Tab tabWhisky = new Tab("Whisky");
             tabPane.getTabs().add(tabWhisky);

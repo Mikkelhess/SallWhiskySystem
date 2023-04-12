@@ -103,7 +103,6 @@ public class OmhældDestillatTilFadWindow2 extends Stage {
     private void accepterAction() {
         destillatListe.addAll(lvwDestillatTil.getItems());
 
-        //måske kald metode her eller noget for at destillatet er blevet fjernet...
         omhældningsDatoWindow = new OmhældningsDatoWindow("Omhældningsdato", new Stage(), destillatListe);
         omhældningsDatoWindow.showAndWait();
         destillatListe.forEach(leafDestillat -> fad1.removeLeafDestillat(leafDestillat.getLeafNewMakeNummer(), omhældningsDatoWindow.getOmhældningsDato()));

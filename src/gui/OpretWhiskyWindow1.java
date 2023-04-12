@@ -71,9 +71,6 @@ public class OpretWhiskyWindow1 extends Stage {
         pane.add(txfBeskrivelse, 1, 4,2,1);
         txfBeskrivelse.setFocusTraversable(false);
 
-
-
-
         HBox buttonBox = new HBox(20);
         pane.add(buttonBox, 0, 5);
         buttonBox.setPadding(new Insets(10, 10, 0, 10));
@@ -90,9 +87,6 @@ public class OpretWhiskyWindow1 extends Stage {
 
     }
 
-    // -------------------------------------------------------------------------
-    // Button actions
-
     private void cancelAction() {
 
         txfLiter.clear();
@@ -105,7 +99,6 @@ public class OpretWhiskyWindow1 extends Stage {
 
     private void okAction() {
 
-        //mangler try catch hvor man tjekker for bogstaver, men det fucker koden op somehow...
         double flaskeStørrelse = Double.parseDouble(txfLiter.getText().trim());
 
         String whiskyType = txfWhiskyType.getText();

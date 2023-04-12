@@ -24,11 +24,6 @@ public class OmhældDestillatTilFadWindow1 extends Stage {
     private HBox HBox;
     private OmhældDestillatTilFadWindow2 omhældDestillatTilFadWindow2;
 
-
-    //vælg et fad (fjern Fad fad fra listviewet)
-    //åben et nyt vindue med to listviews og pile.
-    //flyt dem.... :-)
-
     public OmhældDestillatTilFadWindow1(String title, Stage owner, Fad fad) {
         this.initOwner(owner);
         this.initStyle(StageStyle.UTILITY);
@@ -47,8 +42,6 @@ public class OmhældDestillatTilFadWindow1 extends Stage {
         this.setScene(scene);
 
     }
-
-    // -------------------------------------------------------------------------
 
     private void initContent(GridPane pane) {
         // pane.setGridLinesVisible(true);
@@ -84,7 +77,7 @@ public class OmhældDestillatTilFadWindow1 extends Stage {
     }
 
     private void cancelAction() {
-
+    OmhældDestillatTilFadWindow1.this.hide();
     }
 
     private void accepterAction() {

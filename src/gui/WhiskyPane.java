@@ -20,9 +20,7 @@ public class WhiskyPane extends GridPane {
     private ListView<WhiskyProdukt> lvwWhisky;
     private Button btnOpretWhisky;
     private Button btnFjernWhisky;
-    private Button btnHistorik;
     private Button btnDetaljer;
-    private HBox FadHBox;
     private OpretWhiskyWindow1 opretWhiskyWindow1;
 
     public WhiskyPane() {
@@ -56,7 +54,6 @@ public class WhiskyPane extends GridPane {
         this.add(whiskyHBOX, 0, 2);
     }
 
-    //der skal tjekkes om destillaterne har lagret i 3 år
     private void opretWhiskyAction() {
         opretWhiskyWindow1.showAndWait();
         lvwWhisky.getItems().setAll(Controller.getWhiskyMap().values());
@@ -89,7 +86,6 @@ public class WhiskyPane extends GridPane {
                 alert.showAndWait();
             }
         }
-
 
     private void visDetaljerWindow(WhiskyProdukt whiskyProdukt) {
         Stage detailsStage = new Stage();

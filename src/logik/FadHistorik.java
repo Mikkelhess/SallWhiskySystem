@@ -1,4 +1,4 @@
-package gui;
+package logik;
 
 
 //skal have lagringsdato, omhældnings dato (måske if sætninger der determinerer påfyldning/omhældning)
@@ -12,7 +12,6 @@ import java.time.LocalDate;
 
 public class FadHistorik {
     private Fad fad;
-    private Fad fjernetFad;
     private LeafDestillat destillat;
     private LocalDate tilføjetDato;
     private LocalDate fjernetDato;
@@ -30,14 +29,6 @@ public class FadHistorik {
 
     public LeafDestillat getDestillat() {
         return destillat;
-    }
-
-    public void setFjernetFad(Fad fjernetFad) {
-        this.fjernetFad = fjernetFad;
-    }
-
-    public Fad getFjernetFad() {
-        return fjernetFad;
     }
 
     public void setTilføjetDato(LocalDate tilføjetDato) {

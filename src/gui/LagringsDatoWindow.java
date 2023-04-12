@@ -74,11 +74,7 @@ public class LagringsDatoWindow extends Stage {
 
     }
 
-    // -------------------------------------------------------------------------
-    // Button actions
-
     private void cancelAction() {
-
         dpLagringsDato.setValue(null);
         LagringsDatoWindow.this.hide();
     }
