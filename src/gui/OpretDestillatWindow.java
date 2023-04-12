@@ -102,7 +102,7 @@ public class OpretDestillatWindow extends Stage {
             return;
         }
 
-        double remainingCapacity = destillering.udregnLiter();
+        double remainingCapacity = destillering.udregnBrugteLiter();
         if (totalLiter > remainingCapacity) {
             showAlert("Opret Destillat", "Destillater overstiger kapacitet af destillering");
             return;

@@ -53,12 +53,20 @@
             tabFad.setContent(fadPane);
             tabFad.setOnSelectionChanged(event -> fadPane.updateList());
 
+
             Tab tabDestillering = new Tab("Destillering");
             tabPane.getTabs().add(tabDestillering);
 
             DestilleringPane destilleringPane = new DestilleringPane();
             tabDestillering.setContent(destilleringPane);
             //tabDestillering.setOnSelectionChanged(event -> destilleringPane.updateList());
+
+            Tab tabWhisky = new Tab("Whisky");
+            tabPane.getTabs().add(tabWhisky);
+            WhiskyPane whiskyPane = new WhiskyPane();
+
+            tabWhisky.setContent(whiskyPane);
+
         }
 
 

@@ -4,8 +4,9 @@ import java.util.HashMap;
 
 public class Fad {
 
-    private double fadLiter;
     private HashMap<Integer, CompositeDestillat> destillatMap = new HashMap<>();
+    private HashMap<String, LeafDestillat> leafDestillatMap = new HashMap<>();
+    private double fadLiter;
     private static int idCounter = 1;
     private final int fadId;
     private FadType fadType;
@@ -20,12 +21,13 @@ public class Fad {
         this.leverandør = leverandør;
     }
 
-    public void addDestillat(int newMakeNummer, CompositeDestillat compositeDestillat) {
-        destillatMap.put(newMakeNummer, compositeDestillat);
+    public void addLeafDestillat(String leafNewMakeNummer, LeafDestillat leafDestillat) {
+        leafDestillatMap.put(leafNewMakeNummer, leafDestillat);
+        leafDestillat.sætFad(this);
     }
 
-    public void removeDestillat(int newMakeNummer) {
-        destillatMap.remove(newMakeNummer);
+    public void removeLeafDestillat(String leafnewMakeNummer) {
+        destillatMap.remove(leafnewMakeNummer);
     }
 
     public int getFadId() {
@@ -42,6 +44,10 @@ public class Fad {
 
     public HashMap<Integer, CompositeDestillat> getDestillatMap() {
         return destillatMap;
+    }
+
+    public HashMap<String, LeafDestillat> getLeafDestillatMap() {
+        return leafDestillatMap;
     }
 
     @Override
