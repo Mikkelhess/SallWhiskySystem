@@ -19,7 +19,7 @@ public class Controller {
         }
 
         if (liter <= 0 || antalFlasker <= 0 || flaskeStørrelse <= 0 || vandLiter < 0) {
-            throw new IllegalArgumentException("Ugyldige data. Check liter, antal flasker, flaskestørrelse og vandliter.");
+            throw new IllegalArgumentException("Ugyldige data: Check liter, antal flasker, flaskestørrelse og vandliter.");
         }
 
         if (destillatListe == null || destillatListe.isEmpty()) {
