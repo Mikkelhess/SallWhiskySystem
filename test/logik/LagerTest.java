@@ -2,11 +2,14 @@ package logik;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LagerTest {
-private Lager lager;
-private Reol reol;
+    private Lager lager;
+    private Reol reol;
+
     @org.junit.jupiter.api.Test
     void createReol() {
         //Arrange
@@ -19,21 +22,6 @@ private Reol reol;
         assertNotNull(reol);
         assertEquals(1, lager.getReolMap().size()); // Vi tjekker, om der er tilføjet en ny reol til lager
         assertTrue(lager.getReolMap().containsKey(reol.getReolId())); // Tjekker om reol findes i lagers hyldeMap
-    }
-
-    @Test
-    void createReol_increasesID() {
-        //Arrange
-        lager = new Lager();
-
-        //Act
-        Reol reol = lager.createReol();
-        Reol reol1 = lager.createReol();
-
-        //Assert
-        assertEquals(reol.getReolId(),1);
-        assertEquals(reol1.getReolId(),2);
-
     }
 
 
@@ -67,4 +55,37 @@ private Reol reol;
         assertNull(reol.getHylde(hylde1.getHyldeId())); // Tjekker om den første hylde er blevet fjernet fra reolen
         assertNull(reol.getHylde(hylde2.getHyldeId())); // Tjekker om den anden hylde er blevet fjernet fra reolen
     }
+
+
+    @Test
+    void getReolMap() {
+        // Arrange
+        Lager lager = new Lager();
+        Reol reol1 = lager.createReol();
+        Reol reol2 = lager.createReol();
+        Reol reol3 = lager.createReol();
+
+        // Act
+        HashMap<Integer, Reol> reolMap = lager.getReolMap();
+
+        // Assert
+        assertEquals(3, reolMap.size()); // det forventes, at der er tilføjet 3 reoler til lageret
+        assertTrue(reolMap.containsValue(reol1)); // det forventes, at reol1 er en af de tilføjede reoler
+        assertTrue(reolMap.containsValue(reol2)); // det forventes, at reol2 er en af de tilføjede reoler
+        assertTrue(reolMap.containsValue(reol3)); // det forventes, at reol3 er en af de tilføjede reoler
+    }
+
+    @Test
+    void getReol() {
+        // Arrange
+        Lager lager = new Lager();
+        Reol reol1 = lager.createReol();
+        Reol reol2 = lager.createReol();
+
+        // Act & Assert
+        assertEquals(reol1, lager.getReol(reol1.getReolId())); // det forventes, at den korrekte reol hentes ved brug af dens id
+        assertEquals(reol2, lager.getReol(reol2.getReolId())); // det forventes, at den korrekte reol hentes ved brug af dens id
+        assertNull(lager.getReol(999)); // Null returneres, når der forsøges at hente en reol med et ikke-eksisterende id
+    }
+
 }

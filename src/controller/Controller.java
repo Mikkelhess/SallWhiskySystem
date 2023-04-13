@@ -292,7 +292,7 @@ public class Controller {
         destillatListe.add(leafDestillat2);
         destillatListe.add(leafDestillat3);
 
-        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt("Single Malt", 750, 1000, 0.75, "Begravede dale i Sall", 50, "Interessante smagsprofiler", destillatListe);
+        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt("Single Malt", 65, 90, 1, "Begravede dale i Sall", 25, "Interessante smagsprofiler", destillatListe);
 
     }
 }
