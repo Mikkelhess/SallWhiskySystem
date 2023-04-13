@@ -35,7 +35,8 @@ class ControllerTest {
     }
 
     @Test
-    void testOpretWhiskyProdukt() {
+    void TC1_testOpretWhiskyProdukt() {
+        //Arrange
         String whiskyType = "Single Cask";
         double liter = 7;
         int antalFlasker = 10;
@@ -44,8 +45,12 @@ class ControllerTest {
         double vandLiter = 0;
         String beskrivelse = "En god whisky";
         ArrayList<LeafDestillat> destillatListe = new ArrayList<>();
+
+        //Act
         WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt(whiskyType, liter, antalFlasker,
                 flaskeStørrelse, vandLokation, vandLiter, beskrivelse, destillatListe);
+
+        //Assert
         assertNotNull(whiskyProdukt);
         assertEquals(whiskyType, whiskyProdukt.getWhiskyType());
         assertEquals(liter, whiskyProdukt.getLiter());
@@ -56,5 +61,27 @@ class ControllerTest {
         assertEquals(beskrivelse, whiskyProdukt.getBeskrivelse());
         assertEquals(destillatListe, whiskyProdukt.getDestillatListe());
     }
+    @Test
+    void TC2_testOpretWhiskyProdukt_medUgyldigData() {
+        // Arrange
+        String whiskyType = "Single Cask";
+        double liter = -7;
+        int antalFlasker = 10;
+        double flaskeStørrelse = 0.7;
+        String vandLokation = "Randers";
+        double vandLiter = 0;
+        String beskrivelse = "En god whisky";
+        ArrayList<LeafDestillat> destillatListe = new ArrayList<>();
+
+        // Act and Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.opretWhiskyProdukt(whiskyType, liter, antalFlasker, flaskeStørrelse, vandLokation, vandLiter, beskrivelse, destillatListe);
+        });
+
+        assertEquals("Ugyldige data. Check liter, antal flasker, flaskestørrelse og vandliter.", exception.getMessage());
+    }
+
+
+
 }
 

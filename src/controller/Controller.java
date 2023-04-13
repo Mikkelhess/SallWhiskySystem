@@ -32,6 +32,7 @@ public class Controller {
     }
 
 
+
     public static void addWhisky(WhiskyProdukt whiskyProdukt){
         Storage.getInstance().addWhisky(whiskyProdukt);
     }
