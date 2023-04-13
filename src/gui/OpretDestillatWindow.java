@@ -74,9 +74,6 @@ public class OpretDestillatWindow extends Stage {
 
     }
 
-    // -------------------------------------------------------------------------
-    // Button actions
-
     private void cancelAction() {
 
         txfTotalLiter.clear();
@@ -113,7 +110,6 @@ public class OpretDestillatWindow extends Stage {
         OpretDestillatWindow.this.hide();
         CompositeDestillat compositeDestillat = destillering.createDestillat(totalLiter, alkoholProcent);
     }
-
 
     private void showAlert(String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -223,22 +223,19 @@ public class Controller {
         Hylde hylde5 = opretHylde(reol2);
         Hylde hylde6 = opretHylde(reol2);
 
-        Fad fad1 = opretFad(50, FadType.SHERRY, "Leverandør 1");
-        Fad fad2 = opretFad(30, FadType.PORTVIN, "Leverandør 2");
-        Fad fad3 = opretFad(100, FadType.BOURBON, "Leverandør 3");
-        Fad fad4 = opretFad(20, FadType.COGNAC, "Leverandør 4");
-        Fad fad5 = opretFad(40, FadType.RØDVIN, "Leverandør 5");
-        Fad fad6 = opretFad(57, FadType.COGNAC, "Leverandør 6");
-        Fad fad7 = opretFad(80, FadType.RØDVIN,"Leverandør..." );
-        Fad fad8 = opretFad(104, FadType.BOURBON, "...");
-        Fad fad9 = opretFad(44, FadType.COGNAC, "...");
-        Fad fad10 = opretFad(47, FadType.RØDVIN, "...");
-        Fad fad11 = opretFad(77, FadType.SHERRY, "...");
-        Fad fad12 = opretFad(22, FadType.RØDVIN, "...");
-        Fad fad13 = opretFad(99, FadType.PORTVIN, "...");
-        Fad fad14 = opretFad(88, FadType.BOURBON, "...");
-        Fad fad15 = opretFad(64, FadType.COGNAC, "...");
-        Fad fad16 = opretFad(75, FadType.RØDVIN, "...");
+        Fad fad1 = opretFad(500, FadType.SHERRY, "Bodegas Tradicion");
+        Fad fad2 = opretFad(500, FadType.PORTVIN, "Cold Hand Winery");
+        Fad fad3 = opretFad(300, FadType.BOURBON, "Stauning Whisky");
+        Fad fad4 = opretFad(2000, FadType.COGNAC, "Hennessy");
+        Fad fad5 = opretFad(800, FadType.RØDVIN, "Château Margaux");
+        Fad fad6 = opretFad(1000, FadType.COGNAC, "Hennessy");
+        Fad fad7 = opretFad(5000, FadType.RØDVIN,"Skærsøgaard Vin" );
+        Fad fad8 = opretFad(3000, FadType.BOURBON, "Four Roses");
+        Fad fad9 = opretFad(500, FadType.COGNAC, "Hennessy");
+        Fad fad10 = opretFad(2000, FadType.RØDVIN, "Skærsøgaard Vin");
+        Fad fad11 = opretFad(1000, FadType.SHERRY, "Bodegas Tradicion");
+        Fad fad12 = opretFad(2500, FadType.RØDVIN, "Skærsøgaard Vin");
+
 
         addFadtilHylde(hylde, fad1);
         addFadtilHylde(hylde, fad2);
@@ -270,19 +267,32 @@ public class Controller {
         LeafDestillat leafDestillat7 = compositeDestillat6.createLeaf(200);
         LeafDestillat leafDestillat8 = compositeDestillat6.createLeaf(100);
 
-        fad1.addLeafDestillat(leafDestillat1.getLeafNewMakeNummer(), leafDestillat1);
-        fad1.addLeafDestillat(leafDestillat2.getLeafNewMakeNummer(), leafDestillat2);
+        CompositeDestillat compositeDestillat7 = destillering2.createDestillat(500,60);
+        LeafDestillat leafDestillat9 = compositeDestillat7.createLeaf(30);
+        LeafDestillat leafDestillat10 = compositeDestillat7.createLeaf(30);
+        LeafDestillat leafDestillat11 = compositeDestillat7.createLeaf(60);
+        LeafDestillat leafDestillat12 = compositeDestillat7.createLeaf(100);
+        LeafDestillat leafDestillat13 = compositeDestillat7.createLeaf(150);
 
-        fad3.addLeafDestillat(leafDestillat3.getLeafNewMakeNummer(), leafDestillat3);
+        LocalDate lagringsDato1 = LocalDate.of(2018, 5, 15);
+        LocalDate lagringsDato2 = LocalDate.of(2018, 3, 15);
+        LocalDate lagringsDato3 = LocalDate.of(2016, 8, 21);
 
+        fad1.addLeafDestillat(leafDestillat1.getLeafNewMakeNummer(), leafDestillat1, lagringsDato1);
+        fad1.addLeafDestillat(leafDestillat2.getLeafNewMakeNummer(), leafDestillat2, lagringsDato2);
+        fad3.addLeafDestillat(leafDestillat3.getLeafNewMakeNummer(), leafDestillat3, lagringsDato3);
+        fad4.addLeafDestillat(leafDestillat8.getLeafNewMakeNummer(), leafDestillat8, lagringsDato1);
+        fad4.addLeafDestillat(leafDestillat9.getLeafNewMakeNummer(), leafDestillat9, lagringsDato2);
+        fad6.addLeafDestillat(leafDestillat10.getLeafNewMakeNummer(), leafDestillat10, lagringsDato2);
+        fad8.addLeafDestillat(leafDestillat11.getLeafNewMakeNummer(), leafDestillat11, lagringsDato3);
+        fad9.addLeafDestillat(leafDestillat12.getLeafNewMakeNummer(), leafDestillat12, lagringsDato3);
 
-        //ved ikke om det er nødvendigt
         ArrayList<LeafDestillat> destillatListe = new ArrayList<>();
         destillatListe.add(leafDestillat1);
         destillatListe.add(leafDestillat2);
         destillatListe.add(leafDestillat3);
 
-        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt("Single Malt", 750, 1000, 0.75, "Begravede dale i Sall", 50, "Epic", destillatListe);
+        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt("Single Malt", 750, 1000, 0.75, "Begravede dale i Sall", 50, "Interessante smagsprofiler", destillatListe);
 
     }
 }

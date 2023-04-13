@@ -1,19 +1,24 @@
 package gui;
 
 import controller.Controller;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import logik.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TilføjDestillatWindow extends Stage{
@@ -67,19 +72,16 @@ public class TilføjDestillatWindow extends Stage{
         listViewTilføjDestillat = new ListView<>();
 
         Button btnRightArrow = new Button("--->");
-        btnRightArrow.setOnAction(event -> leftArrowAction()); // Corrected event handler
+        btnRightArrow.setOnAction(event -> leftArrowAction());
         Button btnLeftArrow = new Button("<---");
-        btnLeftArrow.setOnAction(event -> rightArrowAction()); // Corrected event handler
+        btnLeftArrow.setOnAction(event -> rightArrowAction());
         Button btnAccepter = new Button("Accepter");
         btnAccepter.setOnAction(event -> accepterAction());
 
-
-        // Create VBox for buttons
         VBox buttons = new VBox(10);
         buttons.getChildren().addAll(btnRightArrow, btnLeftArrow, btnAccepter);
         buttons.setAlignment(Pos.CENTER);
 
-        // Add components to the grid pane
         pane.add(labelAlleFad, 0, 0);
         pane.add(listViewLedigeDestillater, 0, 1);
         pane.add(buttons, 1, 1);
@@ -107,7 +109,12 @@ public class TilføjDestillatWindow extends Stage{
     private void accepterAction() {
         tilføjDestillatListe.clear();
         tilføjDestillatListe.addAll(listViewTilføjDestillat.getItems());
-        tilføjDestillatListe.forEach(leafDestillat -> fad.addLeafDestillat(leafDestillat.getNewMakeNummer(), leafDestillat));
+        LagringsDatoWindow lagringsDatoWindow = new LagringsDatoWindow("Sæt Lagringsdato", new Stage(), destillatListe, this.fad);
+        lagringsDatoWindow.showAndWait();
+
+        for (LeafDestillat leafDestillat : tilføjDestillatListe) {
+            fad.addLeafDestillat(leafDestillat.getLeafNewMakeNummer(), leafDestillat, lagringsDatoWindow.getLagringsDato());
+        }
         listViewTilføjDestillat.getItems().forEach(leafDestillat -> leafDestillat.setPåFad(true));
         this.hide();
     }

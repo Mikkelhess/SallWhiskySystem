@@ -33,7 +33,6 @@ public class OpretFadWindow extends Stage {
 
     // -------------------------------------------------------------------------
 
-   private Fad fad;
     private final TextField txfFadType = new TextField();
     private final TextField txfFadLiter = new TextField();
     private final TextField txfLeverandør = new TextField();

@@ -68,15 +68,6 @@ public class Destillering {
         return totalLiter - liter;
     }
 
-    //bliver den brugt
-    public List<LeafDestillat> getAllLeaves() {
-        List<LeafDestillat> allLeaves = new ArrayList<>();
-        for (CompositeDestillat composite : getDestillatMap().values()) {
-            allLeaves.addAll(composite.getLeaves());
-        }
-        return allLeaves;
-    }
-
     public int getDestilleringId() {
         return destilleringId;
     }

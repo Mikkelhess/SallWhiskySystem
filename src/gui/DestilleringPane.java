@@ -30,7 +30,6 @@ public class DestilleringPane extends GridPane {
     private Button btnOpdaterDestillat;
     private Button btnFjernLeafDestillat;
     private OpretDestilleringWindow opretDestilleringWindow;
-    private OpretDestillatWindow opretDestillatWindow;
 
     private OpdaterLeafDestillatWindow opdaterLeafDestillatWindow;
 
@@ -193,7 +192,6 @@ public class DestilleringPane extends GridPane {
         dialog.setContentText("Vælg hvor mange under-destillater du vil oprette:");
         Optional<String> result = dialog.showAndWait();
 
-        // Check if the user entered a value
         if (result.isPresent()) {
             try {
                 int numLeaves = Integer.parseInt(result.get());

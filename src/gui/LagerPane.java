@@ -266,18 +266,10 @@ public class LagerPane extends GridPane {
         }
     }
 
-
-
-
-
-
-
     public void updateList() {
         lvwLagre.getItems().setAll(Controller.getLagerMap().values());
     }
 
-
-    //skal opdatere hylde list view (se konference)
     private void selectedLagerChanged() {
       Lager lager = lvwLagre.getSelectionModel().getSelectedItem();
         if (lager != null) {

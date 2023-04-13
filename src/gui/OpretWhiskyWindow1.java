@@ -51,22 +51,25 @@ public class OpretWhiskyWindow1 extends Stage {
 
         Label lblLiter = new Label("Flaske Størrelse: (Liter): ");
         pane.add(lblLiter, 0, 1);
+        txfLiter.setPromptText("f.eks. 1 liter");
+        txfLiter.setFocusTraversable(false);
+
         pane.add(txfLiter, 1,1,2,1);
 
         Label lblWhiskyType = new Label("Whisky Type: ");
         pane.add(lblWhiskyType, 0, 2);
         pane.add(txfWhiskyType, 1, 2,2,1);
+        txfWhiskyType.setFocusTraversable(false);
 
         Label lblVandLokation = new Label("Vand Lokation: ");
         pane.add(lblVandLokation, 0, 3);
         pane.add(txfVandLokation, 1, 3,2,1);
+        txfVandLokation.setFocusTraversable(false);
 
         Label lblBeskrivelse = new Label("Beskrivelse: ");
         pane.add(lblBeskrivelse, 0, 4);
         pane.add(txfBeskrivelse, 1, 4,2,1);
-
-
-
+        txfBeskrivelse.setFocusTraversable(false);
 
         HBox buttonBox = new HBox(20);
         pane.add(buttonBox, 0, 5);
@@ -76,15 +79,13 @@ public class OpretWhiskyWindow1 extends Stage {
         Button btnCancel = new Button("Cancel");
         buttonBox.getChildren().add(btnCancel);
         btnCancel.setOnAction(event -> this.cancelAction());
+        btnCancel.requestFocus();
 
         Button btnOK = new Button("OK");
         buttonBox.getChildren().add(btnOK);
         btnOK.setOnAction(event -> this.okAction());
 
     }
-
-    // -------------------------------------------------------------------------
-    // Button actions
 
     private void cancelAction() {
 
@@ -98,7 +99,6 @@ public class OpretWhiskyWindow1 extends Stage {
 
     private void okAction() {
 
-        //mangler try catch hvor man tjekker for bogstaver, men det fucker koden op somehow...
         double flaskeStørrelse = Double.parseDouble(txfLiter.getText().trim());
 
         String whiskyType = txfWhiskyType.getText();

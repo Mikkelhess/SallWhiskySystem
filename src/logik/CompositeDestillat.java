@@ -110,6 +110,6 @@ public class CompositeDestillat implements DestillatComponent {
 
     @Override
     public String toString() {
-        return "Destillat " + newMakeNummer + ": " + brugteLiter + " / " + totalLiter + ", Alkohol Procent: " + alkoholProcent;
+        return "Destillat " + newMakeNummer + ": " + brugteLiter + " / " + totalLiter + " liter, Alkohol Procent: " + alkoholProcent;
     }
 }
