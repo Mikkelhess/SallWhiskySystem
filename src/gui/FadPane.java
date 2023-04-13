@@ -5,6 +5,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -53,7 +55,11 @@ public class FadPane extends GridPane {
         lvwDestillat.setPrefSize(350, 400);
         lvwDestillat.getItems().setAll(Controller.getDestillatMap().values());
 
-
+        Image image = new Image("C:\\Users\\JohnL\\OneDrive\\Skrivebord\\snæver.jfif");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(400);
+        imageView.setFitHeight(500);
+        this.add(imageView, 2, 1);
 
         Label lblFade = new Label("Fade");
         this.add(lblFade, 0, 0);
