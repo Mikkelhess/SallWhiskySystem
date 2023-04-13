@@ -55,7 +55,7 @@ public class FadPane extends GridPane {
         lvwDestillat.setPrefSize(350, 400);
         lvwDestillat.getItems().setAll(Controller.getDestillatMap().values());
 
-        Image image = new Image("C:\\Users\\JohnL\\OneDrive\\Skrivebord\\snæver.jfif");
+        Image image = new Image("https://media.licdn.com/dms/image/D4E03AQGCwb2C1UhYJQ/profile-displayphoto-shrink_800_800/0/1666204752005?e=2147483647&v=beta&t=CHOMCJlUcyN1I1l40l_oenz7hJn7Ae_0Pwt5qlGHw18");
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(400);
         imageView.setFitHeight(500);

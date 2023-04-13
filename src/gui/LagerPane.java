@@ -82,13 +82,13 @@ public class LagerPane extends GridPane {
         lvwFade.prefWidthProperty().bind(this.widthProperty().multiply(0.23));
         lvwFade.prefHeightProperty().bind(this.heightProperty().multiply(0.4));
 
-        Image image = new Image("C:\\Users\\JohnL\\OneDrive\\Skrivebord\\sallWHIIS.jpg");
+        Image image = new Image("https://fadandel.dk/wp-content/uploads/2023/01/sall-whisky-inaugural-release-52-2-690x690.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(300);
         imageView.setFitHeight(300);
         this.add(imageView, 3, 1);
 
-        Image image1 = new Image("C:\\Users\\JohnL\\OneDrive\\Skrivebord\\SALL.png");
+        Image image1 = new Image("https://sallwhisky.com/wp-content/uploads/2016/11/LOGO-450x352.png");
         ImageView imageView1 = new ImageView(image1);
         imageView1.setFitWidth(300);
         imageView1.setFitHeight(300);

@@ -55,9 +55,10 @@ public class WhiskyPane extends GridPane {
 
         this.add(whiskyHBOX, 0, 2);
 
-        Image image = new Image("C:\\Users\\JohnL\\OneDrive\\Skrivebord\\SALL.png");
+        Image image = new Image("https://sallwhisky.com/wp-content/uploads/2021/01/Whiskyflaske-tegnet.png");
         ImageView imageView = new ImageView(image);
-        this.add(imageView, 1, 1);
+        imageView.setFitWidth(500);
+        this.add(imageView, 1, 1,2,1);
 
     }
 
