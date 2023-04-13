@@ -4,10 +4,8 @@ import controller.Controller;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -22,9 +20,7 @@ public class WhiskyPane extends GridPane {
     private ListView<WhiskyProdukt> lvwWhisky;
     private Button btnOpretWhisky;
     private Button btnFjernWhisky;
-    private Button btnHistorik;
     private Button btnDetaljer;
-    private HBox FadHBox;
     private OpretWhiskyWindow1 opretWhiskyWindow1;
 
     public WhiskyPane() {
@@ -58,7 +54,6 @@ public class WhiskyPane extends GridPane {
         this.add(whiskyHBOX, 0, 2);
     }
 
-    //der skal tjekkes om destillaterne har lagret i 3 år
     private void opretWhiskyAction() {
         opretWhiskyWindow1.showAndWait();
         lvwWhisky.getItems().setAll(Controller.getWhiskyMap().values());
@@ -92,7 +87,6 @@ public class WhiskyPane extends GridPane {
             }
         }
 
-
     private void visDetaljerWindow(WhiskyProdukt whiskyProdukt) {
         Stage detailsStage = new Stage();
         detailsStage.initModality(Modality.WINDOW_MODAL);
@@ -110,23 +104,10 @@ public class WhiskyPane extends GridPane {
         gridPane.addRow(5, new Label("Flaskestørrelse: " + whiskyProdukt.getFlaskeStørrelse() + " liter"));
         gridPane.addRow(6, new Label("Vand er fra: " + whiskyProdukt.getVandLokation()));
         gridPane.addRow(7, new Label("Beskrivelse: " + whiskyProdukt.getBeskrivelse()));
-        gridPane.addRow(8, new Label("INDSÆT TEKST OM HVILKE FAD WHISKYEN ER DESTILLERET PÅ"));
-        gridPane.addRow(9, new Label("OG ANDET INFORMATION SOM F.EKS: HISTORIK OG FADTYPE"));
-
-        /*
-        gridPane.addRow(0, new Label("Whisky "), new Label(destillering.getMedarbejderNavn()));
-        gridPane.addRow(1, new Label("Start Dato: "), new Label(destillering.getStartDato().toString()));
-        gridPane.addRow(2, new Label("Slut Dato: "), new Label(destillering.getSlutDato().toString()));
-        gridPane.addRow(3, new Label("Malt batch: "), new Label(destillering.getMaltBatch()));
-        gridPane.addRow(4, new Label("Kornsort: "), new Label(destillering.getKornsort()));
-        gridPane.addRow(5, new Label("Kapacitet: "), new Label(destillering.udregnBrugteLiter() + " ud af " + destillering.getTotalLiter() + " liter"));
-        gridPane.addRow(6, new Label("Ryge materiale: "), new Label(destillering.getRygeMateriale()));
-        gridPane.addRow(7, new Label("Kommentar: "), new Label(destillering.getKommentar()));
-
-         */
+        gridPane.addRow(8, new Separator());
 
         detailsStage.setScene(new Scene(gridPane, 400, 300));
-        detailsStage.setTitle("Destillering Detaljer");
+        detailsStage.setTitle("Whisky Detaljer");
         detailsStage.show();
     }
 
