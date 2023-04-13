@@ -31,6 +31,8 @@ public class DestilleringPane extends GridPane {
     private Button btnFjernLeafDestillat;
     private OpretDestilleringWindow opretDestilleringWindow;
 
+    private OpdaterLeafDestillatWindow opdaterLeafDestillatWindow;
+
     public DestilleringPane() {
         this.setGridLinesVisible(false);
         this.setPadding(new Insets(20));
@@ -43,20 +45,20 @@ public class DestilleringPane extends GridPane {
         this.add(label, 0, 0);
         lvwDestilleringer = new ListView<>();
         this.add(lvwDestilleringer, 0, 1, 1, 1);
-        lvwDestilleringer.setPrefSize(275, 400);
+        lvwDestilleringer.setPrefSize(350, 400);
         lvwDestilleringer.getItems().setAll(Controller.getDestilleringMap().values());
 
         Label label2 = new Label("Destillater");
         this.add(label2, 1, 0);
         lvwCompositeDestillater = new ListView<>();
         this.add(lvwCompositeDestillater, 1, 1, 1, 1);
-        lvwCompositeDestillater.setPrefSize(275, 400);
+        lvwCompositeDestillater.setPrefSize(350, 400);
 
         Label label3 = new Label("Destillat-dele");
         this.add(label3, 2, 0);
         lvwLeafDestillater = new ListView<>();
         this.add(lvwLeafDestillater, 2, 1, 1, 1);
-        lvwLeafDestillater.setPrefSize(250, 400);
+        lvwLeafDestillater.setPrefSize(350, 400);
 
         ChangeListener<Destillering> listener1 = (ov, o, n) -> this.selectedDestilleringChanged();
         lvwDestilleringer.getSelectionModel().selectedItemProperty().addListener(listener1);
@@ -139,6 +141,8 @@ public class DestilleringPane extends GridPane {
             alert.setContentText("Vælg en destillering som du vil se detaljer for");
             alert.showAndWait();
         }
+
+
     }
 
     private void opretDestillatAction() {
@@ -239,8 +243,15 @@ public class DestilleringPane extends GridPane {
         CompositeDestillat compositeDestillat = lvwCompositeDestillater.getSelectionModel().getSelectedItem();
         LeafDestillat leafDestillat = lvwLeafDestillater.getSelectionModel().getSelectedItem();
 
-        if (compositeDestillat != null && leafDestillat != null) {
+        if (leafDestillat != null) {
+            opdaterLeafDestillatWindow = new OpdaterLeafDestillatWindow("Updater destillat", new Stage(),leafDestillat,compositeDestillat);
+            opdaterLeafDestillatWindow.showAndWait();
 
+            // Wait for the modal dialog to close
+
+            int selectIndex = lvwLeafDestillater.getSelectionModel().getSelectedIndex();
+            lvwLeafDestillater.getItems().setAll(compositeDestillat.getLeaves());
+            lvwLeafDestillater.getSelectionModel().select(selectIndex);
         }
     }
 

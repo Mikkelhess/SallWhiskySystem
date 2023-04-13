@@ -8,6 +8,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import logik.Fad;
@@ -65,9 +67,33 @@ public class LagerPane extends GridPane {
         this.add(lvwFade, 1, 3, 1, 1);
         lvwFade.setPrefSize(220, 200);
 
-
         ChangeListener<Fad> listener4 = (ov, o, n) -> this.selectedFadChanged();
         lvwFade.getSelectionModel().selectedItemProperty().addListener(listener4);
+
+        lvwLagre.prefWidthProperty().bind(this.widthProperty().multiply(0.23));
+        lvwLagre.prefHeightProperty().bind(this.heightProperty().multiply(0.4));
+
+        lvwReoler.prefWidthProperty().bind(this.widthProperty().multiply(0.23));
+        lvwReoler.prefHeightProperty().bind(this.heightProperty().multiply(0.4));
+
+        lvwHylder.prefWidthProperty().bind(this.widthProperty().multiply(0.23));
+        lvwHylder.prefHeightProperty().bind(this.heightProperty().multiply(0.4));
+
+        lvwFade.prefWidthProperty().bind(this.widthProperty().multiply(0.23));
+        lvwFade.prefHeightProperty().bind(this.heightProperty().multiply(0.4));
+
+        Image image = new Image("C:\\Users\\JohnL\\OneDrive\\Skrivebord\\sallWHIIS.jpg");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(300);
+        imageView.setFitHeight(300);
+        this.add(imageView, 3, 1);
+
+        Image image1 = new Image("C:\\Users\\JohnL\\OneDrive\\Skrivebord\\SALL.png");
+        ImageView imageView1 = new ImageView(image1);
+        imageView1.setFitWidth(300);
+        imageView1.setFitHeight(300);
+        this.add(imageView1, 3, 0);
+
 
         Label lblLagre = new Label("Lagre");
         this.add(lblLagre, 0, 0);
