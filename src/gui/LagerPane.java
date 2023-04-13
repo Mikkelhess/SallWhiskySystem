@@ -65,9 +65,21 @@ public class LagerPane extends GridPane {
         this.add(lvwFade, 1, 3, 1, 1);
         lvwFade.setPrefSize(220, 200);
 
-
         ChangeListener<Fad> listener4 = (ov, o, n) -> this.selectedFadChanged();
         lvwFade.getSelectionModel().selectedItemProperty().addListener(listener4);
+
+        lvwLagre.prefWidthProperty().bind(this.widthProperty().multiply(0.35));
+        lvwLagre.prefHeightProperty().bind(this.heightProperty().multiply(0.4));
+
+        lvwReoler.prefWidthProperty().bind(this.widthProperty().multiply(0.35));
+        lvwReoler.prefHeightProperty().bind(this.heightProperty().multiply(0.4));
+
+        lvwHylder.prefWidthProperty().bind(this.widthProperty().multiply(0.35));
+        lvwHylder.prefHeightProperty().bind(this.heightProperty().multiply(0.4));
+
+        lvwFade.prefWidthProperty().bind(this.widthProperty().multiply(0.35));
+        lvwFade.prefHeightProperty().bind(this.heightProperty().multiply(0.4));
+
 
         Label lblLagre = new Label("Lagre");
         this.add(lblLagre, 0, 0);
