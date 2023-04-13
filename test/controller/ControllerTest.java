@@ -2,8 +2,12 @@ package controller;
 
 import logik.Fad;
 import logik.FadType;
+import logik.LeafDestillat;
+import logik.WhiskyProdukt;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,4 +33,28 @@ class ControllerTest {
         assertEquals(størrelse,actualFad.getFadLiter());
         assertEquals(fadType,actualFad.getFadType());
     }
+
+    @Test
+    void testOpretWhiskyProdukt() {
+        String whiskyType = "Single Cask";
+        double liter = 7;
+        int antalFlasker = 10;
+        double flaskeStørrelse = 0.7;
+        String vandLokation = "Randers";
+        double vandLiter = 0;
+        String beskrivelse = "En god whisky";
+        ArrayList<LeafDestillat> destillatListe = new ArrayList<>();
+        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt(whiskyType, liter, antalFlasker,
+                flaskeStørrelse, vandLokation, vandLiter, beskrivelse, destillatListe);
+        assertNotNull(whiskyProdukt);
+        assertEquals(whiskyType, whiskyProdukt.getWhiskyType());
+        assertEquals(liter, whiskyProdukt.getLiter());
+        assertEquals(antalFlasker, whiskyProdukt.getAntalFlasker());
+        assertEquals(flaskeStørrelse, whiskyProdukt.getFlaskeStørrelse());
+        assertEquals(vandLokation, whiskyProdukt.getVandLokation());
+        assertEquals(vandLiter, whiskyProdukt.getVandLiter());
+        assertEquals(beskrivelse, whiskyProdukt.getBeskrivelse());
+        assertEquals(destillatListe, whiskyProdukt.getDestillatListe());
+    }
 }
+

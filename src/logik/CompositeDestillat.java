@@ -57,8 +57,6 @@ public class CompositeDestillat implements DestillatComponent {
         LeafDestillat leafDestillat = new LeafDestillat(liter, leafMakeNummer, getAlkoholProcent());
         components.add(leafDestillat);
         brugteLiter += liter;
-
-
         return leafDestillat;
     }
 

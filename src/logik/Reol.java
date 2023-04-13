@@ -2,6 +2,7 @@ package logik;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class Reol {
@@ -25,13 +26,16 @@ public class Reol {
         hyldeMap.put(hylde.getHyldeId(), hylde);
     }
 
-    /**
-     * Fjerner hylden fra reolen. Checker om hylden ikke er null
-     * Hvis hylde ikke er null, fjerner den alle fad p[ hylden, ved et for-each loop
-     * @param hyldeId ID på den hylde som skal fjernes
-     */
     public void removeHylde(int hyldeId) {
-        hyldeMap.remove(hyldeId);
+        Hylde hylde = hyldeMap.remove(hyldeId);
+        if (hylde != null) {
+            Iterator<Fad> iterator = hylde.getFadPåHyldeMap().values().iterator();
+            while (iterator.hasNext()) {
+                Fad fadPåHylde = iterator.next();
+                iterator.remove();
+                hylde.removeFadFraHylde(fadPåHylde.getFadId());
+            }
+        }
     }
 
 
