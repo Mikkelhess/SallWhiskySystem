@@ -44,14 +44,15 @@ class ControllerTest {
         double vandLiter = 0;
         String beskrivelse = "En god whisky";
         ArrayList<LeafDestillat> destillatListe = new ArrayList<>();
-        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt(whiskyType, liter, antalFlasker, flaskeStørrelse, vandLokation, vandLiter, beskrivelse, destillatListe);
+        WhiskyProdukt whiskyProdukt = Controller.opretWhiskyProdukt(whiskyType, liter, antalFlasker,
+                flaskeStørrelse, vandLokation, vandLiter, beskrivelse, destillatListe);
         assertNotNull(whiskyProdukt);
         assertEquals(whiskyType, whiskyProdukt.getWhiskyType());
-        assertEquals(liter, whiskyProdukt.getLiter(), 7);
+        assertEquals(liter, whiskyProdukt.getLiter());
         assertEquals(antalFlasker, whiskyProdukt.getAntalFlasker());
-        assertEquals(flaskeStørrelse, whiskyProdukt.getFlaskeStørrelse(), 0.7);
+        assertEquals(flaskeStørrelse, whiskyProdukt.getFlaskeStørrelse());
         assertEquals(vandLokation, whiskyProdukt.getVandLokation());
-        assertEquals(vandLiter, whiskyProdukt.getVandLiter(), 0);
+        assertEquals(vandLiter, whiskyProdukt.getVandLiter());
         assertEquals(beskrivelse, whiskyProdukt.getBeskrivelse());
         assertEquals(destillatListe, whiskyProdukt.getDestillatListe());
     }
