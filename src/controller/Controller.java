@@ -13,11 +13,24 @@ public class Controller {
 
 
     public static WhiskyProdukt opretWhiskyProdukt(String whiskyType, double liter, int
-            antalFlasker, double flaskeStørrelse, String vandLokation, double vandLiter, String beskrivelse, ArrayList<LeafDestillat> destillatListe) {
+            antalFlasker, double flaskeStørrelse, String vandLokation, double vandLiter, String beskrivelse, ArrayList<LeafDestillat> destillatListe) throws IllegalArgumentException {
+        if (whiskyType == null || whiskyType.isEmpty()) {
+            throw new IllegalArgumentException("Whiskytype må ikke være tom eller null");
+        }
+
+        if (liter <= 0 || antalFlasker <= 0 || flaskeStørrelse <= 0 || vandLiter < 0) {
+            throw new IllegalArgumentException("Ugyldige data. Check liter, antal flasker, flaskestørrelse og vandliter.");
+        }
+
+        if (destillatListe == null || destillatListe.isEmpty()) {
+            throw new IllegalArgumentException("Destillatliste må ikke være tom eller null");
+        }
+
         WhiskyProdukt whiskyProdukt = new WhiskyProdukt(whiskyType, liter, antalFlasker, flaskeStørrelse, vandLokation, vandLiter, beskrivelse, destillatListe);
         addWhisky(whiskyProdukt);
         return whiskyProdukt;
     }
+
 
     public static void addWhisky(WhiskyProdukt whiskyProdukt){
         Storage.getInstance().addWhisky(whiskyProdukt);
