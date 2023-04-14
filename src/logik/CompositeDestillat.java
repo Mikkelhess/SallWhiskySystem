@@ -53,12 +53,16 @@ public class CompositeDestillat implements DestillatComponent {
     }
 
     public LeafDestillat createLeaf(double liter) {
+        if (liter <= 0) {
+            throw new IllegalArgumentException("Invalid value for 'liter' parameter: " + liter);
+        }
         String leafMakeNummer = newMakeNummer + "." + leafCounter++;
         LeafDestillat leafDestillat = new LeafDestillat(liter, leafMakeNummer, getAlkoholProcent());
         components.add(leafDestillat);
         brugteLiter += liter;
         return leafDestillat;
     }
+
 
     public List<LeafDestillat> getLeaves() {
         List<LeafDestillat> leaves = new ArrayList<>();
