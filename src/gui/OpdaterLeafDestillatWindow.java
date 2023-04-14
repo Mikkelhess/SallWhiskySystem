@@ -46,7 +46,6 @@ public class OpdaterLeafDestillatWindow extends Stage {
     private CompositeDestillat compositeDestillat;
 
     private void initContent(GridPane pane) {
-        // pane.setGridLinesVisible(true);
         pane.setPadding(new Insets(20));
         pane.setHgap(10);
         pane.setVgap(10);

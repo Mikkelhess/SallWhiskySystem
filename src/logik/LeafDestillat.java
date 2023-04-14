@@ -52,7 +52,7 @@ public class LeafDestillat implements DestillatComponent {
     public double getAlkoholProcent() {
         return alkoholProcent;
     }
-    public void sætFad(Fad fad) {
+    public void setFad(Fad fad) {
         this.fad = fad;
     }
     public Fad getFad() {

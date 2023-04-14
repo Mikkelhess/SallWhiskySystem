@@ -112,7 +112,6 @@ public class Controller {
         Storage.getInstance().removeLager(lager);
     }
 
-    // Mangler begrænsninger
     public static Fad getFad(int fadId) {
         return getFadMap().get(fadId);
     }
@@ -129,7 +128,6 @@ public class Controller {
         return lager.getReol(reolId);
     }
 
-    // Mangler begrænsninger
     public static void removeReol(int lagerId, int reolId) {
         Lager lager = getLager(lagerId);
         if (lager != null) {
@@ -142,13 +140,11 @@ public class Controller {
         return reol.getHylde(hyldeId);
     }
 
-    // Mangler begrænsninger
     public static void removeHylde(int lagerId, int reolId, int hyldeId) {
         Reol reol = getReol(lagerId, reolId);
         reol.removeHylde(hyldeId);
     }
 
-    // Mangler begrænsninger
     public static void removeFadFraHylde(int lagerId, int reolId, int hyldeId, int fadId) {
         Hylde hylde = getHylde(lagerId, reolId, hyldeId);
         hylde.removeFadFraHylde(fadId);

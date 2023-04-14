@@ -57,102 +57,99 @@ public class OpretWhiskyWindow2 extends Stage {
     }
 
     private void initContent(GridPane pane) {
+        pane.setPadding(new Insets(20));
+        pane.setHgap(10);
+        pane.setVgap(10);
 
-            // pane.setGridLinesVisible(true);
-            pane.setPadding(new Insets(20));
-            pane.setHgap(10);
-            pane.setVgap(10);
+        Label lblFade = new Label("Fade");
+        fadListView = new ListView<>();
+        pane.add(lblFade, 0, 0);
+        pane.add(fadListView, 0, 1);
+        fadListView.getItems().setAll(Controller.getFadMap().values());
 
-            Label lblFade = new Label("Fade");
-            fadListView = new ListView<>();
-            pane.add(lblFade, 0, 0);
-            pane.add(fadListView, 0, 1);
-            fadListView.getItems().setAll(Controller.getFadMap().values());
+        ChangeListener<Fad> listener1 = (ov, o, n) -> this.selectedFadChanged();
+        fadListView.getSelectionModel().selectedItemProperty().addListener(listener1);
 
-            ChangeListener<Fad> listener1 = (ov, o, n) -> this.selectedFadChanged();
-            fadListView.getSelectionModel().selectedItemProperty().addListener(listener1);
+        Label lblDestillater = new Label("Destillater");
+        destillatListView = new ListView<>();
+        pane.add(lblDestillater, 1, 0);
+        pane.add(destillatListView, 1, 1);
 
-            Label lblDestillater = new Label("Destillater");
-            destillatListView = new ListView<>();
-            pane.add(lblDestillater, 1, 0);
-            pane.add(destillatListView, 1, 1);
+        Label lblTilføjDestillater = new Label("Tilføj Destillater");
+        tilføjDestillaterListView = new ListView<>();
+        pane.add(lblTilføjDestillater, 2, 0);
+        pane.add(tilføjDestillaterListView, 2, 1);
 
-            Label lblTilføjDestillater = new Label("Tilføj Destillater");
-            tilføjDestillaterListView = new ListView<>();
-            pane.add(lblTilføjDestillater, 2, 0);
-            pane.add(tilføjDestillaterListView, 2, 1);
+        ChangeListener<LeafDestillat> listener2 = (ov, o, n) -> this.selectedDestillatChanged();
+        tilføjDestillaterListView.getSelectionModel().selectedItemProperty().addListener(listener2);
 
-            ChangeListener<LeafDestillat> listener2 = (ov, o, n) -> this.selectedDestillatChanged();
-            tilføjDestillaterListView.getSelectionModel().selectedItemProperty().addListener(listener2);
+        Button btnMoveRight = new Button("--->");
+        GridPane.setHalignment(btnMoveRight, HPos.CENTER);
+        pane.add(btnMoveRight, 1, 2);
+        btnMoveRight.setOnAction(event -> this.rightArrowAction());
 
-            Button btnMoveRight = new Button("--->");
-            GridPane.setHalignment(btnMoveRight, HPos.CENTER);
-            pane.add(btnMoveRight, 1, 2);
-            btnMoveRight.setOnAction(event -> this.rightArrowAction());
+        Button btnMoveLeft = new Button("<---");
+        GridPane.setHalignment(btnMoveLeft, HPos.CENTER);
+        pane.add(btnMoveLeft, 2, 2);
+        btnMoveLeft.setOnAction(event -> this.leftArrowAction());
 
-            Button btnMoveLeft = new Button("<---");
-            GridPane.setHalignment(btnMoveLeft, HPos.CENTER);
-            pane.add(btnMoveLeft, 2, 2);
-            btnMoveLeft.setOnAction(event -> this.leftArrowAction());
+        GridPane.setVgrow(fadListView, Priority.ALWAYS);
+        GridPane.setVgrow(destillatListView, Priority.ALWAYS);
+        GridPane.setVgrow(tilføjDestillaterListView, Priority.ALWAYS);
 
-            //er dette nødvendigt
-            GridPane.setVgrow(fadListView, Priority.ALWAYS);
-            GridPane.setVgrow(destillatListView, Priority.ALWAYS);
-            GridPane.setVgrow(tilføjDestillaterListView, Priority.ALWAYS);
+        Label lblVand = new Label("Vand: (Liter)");
+        txfVand = new TextField("0");
+        pane.add(lblVand, 0, 3);
+        pane.add(txfVand, 1, 3);
 
-            Label lblVand = new Label("Vand: (Liter)");
-            txfVand = new TextField("0");
-            pane.add(lblVand, 0, 3);
-            pane.add(txfVand, 1, 3);
+        ChangeListener<String> listener3 = (ov, o, n) -> this.vandTxfChanged();
+        txfVand.textProperty().addListener(listener3);
 
-            ChangeListener<String> listener3 = (ov, o, n) -> this.vandTxfChanged();
-            txfVand.textProperty().addListener(listener3);
+        Label lblTotalDestillater = new Label("Destillater: (Liter)");
+        txfDestillater = new TextField("0");
+        txfDestillater.setEditable(false);
+        txfDestillater.setDisable(true);
+        txfDestillater.setOpacity(0.5);
+        pane.add(lblTotalDestillater, 0, 4);
+        pane.add(txfDestillater, 1, 4);
 
-            Label lblTotalDestillater = new Label("Destillater: (Liter)");
-            txfDestillater = new TextField("0");
-            txfDestillater.setEditable(false);
-            txfDestillater.setDisable(true);
-            txfDestillater.setOpacity(0.5);
-            pane.add(lblTotalDestillater, 0, 4);
-            pane.add(txfDestillater, 1, 4);
+        Label lblMængde = new Label("Mængde: (Liter)");
+        txfMængde = new TextField("0");
+        txfMængde.setEditable(false);
+        txfMængde.setDisable(true);
+        txfMængde.setOpacity(0.5);
+        pane.add(lblMængde, 0, 5);
+        pane.add(txfMængde, 1, 5);
 
-            Label lblMængde = new Label("Mængde: (Liter)");
-            txfMængde = new TextField("0");
-            txfMængde.setEditable(false);
-            txfMængde.setDisable(true);
-            txfMængde.setOpacity(0.5);
-            pane.add(lblMængde, 0,5);
-            pane.add(txfMængde, 1, 5);
+        Label lblAlkoholProcent = new Label("Alkoholprocent: ");
+        txfAlkoholProcent = new TextField();
+        txfAlkoholProcent.setEditable(false);
+        txfAlkoholProcent.setDisable(true);
+        txfAlkoholProcent.setOpacity(0.5);
+        pane.add(lblAlkoholProcent, 0, 6);
+        pane.add(txfAlkoholProcent, 1, 6);
 
-             Label lblAlkoholProcent = new Label("Alkoholprocent: ");
-             txfAlkoholProcent = new TextField();
-            txfAlkoholProcent.setEditable(false);
-            txfAlkoholProcent.setDisable(true);
-            txfAlkoholProcent.setOpacity(0.5);
-            pane.add(lblAlkoholProcent, 0, 6);
-            pane.add(txfAlkoholProcent, 1, 6);
+        Label lblAntalFlasker = new Label("Antal Flasker: ");
+        txfAntalFlasker = new TextField();
+        txfAntalFlasker.setText("0");
+        txfAntalFlasker.setEditable(false);
+        txfAntalFlasker.setDisable(true);
+        txfAntalFlasker.setOpacity(0.5);
+        pane.add(lblAntalFlasker, 0, 7);
+        pane.add(txfAntalFlasker, 1, 7);
 
-            Label lblAntalFlasker = new Label("Antal Flasker: ");
-            txfAntalFlasker = new TextField();
-            txfAntalFlasker.setText("0");
-            txfAntalFlasker.setEditable(false);
-            txfAntalFlasker.setDisable(true);
-            txfAntalFlasker.setOpacity(0.5);
-            pane.add(lblAntalFlasker, 0, 7);
-            pane.add(txfAntalFlasker, 1, 7);
+        HBox buttonBox = new HBox(20);
+        pane.add(buttonBox, 0, 8, 3, 1);
+        buttonBox.setPadding(new Insets(10, 10, 0, 10));
+        buttonBox.setAlignment(Pos.CENTER);
 
-            HBox buttonBox = new HBox(20);
-            pane.add(buttonBox, 0,  8, 3, 1);
-            buttonBox.setPadding(new Insets(10, 10, 0, 10));
-            buttonBox.setAlignment(Pos.CENTER);
+        Button btnCancel = new Button("Cancel");
+        buttonBox.getChildren().add(btnCancel);
+        btnCancel.setOnAction(event -> this.cancelAction());
 
-            Button btnCancel = new Button("Cancel");
-            buttonBox.getChildren().add(btnCancel);
-            btnCancel.setOnAction(event -> this.cancelAction());
-
-            Button btnOK = new Button("OK");
-            buttonBox.getChildren().add(btnOK);
-            btnOK.setOnAction(event -> this.okAction());
+        Button btnOK = new Button("OK");
+        buttonBox.getChildren().add(btnOK);
+        btnOK.setOnAction(event -> this.okAction());
     }
 
     private void cancelAction() {
@@ -222,7 +219,6 @@ public class OpretWhiskyWindow2 extends Stage {
 
     }
 
-    //vis alert hvis bogstav
     private void vandTxfChanged() {
         String vandML = txfVand.getText().trim();
 
