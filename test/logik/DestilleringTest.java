@@ -43,14 +43,19 @@ public class DestilleringTest {
     }
 
     @Test
-    public void testUdregnBrugteLiter() {
+    public void TC1_testUdregnBrugteLiter() {
+        // Arrange
         CompositeDestillat compositeDestillat1 = new CompositeDestillat(40.0);
         compositeDestillat1.setTotalLiter(10.0);
         destillering.addDestillat("Make-001", compositeDestillat1);
         CompositeDestillat compositeDestillat2 = new CompositeDestillat(45.0);
         compositeDestillat2.setTotalLiter(20.0);
         destillering.addDestillat("Make-002", compositeDestillat2);
-        assertEquals(70.0, destillering.udregnBrugteLiter());
-    }
 
+        // Act
+        double result = destillering.udregnBrugteLiter();
+
+        // Assert
+        assertEquals(70.0, result, 0.001);
+    }
 }
