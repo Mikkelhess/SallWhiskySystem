@@ -26,7 +26,6 @@ public class WhiskyPane extends GridPane {
     private OpretWhiskyWindow1 opretWhiskyWindow1;
 
     public WhiskyPane() {
-        this.setGridLinesVisible(false);
         this.setPadding(new Insets(20));
         this.setHgap(20);
         this.setVgap(10);

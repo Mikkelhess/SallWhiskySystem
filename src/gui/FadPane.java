@@ -104,7 +104,6 @@ public class FadPane extends GridPane {
 
     }
 
-    //TODO Check om der er plads på fadet til destillaterne
     private void tilføjDestillatAction() {
         Fad fad = lvwFade.getSelectionModel().getSelectedItem();
         CompositeDestillat compositeDestillat = lvwDestillat.getSelectionModel().getSelectedItem();

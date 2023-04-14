@@ -48,7 +48,6 @@ public class OpretDestilleringWindow extends Stage {
     private final TextField txfKommentar = new TextField();
 
     private void initContent(GridPane pane) {
-        // pane.setGridLinesVisible(true);
         pane.setPadding(new Insets(20));
         pane.setHgap(10);
         pane.setVgap(10);

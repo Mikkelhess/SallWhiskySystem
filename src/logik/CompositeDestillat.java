@@ -17,9 +17,7 @@ public class CompositeDestillat implements DestillatComponent {
 
     public CompositeDestillat(double alkoholProcent) {
         this.alkoholProcent = alkoholProcent;
-
         this.brugteLiter = 0;
-
         this.newMakeNummer = String.valueOf(newMakeCounter);
         newMakeCounter++;
 

@@ -43,7 +43,6 @@ public class OpretFadWindow extends Stage {
 
 
     private void initContent(GridPane pane) {
-        // pane.setGridLinesVisible(true);
         pane.setPadding(new Insets(20));
         pane.setHgap(10);
         pane.setVgap(10);
@@ -51,7 +50,6 @@ public class OpretFadWindow extends Stage {
 
         Label lblFadType = new Label("Fad type:");
         pane.add(lblFadType, 0, 1);
-        //pane.add(txfFadType, 1,1,2,1);
 
         cbbFadType = new ComboBox<>();
         pane.add(cbbFadType, 1, 1);
