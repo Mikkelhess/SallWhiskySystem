@@ -7,16 +7,53 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CompositeDestillatTest {
     @Test
-    public void testCreateLeaf() {
+    public void TC1_testCreateLeaf() {
+        // Arrange
         CompositeDestillat destillat = new CompositeDestillat(100);
-        LeafDestillat leafDestillat = destillat.createLeaf(10.0);
+        double liter = 10.0;
 
+        // Act
+        LeafDestillat leafDestillat = destillat.createLeaf(liter);
+
+        // Assert
         assertNotNull(leafDestillat);
-        assertEquals(10.0, leafDestillat.getLiter());
+        assertEquals(liter, leafDestillat.getLiter());
         assertEquals("1.1", leafDestillat.getNewMakeNummer());
         assertEquals(destillat.getAlkoholProcent(), leafDestillat.getAlkoholProcent());
         assertEquals(1, destillat.getComponents().size());
-        assertEquals(10.0, destillat.getBrugteLiter());
+        assertEquals(liter, destillat.getBrugteLiter());
     }
+
+    @Test
+    void TC2_createLeaf_tomInput() {
+        // Arrange
+        CompositeDestillat destillat = new CompositeDestillat(100);
+        double liter = 0;
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            destillat.createLeaf(liter);
+        });
+        assertEquals("Ugyldig data for 'liter' parameter: " + liter, exception.getMessage());
+        assertEquals(0, destillat.getComponents().size());
+        assertEquals(0.0, destillat.getBrugteLiter());
+    }
+
+    @Test
+    void createLeaf_negativInput() {
+        // Arrange
+        CompositeDestillat destillat = new CompositeDestillat(100);
+        double liter = -5.0;
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            destillat.createLeaf(liter);
+        });
+        assertEquals("Ugyldig data for 'liter' parameter: " + liter, exception.getMessage());
+        assertEquals(0, destillat.getComponents().size());
+        assertEquals(0.0, destillat.getBrugteLiter());
+    }
+
 }
+
 

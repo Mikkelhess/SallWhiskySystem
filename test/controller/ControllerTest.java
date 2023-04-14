@@ -83,7 +83,7 @@ class ControllerTest {
     }
 
     @Test
-    void TC3_testOpretWhiskyProdukt_WhiskyTypeErNull() {
+    void TC3_testOpretWhiskyProdukt_whiskyTypeErNull() {
         // Arrange
         String whiskyType = null;
         double liter = 7;
@@ -102,7 +102,7 @@ class ControllerTest {
     }
 
     @Test
-    void TC4_testOpretWhiskyProdukt_WhiskyTypeErTom() {
+    void TC4_testOpretWhiskyProdukt_whiskyTypeErTom() {
         // Arrange
         String whiskyType = "";
         double liter = 7;
